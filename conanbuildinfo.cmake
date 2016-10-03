@@ -1,14 +1,3 @@
-set(CONAN_LODEPNG_ROOT "/Users/chuckeles/.conan/data/LodePNG/master/jmmut/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb")
-set(CONAN_INCLUDE_DIRS_LODEPNG "/Users/chuckeles/.conan/data/LodePNG/master/jmmut/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/include")
-set(CONAN_LIB_DIRS_LODEPNG "/Users/chuckeles/.conan/data/LodePNG/master/jmmut/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/lib")
-set(CONAN_BIN_DIRS_LODEPNG "/Users/chuckeles/.conan/data/LodePNG/master/jmmut/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/bin")
-set(CONAN_LIBS_LODEPNG lodepng)
-set(CONAN_DEFINES_LODEPNG )
-set(CONAN_CXX_FLAGS_LODEPNG "")
-set(CONAN_SHARED_LINKER_FLAGS_LODEPNG "")
-set(CONAN_EXE_LINKER_FLAGS_LODEPNG "")
-set(CONAN_C_FLAGS_LODEPNG "")
-
 set(CONAN_GLEW_ROOT "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919")
 set(CONAN_INCLUDE_DIRS_GLEW "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919/include")
 set(CONAN_LIB_DIRS_GLEW "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919/lib")
@@ -33,23 +22,20 @@ set(CONAN_C_FLAGS_GLFW "")
 
 set(CONAN_PACKAGE_NAME None)
 set(CONAN_PACKAGE_VERSION None)
-set(CONAN_DEPENDENCIES LodePNG glew glfw)
-set(CONAN_INCLUDE_DIRS "/Users/chuckeles/.conan/data/LodePNG/master/jmmut/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/include"
-			"/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919/include"
+set(CONAN_DEPENDENCIES glew glfw)
+set(CONAN_INCLUDE_DIRS "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919/include"
 			"/Users/chuckeles/.conan/data/glfw/3.2/R3v3nX/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/include" ${CONAN_INCLUDE_DIRS})
-set(CONAN_LIB_DIRS "/Users/chuckeles/.conan/data/LodePNG/master/jmmut/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/lib"
-			"/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919/lib"
+set(CONAN_LIB_DIRS "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919/lib"
 			"/Users/chuckeles/.conan/data/glfw/3.2/R3v3nX/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/lib" ${CONAN_LIB_DIRS})
-set(CONAN_BIN_DIRS "/Users/chuckeles/.conan/data/LodePNG/master/jmmut/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/bin"
-			"/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919/bin"
+set(CONAN_BIN_DIRS "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919/bin"
 			"/Users/chuckeles/.conan/data/glfw/3.2/R3v3nX/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/bin" ${CONAN_BIN_DIRS})
-set(CONAN_LIBS lodepng GLEW glfw3 ${CONAN_LIBS})
+set(CONAN_LIBS GLEW glfw3 ${CONAN_LIBS})
 set(CONAN_DEFINES  ${CONAN_DEFINES})
 set(CONAN_CXX_FLAGS " ${CONAN_CXX_FLAGS}")
 set(CONAN_SHARED_LINKER_FLAGS "-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo ${CONAN_SHARED_LINKER_FLAGS}")
 set(CONAN_EXE_LINKER_FLAGS "-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo ${CONAN_EXE_LINKER_FLAGS}")
 set(CONAN_C_FLAGS " ${CONAN_C_FLAGS}")
-set(CONAN_CMAKE_MODULE_PATH "/Users/chuckeles/.conan/data/LodePNG/master/jmmut/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb" "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919" "/Users/chuckeles/.conan/data/glfw/3.2/R3v3nX/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb" ${CONAN_CMAKE_MODULE_PATH})
+set(CONAN_CMAKE_MODULE_PATH "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919" "/Users/chuckeles/.conan/data/glfw/3.2/R3v3nX/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb" ${CONAN_CMAKE_MODULE_PATH})
 macro(conan_basic_setup)
     conan_check_compiler()
     conan_output_dirs_setup()
