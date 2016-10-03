@@ -1,5 +1,5 @@
-# Hexid
+# Cross Them Lights
 
-This is a school project for Graphics and Parallel programming. Generate a cool voxel terrain and
-allow the player to enjoy it.
+This is a school project for Graphics and Parallel programming. It's a small game about controlling
+the semaphores on crossroads and trying to get as much traffic through as possible.
 
