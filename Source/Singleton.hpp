@@ -35,6 +35,7 @@ protected:
 
 };
 
+
 /**
  * Singleton definition help macro.
  */

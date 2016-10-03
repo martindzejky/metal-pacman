@@ -18,7 +18,7 @@ set(CMAKE_SKIP_RPATH 0)
 
 
 # project files
-set(SOURCE_FILES main.cpp BufferObject.cpp ArrayObject.cpp)
+set(SOURCE_FILES Source/main.cpp Source/BufferObject.cpp Source/ArrayObject.cpp)
 
 
 # compile & link
