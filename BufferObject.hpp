@@ -17,11 +17,8 @@ public:
     typedef unsigned int Id;
     typedef unsigned int Size;
 
-    enum class Type
-    {
+    enum class Type {
         Vertex,
-        Color,
-        Normal,
         Index
     };
 
@@ -30,10 +27,10 @@ public:
     void Destroy();
 
     void Bind(Size elementSize = 3);
-    void CopyData(Size size, void* data);
+    void CopyData(Size size, void *data);
 
-    const Id& GetId() const;
-    const Type& GetType() const;
+    const Id &GetId() const;
+    const Type &GetType() const;
 
 
     BufferObject() = default;
