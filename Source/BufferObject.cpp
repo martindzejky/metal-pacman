@@ -2,6 +2,8 @@
 
 #include <GL/glew.h>
 
+#include "Error.hpp"
+
 
 void BufferObject::Create(Type type) {
     mType = type;
@@ -14,6 +16,10 @@ void BufferObject::Destroy() {
 }
 
 void BufferObject::Bind(Size elementSize) {
+    if (!mId) {
+        THROW_ERROR("Buffer object not created");
+    }
+
     if (mType == Type::Index) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mId);
     } else {
@@ -22,6 +28,10 @@ void BufferObject::Bind(Size elementSize) {
 }
 
 void BufferObject::CopyData(Size size, void *data) {
+    if (!mId) {
+        THROW_ERROR("Buffer object not created");
+    }
+
     if (mType == Type::Index) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mId);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
