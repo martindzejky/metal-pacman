@@ -23,9 +23,6 @@ public:
     };
 
 
-    void Create(Type type);
-    void Destroy();
-
     void Bind(Size elementSize = 3);
     void CopyData(Size size, void *data);
 
@@ -33,7 +30,7 @@ public:
     const Type &GetType() const;
 
 
-    BufferObject() = default;
+    BufferObject(Type type);
     ~BufferObject();
 
 

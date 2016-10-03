@@ -17,14 +17,11 @@ public:
     typedef unsigned int Id;
 
 
-    void Create();
-    void Destroy();
-
     void Bind();
 
     const Id &GetId() const;
 
-    ArrayObject() = default;
+    ArrayObject();
     ~ArrayObject();
 
 

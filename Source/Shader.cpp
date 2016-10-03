@@ -9,16 +9,16 @@
 #include "Error.hpp"
 
 
-void Shader::Load(const std::string &filename, Shader::Type type) {
-    if (mId) {
-        THROW_ERROR("Shader already loaded");
-    }
+const Shader::Id &Shader::GetId() const {
+    return mId;
+}
 
+Shader::Shader(const std::string &filename, Shader::Type type) {
     std::ifstream file(filename);
 
     if (!file.is_open()) {
         std::stringstream ess;
-        ess << "Can't find shader sourceStream file " << filename;
+        ess << "Can't find shader source file " << filename;
         THROW_ERROR(ess.str());
     }
 
@@ -26,22 +26,10 @@ void Shader::Load(const std::string &filename, Shader::Type type) {
     sourceStream << file.rdbuf();
     std::string source = sourceStream.str();
 
-    const char* sourcePtr = source.c_str();
+    const char *sourcePtr = source.c_str();
 
     mId = glCreateShader(type == Type::Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
     glShaderSource(mId, 1, &sourcePtr, NULL);
-}
-
-void Shader::Destroy() {
-    glDeleteShader(mId);
-    mId = 0;
-}
-
-void Shader::Compile() {
-    if (!mId) {
-        THROW_ERROR("Shader not loaded");
-    }
-
     glCompileShader(mId);
 
     GLint status;
@@ -57,12 +45,8 @@ void Shader::Compile() {
     }
 }
 
-const Shader::Id &Shader::GetId() const {
-    return mId;
-}
-
 Shader::~Shader() {
     if (mId) {
-        Destroy();
+        glDeleteShader(mId);
     }
 }

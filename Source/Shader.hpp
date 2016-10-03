@@ -23,14 +23,9 @@ public:
     };
 
 
-    void Load(const std::string &filename, Type type);
-    void Destroy();
-
-    void Compile();
-
     const Id &GetId() const;
 
-    Shader() = default;
+    Shader(const std::string &filename, Type type);
     ~Shader();
 
 
