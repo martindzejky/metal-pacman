@@ -1,20 +1,25 @@
-#include <iostream>
+#include <cmath>
 #include <fstream>
+#include <iostream>
 #include <sstream>
 #include <vector>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <lodepng.h>
+
+#include "ArrayObject.hpp"
+#include "BufferObject.hpp"
+#include "Shader.hpp"
+#include "ShaderProgram.hpp"
 
 
 /**
  * Initialize OpenGL, GLFW, and make a window.
  */
-GLFWwindow* initialize() {
+GLFWwindow *initialize() {
 
     // init GLFW
-    glfwSetErrorCallback([](int error, const char* description) {
+    glfwSetErrorCallback([](int error, const char *description) {
         std::cerr << "GLFW error " << error << ": " << description << std::endl;
     });
 
@@ -29,7 +34,7 @@ GLFWwindow* initialize() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    auto window = glfwCreateWindow(800, 800, "OpenGL v2 - GL4, GLFW", NULL, NULL);
+    auto window = glfwCreateWindow(600, 600, "OpenGL v3 - GL4, GLFW", NULL, NULL);
     if (!window) {
         std::cerr << "Failed to create a window\n";
         glfwTerminate();
@@ -62,7 +67,7 @@ GLFWwindow* initialize() {
 /**
  * Clear up resources and terminate.
  */
-void terminate(GLFWwindow* window, int exitCode = EXIT_SUCCESS) {
+void terminate(GLFWwindow *window, int exitCode = EXIT_SUCCESS) {
 
     glfwDestroyWindow(window);
     glfwTerminate();
@@ -75,7 +80,7 @@ void terminate(GLFWwindow* window, int exitCode = EXIT_SUCCESS) {
 /**
  * Update the OpenGL viewport based on window size.
  */
-void updateViewport(GLFWwindow* window) {
+void updateViewport(GLFWwindow *window) {
 
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
@@ -85,141 +90,58 @@ void updateViewport(GLFWwindow* window) {
 
 
 /**
- * Load and compile vertex and fragment shader files.
+ * Bresenham's line drawing algorithm.
  */
-int setupShaders() {
+void drawLine(std::vector<unsigned char> &buffer, int width, int x1, int y1, int x2, int y2, unsigned char r,
+              unsigned char g, unsigned char b) {
 
-    // load shader files
-    std::ifstream vertexStream("vertex.glsl");
-    if (!vertexStream.is_open()) {
-        std::cerr << "File vertex.glsl doesn't exist\n";
-        return EXIT_FAILURE;
+    bool steep = abs(x2 - x1) < abs(y2 - y1);
+    if (steep) {
+        std::swap(x1, y1);
+        std::swap(x2, y2);
     }
 
-    std::stringstream vsstr;
-    vsstr << vertexStream.rdbuf();
-    std::string vertexSource = vsstr.str();
-
-    std::ifstream fragmentStream("fragment.glsl");
-    if (!fragmentStream.is_open()) {
-        std::cerr << "File fragment.glsl doesn't exist\n";
-        return EXIT_FAILURE;
+    if (x1 > x2) {
+        std::swap(x1, x2);
+        std::swap(y1, y2);
     }
 
-    std::stringstream fsstr;
-    fsstr << fragmentStream.rdbuf();
-    std::string fragmentSource = fsstr.str();
+    int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    int error = 2 * dy - dx;
+    int dir = y2 > y1 ? 1 : -1;
 
-    const char* vertexSourcePtr = vertexSource.c_str();
-    const char* fragmentSourcePtr = fragmentSource.c_str();
-
-    // compile shaders
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexSourcePtr, NULL);
-    glCompileShader(vertexShader);
-
-    GLint vstatus;
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vstatus);
-
-    if (vstatus != GL_TRUE) {
-        std::cerr << "Failed to compile the vertex shader!\n";
-
-        char buffer[512];
-        glGetShaderInfoLog(vertexShader, 512, NULL, buffer);
-
-        std::cerr << buffer << std::endl;
-        return EXIT_FAILURE;
+    if (dir < 0) {
+        --y1;
+        --y2;
     }
 
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentSourcePtr, NULL);
-    glCompileShader(fragmentShader);
+    for (int y = y1, x = x1; x < x2; ++x) {
+        int pixel;
+        if (steep)
+            pixel = (x * width + y) * 3;
+        else
+            pixel = (y * width + x) * 3;
 
-    GLint fstatus;
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fstatus);
+        buffer[pixel + 0] = r;
+        buffer[pixel + 1] = g;
+        buffer[pixel + 2] = b;
 
-    if (fstatus != GL_TRUE) {
-        std::cerr << "Failed to compile the fragment shader!\n";
+        if (error >= 0) {
+            y += dir;
+            error -= dx;
+        }
 
-        char buffer[512];
-        glGetShaderInfoLog(vertexShader, 512, NULL, buffer);
-
-        std::cerr << buffer << std::endl;
-        return EXIT_FAILURE;
+        error += dy;
     }
-
-    // create a program
-    GLuint program = glCreateProgram();
-    glAttachShader(program, vertexShader);
-    glAttachShader(program, fragmentShader);
-    glBindFragDataLocation(program, 0, "outColor");
-
-    glLinkProgram(program);
-    glUseProgram(program);
-
-    // bind vertex attributes
-    GLuint position = (GLuint) glGetAttribLocation(program, "position");
-    glVertexAttribPointer(position, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4, 0);
-    glEnableVertexAttribArray(position);
-
-    GLuint texcoord = (GLuint) glGetAttribLocation(program, "texcoord");
-    glVertexAttribPointer(texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (const void*) (sizeof(float) * 2));
-    glEnableVertexAttribArray(texcoord);
-
-    glUniform1i(glGetUniformLocation(program, "tex"), 0);
-
-    return EXIT_SUCCESS;
 
 }
 
 
 /**
- * Make a quad that can render the texture.
+ * Make the texture – draw on the canvas.
  */
-void makeQuad(GLuint* vertices, GLuint* indices) {
-
-    // vertices
-    const float vertexArray[] = {
-        // positions, texture coords
-        -.8f, -.8f, 0.f, 1.f,
-         .8f, -.8f, 1.f, 1.f,
-         .8f,  .8f, 1.f, 0.f,
-        -.8f,  .8f, 0.f, 0.f
-    };
-
-    // indices
-    const int indexArray[] = {
-        0, 1, 2,
-        0, 2, 3
-    };
-
-    // make a vertex array object
-    GLuint vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-
-    // buffer objects
-    GLuint vertexBufferObject;
-    glGenBuffers(1, &vertexBufferObject);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexArray), vertexArray, GL_STATIC_DRAW);
-
-    GLuint indexBufferObject;
-    glGenBuffers(1, &indexBufferObject);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexArray), indexArray, GL_STATIC_DRAW);
-
-    // return
-    *vertices = vertexBufferObject;
-    *indices = indexBufferObject;
-
-}
-
-
-/**
- * Load an OpenGL texture.
- */
-GLuint loadTexture(const std::string &filename, unsigned int &width, unsigned int &height) {
+void makeTexture() {
 
     // create OpenGL texture
     GLuint texture;
@@ -232,40 +154,39 @@ GLuint loadTexture(const std::string &filename, unsigned int &width, unsigned in
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    // load the image from the file
-    std::vector<unsigned char> buffer;
-    buffer.reserve((unsigned long) (width * height * 4));
-    if (auto error = lodepng::decode(buffer, width, height, filename)) {
-        std::cerr << "Error loading " << filename << ": " << lodepng_error_text(error) << std::endl;
-        return 0;
-    }
+    // make data buffer
+    unsigned width = 512;
+    unsigned height = 512;
+    std::vector<unsigned char> buffer(width * height * 3, 255);
 
-    // modify the image
-    for (auto i = 0; i < buffer.size(); ++i) {
-        if (i % 4 == 0) {
-            if (i / 4  % width >= width / 2) {
-                unsigned char tmp = buffer[i];
-                buffer[i] = buffer[i + 1];
-                buffer[i + 1] = tmp;
-            }
-        }
-        else if (i % 4 == 2) {
-            if (i / 4 / width >= height / 2) {
-                unsigned char tmp = buffer[i];
-                buffer[i] = buffer[i - 2];
-                buffer[i - 2] = tmp;
-            }
-        }
-    }
+    // draw a star
+    int starTips = 5;
+    float tipIn = 0.4;
+    float tipOut = 0.9;
+    float angle = 0;
+    float angleMax = 2 * 3.14159265358979f;
+    float angleDelta = angleMax / starTips;
 
-    // save the new texture
-    lodepng::encode("new " + filename, buffer, width, height);
+    while (angle < angleMax) {
+        float newAngle = angle + angleDelta;
+        float highAngle = angle + angleDelta / 2;
+
+        drawLine(buffer, width, (int) (std::cos(angle) * tipIn * width / 2 + width / 2),
+                 (int) (std::sin(angle) * tipIn * height / 2 + height / 2),
+                 (int) (std::cos(highAngle) * tipOut * width / 2 + width / 2),
+                 (int) (std::sin(highAngle) * tipOut * height / 2 + height / 2),
+                 240, 220, 0);
+        drawLine(buffer, width, (int) (std::cos(highAngle) * tipOut * width / 2 + width / 2),
+                 (int) (std::sin(highAngle) * tipOut * height / 2 + height / 2),
+                 (int) (std::cos(newAngle) * tipIn * width / 2 + width / 2),
+                 (int) (std::sin(newAngle) * tipIn * height / 2 + height / 2),
+                 240, 220, 0);
+
+        angle = newAngle;
+    }
 
     // load the OpenGL texture
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer.data());
-
-    // here's the texture
-    return texture;
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
 
 }
 
@@ -277,16 +198,47 @@ int main() {
 
     auto window = initialize();
 
-    GLuint vertices, indices;
-    makeQuad(&vertices, &indices);
+    // vertices
+    const float vertexArray[] = {
+        // positions, texture coords
+        -1.f, -1.f, 0.f, 1.f,
+        1.f, -1.f, 1.f, 1.f,
+        1.f, 1.f, 1.f, 0.f,
+        -1.f, 1.f, 0.f, 0.f
+    };
 
-    unsigned int width = 1024;
-    unsigned int height = 1024;
-    GLuint texture = loadTexture("angular.png", width, height);
+    // indices
+    const int indexArray[] = {
+        0, 1, 2,
+        0, 2, 3
+    };
 
-    if (auto code = setupShaders()) {
-        terminate(window, code);
-    }
+    // array object
+    ArrayObject ao;
+    ao.Bind();
+
+    // buffer objects
+    BufferObject vertices(BufferObject::Type::Vertex);
+    vertices.CopyData(sizeof(vertexArray), (void *) vertexArray);
+
+    BufferObject indices(BufferObject::Type::Index);
+    indices.CopyData(sizeof(indexArray), (void *) indexArray);
+
+    makeTexture();
+
+    // shaders
+    Shader vertexShader("Shaders/vertex.glsl", Shader::Type::Vertex);
+    Shader fragmentShader("Shaders/fragment.glsl", Shader::Type::Fragment);
+
+    ShaderProgram program;
+    program.Add(vertexShader.GetId());
+    program.Add(fragmentShader.GetId());
+    program.Link("outColor");
+    program.Use();
+
+    program.Attribute("position", 2, 4);
+    program.Attribute("texcoord", 2, 4, 2);
+    program.Texture("tex");
 
     // main loop
     while (!glfwWindowShouldClose(window)) {
