@@ -1,4 +1,4 @@
-project(Hexid)
+project(CrossThemLights)
 
 
 # meta
@@ -18,9 +18,17 @@ set(CMAKE_SKIP_RPATH 0)
 
 
 # project files
-set(SOURCE_FILES Source/Main.cpp Source/BufferObject.cpp Source/ArrayObject.cpp Source/Shader.cpp Source/Error.cpp Source/ShaderProgram.cpp)
+set(SOURCE_FILES
+    Source/ArrayObject.cpp
+    Source/BufferObject.cpp
+    Source/Error.cpp
+    Source/Main.cpp
+    Source/Shader.cpp
+    Source/ShaderProgram.cpp
+    Source/Transform.cpp
+    )
 
 
 # compile & link
-add_executable(Hexid ${SOURCE_FILES})
-target_link_libraries(Hexid ${CONAN_LIBS} ${OPENGL_LIBRARY})
+add_executable(CrossThemLights ${SOURCE_FILES})
+target_link_libraries(CrossThemLights ${CONAN_LIBS} ${OPENGL_LIBRARY})
