@@ -1,12 +1,19 @@
-#version 150
+#version 410
 
-in vec2 iPosition;
+in vec3 iPosition;
 in vec2 iTexcoord;
+in vec3 iColor;
+
+uniform mat4 uView;
+uniform mat4 uProjection;
 
 out vec2 Texcoord;
+out vec3 Color;
 
 void main()
 {
     Texcoord = iTexcoord;
-    gl_Position = vec4(iPosition, 0.0, 1.0);
+    Color = iColor;
+
+    gl_Position = uProjection * uView * vec4(iPosition, 1.0);
 }

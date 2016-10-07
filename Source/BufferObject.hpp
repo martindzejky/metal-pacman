@@ -23,7 +23,7 @@ public:
     };
 
 
-    void Bind(Size elementSize = 3);
+    void Bind();
     void CopyData(Size size, void *data);
 
     const Id &GetId() const;

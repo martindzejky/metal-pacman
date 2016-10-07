@@ -5,7 +5,7 @@
 #include "Error.hpp"
 
 
-void BufferObject::Bind(Size elementSize) {
+void BufferObject::Bind() {
     if (mType == Type::Index) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mId);
     } else {

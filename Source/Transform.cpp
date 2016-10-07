@@ -20,15 +20,15 @@ void Transform::Move(const glm::vec3 &pos, Space space) {
 }
 
 void Transform::Pitch(float angle, Space space) {
-    Rotate(glm::vec3(1.0f, 0.0f, 0.0f), angle, space);
+    Rotate(glm::vec3(1.f, 0.f, 0.f), angle, space);
 }
 
 void Transform::Yaw(float angle, Space space) {
-    Rotate(glm::vec3(0.0f, 1.0f, 0.0f), angle, space);
+    Rotate(glm::vec3(0.f, 1.f, 0.f), angle, space);
 }
 
 void Transform::Roll(float angle, Space space) {
-    Rotate(glm::vec3(0.0f, 0.0f, 1.0f), angle, space);
+    Rotate(glm::vec3(0.f, 0.f, 1.f), angle, space);
 }
 
 void Transform::Rotate(const glm::vec3 &axis, float angle, Space space) {
@@ -57,7 +57,10 @@ glm::mat4 Transform::GetMatrix() const {
 }
 
 glm::mat4 Transform::GetInverse() const {
-    return glm::inverse(GetMatrix());
+    // TODO: Why on Earth does this result in EXC_BAD_ACCESS???
+    glm::mat4 matrix = GetMatrix();
+    glm::mat4 inverse = glm::inverse(matrix);
+    return inverse;
 }
 
 Transform::Transform(float x, float y, float z) :
