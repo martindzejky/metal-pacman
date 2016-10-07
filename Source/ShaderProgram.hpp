@@ -2,6 +2,7 @@
 #define _SHADERPROGRAM_HPP_
 
 #include <string>
+#include <glm/glm.hpp>
 
 #include "NonCopyable.hpp"
 #include "Shader.hpp"
@@ -25,6 +26,7 @@ public:
 
     void Attribute(const std::string &name, int size, int stride = 0, int offset = 0);
     void Texture(const std::string &name, int unit = 0);
+    void Uniform(const std::string &name, const glm::mat4 &matrix);
 
     const Id &GetId() const;
 

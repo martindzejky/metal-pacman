@@ -6,6 +6,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "ArrayObject.hpp"
 #include "BufferObject.hpp"
@@ -45,8 +46,11 @@ GLFWwindow *initialize() {
     glfwSwapInterval(1);
 
     // setup OpenGL
-    glEnable(GL_CULL_FACE);
+    // glEnable(GL_CULL_FACE);
+
     glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -80,11 +84,14 @@ void terminate(GLFWwindow *window, int exitCode = EXIT_SUCCESS) {
 /**
  * Update the OpenGL viewport based on window size.
  */
-void updateViewport(GLFWwindow *window) {
+void updateViewport(GLFWwindow *window, ShaderProgram &shaderProgram) {
 
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
+
+    auto projection = glm::perspective(glm::radians(45.0f), (float) width / height, .1f, 1000.0f);
+    shaderProgram.Uniform("uProjection", projection);
 
 }
 
@@ -233,16 +240,16 @@ int main() {
     ShaderProgram program;
     program.Add(vertexShader.GetId());
     program.Add(fragmentShader.GetId());
-    program.Link("outColor");
+    program.Link("oColor");
     program.Use();
 
-    program.Attribute("position", 2, 4);
-    program.Attribute("texcoord", 2, 4, 2);
-    program.Texture("tex");
+    program.Attribute("iPosition", 2, 4);
+    program.Attribute("iTexcoord", 2, 4, 2);
+    program.Texture("uTexture");
 
     // main loop
     while (!glfwWindowShouldClose(window)) {
-        // updateViewport(window);
+        updateViewport(window, program);
 
         // check the ESC key
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
