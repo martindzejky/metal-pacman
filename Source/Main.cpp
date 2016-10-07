@@ -227,8 +227,8 @@ int main() {
     makeTexture();
 
     // shaders
-    Shader vertexShader("Shaders/vertex.glsl", Shader::Type::Vertex);
-    Shader fragmentShader("Shaders/fragment.glsl", Shader::Type::Fragment);
+    Shader vertexShader("Shaders/Vertex.glsl", Shader::Type::Vertex);
+    Shader fragmentShader("Shaders/Fragment.glsl", Shader::Type::Fragment);
 
     ShaderProgram program;
     program.Add(vertexShader.GetId());
