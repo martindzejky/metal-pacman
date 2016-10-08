@@ -9,6 +9,8 @@ void Transform::Move(float x, float y, float z, Space space) {
 }
 
 void Transform::Move(glm::vec3 pos, Space space) {
+    mDirty = true;
+
     switch (space) {
         case Space::Local:
             mPosition += mRotation * pos;
@@ -37,6 +39,7 @@ void Transform::Rotate(glm::vec3 axis, float angle, Space space) {
 }
 
 void Transform::Rotate(glm::quat quat, Space space) {
+    mDirty = true;
     glm::quat qnorm = glm::normalize(quat);
 
     switch (space) {
@@ -50,18 +53,22 @@ void Transform::Rotate(glm::quat quat, Space space) {
     }
 }
 
-glm::mat4 Transform::GetMatrix() const {
-    glm::mat4 position = glm::translate(glm::mat4(), mPosition);
-    glm::mat4 rotation = glm::mat4_cast(mRotation);
+const glm::mat4 &Transform::GetMatrix() {
+    if (mDirty) {
+        mDirty = false;
 
-    return position * rotation;
+        glm::mat4 position = glm::translate(glm::mat4(), mPosition);
+        glm::mat4 rotation = glm::mat4_cast(mRotation);
+
+        mMatrix = position * rotation;
+    }
+
+    return mMatrix;
 }
 
 glm::mat4 Transform::GetInverse() const {
     // TODO: Why on Earth does this result in EXC_BAD_ACCESS???
-    glm::mat4 matrix = GetMatrix();
-    glm::mat4 inverse = glm::inverse(matrix);
-    return inverse;
+    return glm::inverse(mMatrix);
 }
 
 Transform::Transform(float x, float y, float z) :

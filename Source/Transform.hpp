@@ -34,7 +34,7 @@ public:
     void Rotate(glm::vec3 axis, float angle, Space space = Space::Local);
     void Rotate(glm::quat quat, Space space = Space::Local);
 
-    glm::mat4 GetMatrix() const;
+    const glm::mat4 &GetMatrix();
     glm::mat4 GetInverse() const;
 
     Transform() = default;
@@ -46,5 +46,8 @@ private:
 
     glm::vec3 mPosition;
     glm::quat mRotation;
+    glm::mat4 mMatrix;
+
+    bool mDirty = true;
 
 };
