@@ -1,7 +1,8 @@
-#ifndef _TRANSFORM_HPP_
-#define _TRANSFORM_HPP_
+#pragma once
 
-#include <glm/glm.hpp>
+
+#include <glm/fwd.hpp>
+#include <glm/vec3.hpp>
 #include <glm/gtc/quaternion.hpp>
 
 
@@ -22,21 +23,23 @@ public:
     };
 
 
+public:
+
     void Move(float x, float y, float z, Space space = Space::Local);
-    void Move(const glm::vec3 &pos, Space space = Space::Local);
+    void Move(glm::vec3 pos, Space space = Space::Local);
 
     void Pitch(float angle, Space space = Space::Local);
     void Yaw(float angle, Space space = Space::Local);
     void Roll(float angle, Space space = Space::Local);
-    void Rotate(const glm::vec3 &axis, float angle, Space space = Space::Local);
-    void Rotate(const glm::quat &quat, Space space = Space::Local);
+    void Rotate(glm::vec3 axis, float angle, Space space = Space::Local);
+    void Rotate(glm::quat quat, Space space = Space::Local);
 
     glm::mat4 GetMatrix() const;
     glm::mat4 GetInverse() const;
 
     Transform() = default;
     Transform(float x, float y, float z);
-    Transform(const glm::vec3 &pos);
+    Transform(glm::vec3 pos);
 
 
 private:
@@ -45,6 +48,3 @@ private:
     glm::quat mRotation;
 
 };
-
-
-#endif

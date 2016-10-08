@@ -1,5 +1,4 @@
-#ifndef _ERROR_HPP_
-#define _ERROR_HPP_
+#pragma once
 
 #include <string>
 
@@ -14,7 +13,7 @@ class Error {
 
 public:
 
-    Error(const std::string &error, const std::string &file, unsigned int line);
+    Error(std::string error, std::string file, unsigned int line);
 
     std::string GetMessage() const;
     const std::string &GetError() const;
@@ -34,6 +33,3 @@ private:
  * Helpful macro for throwing proper errors.
  */
 #define THROW_ERROR(error) throw Error(error, __FILE__, __LINE__)
-
-
-#endif

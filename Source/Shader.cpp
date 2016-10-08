@@ -13,7 +13,7 @@ const Shader::Id &Shader::GetId() const {
     return mId;
 }
 
-Shader::Shader(const std::string &filename, Shader::Type type) {
+Shader::Shader(std::string filename, Shader::Type type) {
     std::ifstream file(filename);
 
     if (!file.is_open()) {

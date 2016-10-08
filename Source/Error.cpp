@@ -3,7 +3,7 @@
 #include <sstream>
 
 
-Error::Error(const std::string &error, const std::string &file, unsigned int line) :
+Error::Error(std::string error, std::string file, unsigned int line) :
     mError(error), mFile(file), mLine(line) {}
 
 std::string Error::GetMessage() const {

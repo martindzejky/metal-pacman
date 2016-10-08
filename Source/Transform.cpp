@@ -1,5 +1,6 @@
 #include "Transform.hpp"
 
+#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 
@@ -7,7 +8,7 @@ void Transform::Move(float x, float y, float z, Space space) {
     Move(glm::vec3(x, y, z), space);
 }
 
-void Transform::Move(const glm::vec3 &pos, Space space) {
+void Transform::Move(glm::vec3 pos, Space space) {
     switch (space) {
         case Space::Local:
             mPosition += mRotation * pos;
@@ -31,11 +32,11 @@ void Transform::Roll(float angle, Space space) {
     Rotate(glm::vec3(0.f, 0.f, 1.f), angle, space);
 }
 
-void Transform::Rotate(const glm::vec3 &axis, float angle, Space space) {
+void Transform::Rotate(glm::vec3 axis, float angle, Space space) {
     Rotate(glm::angleAxis(angle, axis), space);
 }
 
-void Transform::Rotate(const glm::quat &quat, Space space) {
+void Transform::Rotate(glm::quat quat, Space space) {
     glm::quat qnorm = glm::normalize(quat);
 
     switch (space) {
@@ -67,6 +68,6 @@ Transform::Transform(float x, float y, float z) :
     Transform(glm::vec3(x, y, z)) {
 }
 
-Transform::Transform(const glm::vec3 &pos) :
+Transform::Transform(glm::vec3 pos) :
     mPosition(pos) {
 }

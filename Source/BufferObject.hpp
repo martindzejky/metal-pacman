@@ -1,5 +1,4 @@
-#ifndef _BUFFEROBJECT_HPP_
-#define _BUFFEROBJECT_HPP_
+#pragma once
 
 #include "NonCopyable.hpp"
 
@@ -23,6 +22,8 @@ public:
     };
 
 
+public:
+
     void Bind();
     void CopyData(Size size, void *data);
 
@@ -40,6 +41,3 @@ private:
     Type mType = Type::Vertex;
 
 };
-
-
-#endif

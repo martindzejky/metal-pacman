@@ -1,5 +1,4 @@
-#ifndef _SHADER_HPP_
-#define _SHADER_HPP_
+#pragma once
 
 #include <string>
 
@@ -23,9 +22,11 @@ public:
     };
 
 
+public:
+
     const Id &GetId() const;
 
-    Shader(const std::string &filename, Type type);
+    Shader(std::string filename, Type type);
     ~Shader();
 
 
@@ -34,6 +35,3 @@ private:
     Id mId = 0;
 
 };
-
-
-#endif

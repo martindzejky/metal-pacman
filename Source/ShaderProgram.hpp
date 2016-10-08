@@ -1,5 +1,4 @@
-#ifndef _SHADERPROGRAM_HPP_
-#define _SHADERPROGRAM_HPP_
+#pragma once
 
 #include <string>
 #include <glm/glm.hpp>
@@ -20,13 +19,15 @@ public:
     typedef unsigned int Id;
 
 
+public:
+
     void Add(Shader::Id id);
-    void Link(const std::string &fragmentOutput);
+    void Link(std::string fragmentOutput);
     void Use();
 
-    void Attribute(const std::string &name, int size, int stride = 0, int offset = 0);
-    void Texture(const std::string &name, int unit = 0);
-    void Uniform(const std::string &name, const glm::mat4 &matrix);
+    void Attribute(std::string name, int size, int stride = 0, int offset = 0);
+    void Texture(std::string name, int unit = 0);
+    void Uniform(std::string name, const glm::mat4 &matrix);
 
     const Id &GetId() const;
 
@@ -39,6 +40,3 @@ private:
     Id mId = 0;
 
 };
-
-
-#endif

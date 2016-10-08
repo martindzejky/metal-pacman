@@ -77,7 +77,7 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    auto window = glfwCreateWindow(600, 600, "Cross Them Lights", NULL, NULL);
+    auto window = glfwCreateWindow(1200, 800, "Cross Them Lights", NULL, NULL);
     if (!window) {
         std::cerr << "Failed to create a window\n";
         glfwTerminate();
@@ -118,11 +118,11 @@ int main() {
         size, size, -size
     };
     GLfloat colorArray[] = {
-        0.f, 0.f, 1.f,
+        0.f, 0.f, 0.f,
         1.f, 0.f, 0.f,
         1.f, 1.f, 0.f,
         0.f, 1.f, 0.f,
-        0.f, 1.f, 1.f,
+        0.f, 0.f, 1.f,
         1.f, 0.f, 1.f,
         1.f, 1.f, 1.f,
         0.f, 1.f, 1.f

@@ -1,5 +1,4 @@
-#ifndef _NONCOPYABLE_HPP_
-#define _NONCOPYABLE_HPP_
+#pragma once
 
 
 /**
@@ -17,6 +16,3 @@ public:
     void operator=(const NonCopyable&) = delete;
 
 };
-
-
-#endif

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <memory>
 
 
@@ -15,6 +17,8 @@ public:
     typedef std::shared_ptr<Type> Ptr;
 
 
+public:
+
     static Ptr &GetSingleton() {
         if (!msSingleton) {
             msSingleton.reset(new Type());
@@ -30,6 +34,9 @@ public:
 protected:
 
     Singleton() = default;
+
+
+private:
 
     static std::shared_ptr<Type> msSingleton;
 

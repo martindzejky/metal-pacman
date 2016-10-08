@@ -1,5 +1,4 @@
-#ifndef _ARRAYOBJECT_HPP_
-#define _ARRAYOBJECT_HPP_
+#pragma once
 
 #include "NonCopyable.hpp"
 
@@ -17,6 +16,8 @@ public:
     typedef unsigned int Id;
 
 
+public:
+
     void Bind();
 
     const Id &GetId() const;
@@ -30,6 +31,3 @@ private:
     Id mId = 0;
 
 };
-
-
-#endif
