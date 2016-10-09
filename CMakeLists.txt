@@ -21,6 +21,8 @@ set(CMAKE_SKIP_RPATH 0)
 set(SOURCE_FILES
     Source/ArrayObject.cpp
     Source/BufferObject.cpp
+    Source/Component.cpp
+    Source/Entity.cpp
     Source/Error.cpp
     Source/Main.cpp
     Source/Shader.cpp
