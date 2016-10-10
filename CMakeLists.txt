@@ -28,6 +28,7 @@ set(SOURCE_FILES
     Source/Shader.cpp
     Source/ShaderProgram.cpp
     Source/Transform.cpp
+    Source/Window.cpp
     )
 
 

@@ -14,16 +14,7 @@ class Singleton {
 
 public:
 
-    typedef std::shared_ptr<Type> Ptr;
-
-
-public:
-
-    static Ptr &GetSingleton() {
-        if (!msSingleton) {
-            msSingleton.reset(new Type());
-        }
-
+    static std::shared_ptr<Type> GetSingleton() {
         return msSingleton;
     }
 
@@ -32,6 +23,10 @@ public:
 
 
 protected:
+
+    static void SetSingleton(std::shared_ptr<Type> singleton) {
+        msSingleton = singleton;
+    }
 
     Singleton() = default;
 
@@ -46,4 +41,4 @@ private:
 /**
  * Singleton definition help macro.
  */
-#define SINGLETON_DEFINE(Type) Singleton<Type>::Ptr Singleton<Type>::msSingleton
+#define SINGLETON_DEFINE(Type) template<typename Type> std::shared_ptr<Type> Singleton<Type>::msSingleton

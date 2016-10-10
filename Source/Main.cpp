@@ -14,6 +14,7 @@
 #include "Shader.hpp"
 #include "ShaderProgram.hpp"
 #include "Transform.hpp"
+#include "Window.hpp"
 
 
 void MoveCamera(GLFWwindow *window, Transform &camera) {
@@ -61,49 +62,7 @@ void MoveCamera(GLFWwindow *window, Transform &camera) {
 
 int main() {
 
-    // init GLFW
-    glfwSetErrorCallback([](int error, const char *description) {
-        std::cerr << "GLFW error " << error << ": " << description << std::endl;
-    });
-
-    if (!glfwInit()) {
-        std::cerr << "Failed to initialize GLFW\n";
-        exit(EXIT_FAILURE);
-    }
-
-    // create window
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    auto window = glfwCreateWindow(1200, 800, "Cross Them Lights", NULL, NULL);
-    if (!window) {
-        std::cerr << "Failed to create a window\n";
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-    }
-
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
-
-    // setup OpenGL
-    glEnable(GL_CULL_FACE);
-
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
-
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    // init GLEW
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK) {
-        std::cerr << "Failed to initialize GLEW\n";
-        glfwDestroyWindow(window);
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-    }
+    auto window = Window::Create(1200, 800, "Cross Them Lights");
 
     // cube arrays
     float size = 40.f;
@@ -175,15 +134,15 @@ int main() {
     Transform camera(0.f, 0.f, 200.f);
 
     // main loop
-    while (!glfwWindowShouldClose(window)) {
+    while (!window->IsClosed()) {
         // check the ESC key
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-            glfwSetWindowShouldClose(window, true);
+        if (glfwGetKey(window->GetInternalPtr(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+            window->Close();
         }
-        MoveCamera(window, camera);
+        MoveCamera(window->GetInternalPtr(), camera);
 
         int width, height;
-        glfwGetFramebufferSize(window, &width, &height);
+        window->GetSize(width, height);
         glViewport(0, 0, width, height);
 
         auto projection = glm::perspective(glm::radians(45.f), (float) width / height, .1f, 1000.f);
@@ -203,12 +162,8 @@ int main() {
         glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
         // swap
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        window->SwapBuffers();
+        window->PollEvents();
     }
-
-    glfwDestroyWindow(window);
-    glfwTerminate();
-    exit(0);
 
 }
