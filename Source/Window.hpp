@@ -21,6 +21,8 @@ public:
     static std::shared_ptr<Window> Create(unsigned int width, unsigned int height, std::string title,
                                           bool fullscreen = false);
 
+    static std::shared_ptr<Window> CreateHidden();
+
     void SwapBuffers();
     void PollEvents();
     void Close();
@@ -34,6 +36,9 @@ public:
 
 
 private:
+
+    static void PreInit();
+    static void PostInit(GLFWwindow* window);
 
     Window() {};
 

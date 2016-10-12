@@ -13,52 +13,33 @@ std::shared_ptr<Window> Window::Create(unsigned int width, unsigned int height, 
         THROW_ERROR("One window already exists");
     }
 
-    Window* window = new Window();
+    PreInit();
 
-    // init GLFW
-    glfwSetErrorCallback([](int error, const char *description) {
-        std::stringstream ss;
-        ss << "GLFW error " << error << ": " << description;
-        THROW_ERROR(ss.str());
-    });
-
-    if (!glfwInit()) {
-        THROW_ERROR("Failed to initialize GLFW");
-    }
-
-    // create window
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+    Window *window = new Window();
     window->mGlfwWindow = glfwCreateWindow(width, height, title.c_str(),
-                                        fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
-    if (!window->mGlfwWindow) {
-        THROW_ERROR("Failed to create a window");
-    }
+                                           fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
 
-    glfwMakeContextCurrent(window->mGlfwWindow);
-    glfwSwapInterval(1);
-
-    // setup OpenGL
-    glEnable(GL_CULL_FACE);
-
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
-
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    // init GLEW
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK) {
-        THROW_ERROR("Failed to initialize GLEW");
-    }
+    PostInit(window->mGlfwWindow);
 
     std::shared_ptr<Window> ptr(window);
     SetSingleton(ptr);
     return ptr;
+}
+
+std::shared_ptr<Window> Window::CreateHidden() {
+    if (Window::GetSingleton()) {
+        THROW_ERROR("One window already exists");
+    }
+
+    PreInit();
+
+    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    Window *window = new Window();
+    window->mGlfwWindow = glfwCreateWindow(400, 300, "", NULL, NULL);
+
+    PostInit(window->mGlfwWindow);
+
+    return std::shared_ptr<Window>(window);
 }
 
 void Window::SwapBuffers() {
@@ -88,6 +69,45 @@ GLFWwindow *Window::GetInternalPtr() const {
 Window::~Window() {
     glfwDestroyWindow(mGlfwWindow);
     glfwTerminate();
+}
+
+void Window::PreInit() {
+    glfwSetErrorCallback([](int error, const char *description) {
+        std::stringstream ss;
+        ss << "GLFW error " << error << ": " << description;
+        THROW_ERROR(ss.str());
+    });
+
+    if (!glfwInit()) {
+        THROW_ERROR("Failed to initialize GLFW");
+    }
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+}
+
+void Window::PostInit(GLFWwindow *window) {
+    if (!window) {
+        THROW_ERROR("Failed to create a window");
+    }
+
+    glfwMakeContextCurrent(window);
+    glfwSwapInterval(1);
+
+    glEnable(GL_CULL_FACE);
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK) {
+        THROW_ERROR("Failed to initialize GLEW");
+    }
 }
 
 SINGLETON_DEFINE(Window);
