@@ -31,7 +31,8 @@ set(SOURCE_FILES
 
 # test files
 set(TEST_FILES
-    Tests/ArrayObjectTest.cpp)
+    Tests/ArrayObjectTest.cpp
+    Tests/BufferObjectTest.cpp)
 
 
 # compile & link project
