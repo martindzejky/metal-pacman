@@ -24,14 +24,20 @@ set(SOURCE_FILES
     Source/Component.cpp
     Source/Entity.cpp
     Source/Error.cpp
-    Source/Main.cpp
     Source/Shader.cpp
     Source/ShaderProgram.cpp
     Source/Transform.cpp
-    Source/Window.cpp
-    )
+    Source/Window.cpp)
+
+# test files
+set(TEST_FILES
+    Tests/ArrayObjectTests.cpp)
 
 
-# compile & link
-add_executable(CrossThemLights ${SOURCE_FILES})
+# compile & link project
+add_executable(CrossThemLights Source/Main.cpp ${SOURCE_FILES})
 target_link_libraries(CrossThemLights ${CONAN_LIBS} ${OPENGL_LIBRARY})
+
+# compile & link tests
+add_executable(CrossThemLightsTests ${TEST_FILES} ${SOURCE_FILES})
+target_link_libraries(CrossThemLightsTests ${CONAN_LIBS} ${OPENGL_LIBRARY})

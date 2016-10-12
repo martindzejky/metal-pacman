@@ -31,25 +31,39 @@ set(CONAN_SHARED_LINKER_FLAGS_GLM "")
 set(CONAN_EXE_LINKER_FLAGS_GLM "")
 set(CONAN_C_FLAGS_GLM "")
 
+set(CONAN_GOOGLETEST_ROOT "/Users/chuckeles/.conan/data/googletest/1.8.0/astrohawk/stable/package/b2f68c89f9e8d31eb81a6a764413baec88c09071")
+set(CONAN_INCLUDE_DIRS_GOOGLETEST "/Users/chuckeles/.conan/data/googletest/1.8.0/astrohawk/stable/package/b2f68c89f9e8d31eb81a6a764413baec88c09071/include")
+set(CONAN_LIB_DIRS_GOOGLETEST "/Users/chuckeles/.conan/data/googletest/1.8.0/astrohawk/stable/package/b2f68c89f9e8d31eb81a6a764413baec88c09071/lib")
+set(CONAN_BIN_DIRS_GOOGLETEST "/Users/chuckeles/.conan/data/googletest/1.8.0/astrohawk/stable/package/b2f68c89f9e8d31eb81a6a764413baec88c09071/bin")
+set(CONAN_LIBS_GOOGLETEST gtest gtest_main)
+set(CONAN_DEFINES_GOOGLETEST )
+set(CONAN_CXX_FLAGS_GOOGLETEST "")
+set(CONAN_SHARED_LINKER_FLAGS_GOOGLETEST "")
+set(CONAN_EXE_LINKER_FLAGS_GOOGLETEST "")
+set(CONAN_C_FLAGS_GOOGLETEST "")
+
 set(CONAN_PACKAGE_NAME None)
 set(CONAN_PACKAGE_VERSION None)
-set(CONAN_DEPENDENCIES glew glfw glm)
+set(CONAN_DEPENDENCIES glew glfw glm googletest)
 set(CONAN_INCLUDE_DIRS "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919/include"
 			"/Users/chuckeles/.conan/data/glfw/3.2/R3v3nX/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/include"
-			"/Users/chuckeles/.conan/data/glm/0.9.8.0/TimSimpson/testing/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include" ${CONAN_INCLUDE_DIRS})
+			"/Users/chuckeles/.conan/data/glm/0.9.8.0/TimSimpson/testing/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include"
+			"/Users/chuckeles/.conan/data/googletest/1.8.0/astrohawk/stable/package/b2f68c89f9e8d31eb81a6a764413baec88c09071/include" ${CONAN_INCLUDE_DIRS})
 set(CONAN_LIB_DIRS "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919/lib"
 			"/Users/chuckeles/.conan/data/glfw/3.2/R3v3nX/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/lib"
-			"/Users/chuckeles/.conan/data/glm/0.9.8.0/TimSimpson/testing/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/lib" ${CONAN_LIB_DIRS})
+			"/Users/chuckeles/.conan/data/glm/0.9.8.0/TimSimpson/testing/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/lib"
+			"/Users/chuckeles/.conan/data/googletest/1.8.0/astrohawk/stable/package/b2f68c89f9e8d31eb81a6a764413baec88c09071/lib" ${CONAN_LIB_DIRS})
 set(CONAN_BIN_DIRS "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919/bin"
 			"/Users/chuckeles/.conan/data/glfw/3.2/R3v3nX/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb/bin"
-			"/Users/chuckeles/.conan/data/glm/0.9.8.0/TimSimpson/testing/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/bin" ${CONAN_BIN_DIRS})
-set(CONAN_LIBS GLEW glfw3 ${CONAN_LIBS})
+			"/Users/chuckeles/.conan/data/glm/0.9.8.0/TimSimpson/testing/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/bin"
+			"/Users/chuckeles/.conan/data/googletest/1.8.0/astrohawk/stable/package/b2f68c89f9e8d31eb81a6a764413baec88c09071/bin" ${CONAN_BIN_DIRS})
+set(CONAN_LIBS GLEW glfw3 gtest gtest_main ${CONAN_LIBS})
 set(CONAN_DEFINES  ${CONAN_DEFINES})
 set(CONAN_CXX_FLAGS " ${CONAN_CXX_FLAGS}")
 set(CONAN_SHARED_LINKER_FLAGS "-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo ${CONAN_SHARED_LINKER_FLAGS}")
 set(CONAN_EXE_LINKER_FLAGS "-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo ${CONAN_EXE_LINKER_FLAGS}")
 set(CONAN_C_FLAGS " ${CONAN_C_FLAGS}")
-set(CONAN_CMAKE_MODULE_PATH "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919" "/Users/chuckeles/.conan/data/glfw/3.2/R3v3nX/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb" "/Users/chuckeles/.conan/data/glm/0.9.8.0/TimSimpson/testing/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9" ${CONAN_CMAKE_MODULE_PATH})
+set(CONAN_CMAKE_MODULE_PATH "/Users/chuckeles/.conan/data/glew/1.13.0/coding3d/stable/package/14d043ad59917174a42bd7a101ffd10f672b3919" "/Users/chuckeles/.conan/data/glfw/3.2/R3v3nX/testing/package/f38e981ab93119e082fa013de58daa826eaa9dcb" "/Users/chuckeles/.conan/data/glm/0.9.8.0/TimSimpson/testing/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9" "/Users/chuckeles/.conan/data/googletest/1.8.0/astrohawk/stable/package/b2f68c89f9e8d31eb81a6a764413baec88c09071" ${CONAN_CMAKE_MODULE_PATH})
 macro(conan_basic_setup)
     conan_check_compiler()
     conan_output_dirs_setup()
