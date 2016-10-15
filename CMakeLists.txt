@@ -33,7 +33,9 @@ set(SOURCE_FILES
 set(TEST_FILES
     Tests/ArrayObjectTest.cpp
     Tests/BufferObjectTest.cpp
-    Tests/WindowTest.cpp Tests/ErrorTest.cpp)
+    Tests/WindowTest.cpp
+    Tests/ErrorTest.cpp
+    Tests/SingletonTest.cpp)
 
 
 # compile & link project
