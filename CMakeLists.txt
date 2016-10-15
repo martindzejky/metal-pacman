@@ -37,7 +37,7 @@ set(TEST_FILES
     Tests/ErrorTest.cpp
     Tests/SingletonTest.cpp
     Tests/ShaderTest.cpp
-    Tests/ShaderProgramTest.cpp)
+    Tests/ShaderProgramTest.cpp Tests/EntityTest.cpp)
 
 
 # compile & link project

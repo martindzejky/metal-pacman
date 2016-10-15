@@ -34,13 +34,17 @@ public:
 
     const Id &GetId() const;
 
-    Entity(Id id);
     ~Entity();
 
 
 public:
 
     static const Id Invalid;
+
+
+private:
+
+    Entity(Id id);
 
 
 private:

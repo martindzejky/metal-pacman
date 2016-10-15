@@ -21,7 +21,7 @@ public:
     virtual std::string GetType() const = 0;
     bool IsAttached() const;
 
-    virtual ~Component() = 0;
+    virtual ~Component() = default;
 
 
 private:
