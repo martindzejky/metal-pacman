@@ -5,11 +5,15 @@
 #include "../Source/Window.hpp"
 
 
-TEST(WindowTest, CreateHidden) {
+TEST(WindowTest, CreateHiddenAndDestroy) {
     auto window = Window::CreateHidden();
 
     EXPECT_TRUE(window) << "Window is not created";
-    EXPECT_FALSE(Window::GetSingleton()) << "Hidden window set as the singleton";
+    EXPECT_TRUE(Window::GetSingleton()) << "Singleton not set";
+
+    Window::Destroy();
+
+    EXPECT_FALSE(Window::GetSingleton()) << "Singleton not destroyed";
 }
 
 
@@ -26,9 +30,9 @@ TEST(WindowTest, CreateAndDestroy) {
 
 
 TEST(WindowTest, DoubleCreate) {
-    Window::Create(400, 300, "");
+    Window::CreateHidden();
 
-    EXPECT_THROW(Window::Create(200, 200, ""), Error) << "Allowed to create 2 windows";
+    EXPECT_THROW(Window::CreateHidden(), Error) << "Allowed to create 2 windows";
 
     Window::Destroy();
 }
@@ -40,4 +44,6 @@ TEST(WindowTest, Close) {
     EXPECT_FALSE(window->IsClosed()) << "Window not open";
     window->Close();
     EXPECT_TRUE(window->IsClosed()) << "Window not closed";
+
+    Window::Destroy();
 }

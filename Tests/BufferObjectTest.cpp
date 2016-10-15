@@ -2,9 +2,19 @@
 
 #include <GL/glew.h>
 
+#include "../Source/Window.hpp"
+
+
+
+void BufferObjectTest::SetUpTestCase() {
+    Window::CreateHidden();
+}
+
+void BufferObjectTest::TearDownTestCase() {
+    Window::Destroy();
+}
 
 void BufferObjectTest::SetUp() {
-    mWindow = Window::CreateHidden();
     mBufferObjectVertex = std::shared_ptr<BufferObject>(new BufferObject(BufferObject::Type::Vertex));
     mBufferObjectIndex = std::shared_ptr<BufferObject>(new BufferObject(BufferObject::Type::Index));
 }

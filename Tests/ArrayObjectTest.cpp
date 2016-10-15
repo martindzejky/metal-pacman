@@ -2,9 +2,18 @@
 
 #include <GL/glew.h>
 
+#include "../Source/Window.hpp"
+
+
+void ArrayObjectTest::SetUpTestCase() {
+    Window::CreateHidden();
+}
+
+void ArrayObjectTest::TearDownTestCase() {
+    Window::Destroy();
+}
 
 void ArrayObjectTest::SetUp() {
-    mWindow = Window::CreateHidden();
     mArrayObject = std::shared_ptr<ArrayObject>(new ArrayObject());
 }
 

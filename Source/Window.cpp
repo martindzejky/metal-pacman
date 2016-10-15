@@ -27,6 +27,10 @@ std::shared_ptr<Window> Window::Create(unsigned int width, unsigned int height, 
 }
 
 std::shared_ptr<Window> Window::CreateHidden() {
+    if (Window::GetSingleton()) {
+        THROW_ERROR("One window already exists");
+    }
+
     PreInit();
 
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
@@ -35,7 +39,9 @@ std::shared_ptr<Window> Window::CreateHidden() {
 
     PostInit(window->mGlfwWindow);
 
-    return std::shared_ptr<Window>(window);
+    std::shared_ptr<Window> ptr(window);
+    SetSingleton(ptr);
+    return ptr;
 }
 
 void Window::Destroy() {
