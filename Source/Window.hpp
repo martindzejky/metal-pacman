@@ -22,6 +22,7 @@ public:
                                           bool fullscreen = false);
 
     static std::shared_ptr<Window> CreateHidden();
+    static void Destroy();
 
     void SwapBuffers();
     void PollEvents();

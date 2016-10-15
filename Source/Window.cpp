@@ -38,6 +38,10 @@ std::shared_ptr<Window> Window::CreateHidden() {
     return std::shared_ptr<Window>(window);
 }
 
+void Window::Destroy() {
+    SetSingleton(std::shared_ptr<Window>());
+}
+
 void Window::SwapBuffers() {
     glfwSwapBuffers(mGlfwWindow);
 }
