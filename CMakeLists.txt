@@ -35,7 +35,8 @@ set(TEST_FILES
     Tests/BufferObjectTest.cpp
     Tests/WindowTest.cpp
     Tests/ErrorTest.cpp
-    Tests/SingletonTest.cpp)
+    Tests/SingletonTest.cpp
+    Tests/ShaderTest.cpp)
 
 
 # compile & link project

@@ -1,4 +1,3 @@
-#include <GL/glew.h>
 #include <gtest/gtest.h>
 
 #include "../Source/Error.hpp"
