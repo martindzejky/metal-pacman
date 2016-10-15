@@ -2,8 +2,6 @@
 
 #include <gtest/gtest.h>
 
-#include "../Source/Shader.hpp"
-
 
 class ShaderTest : public testing::Test {
 

@@ -11,7 +11,7 @@ public:
 
     static void SetUpTestCase();
     static void TearDownTestCase();
-    virtual void SetUp();
+    virtual void SetUp() override;
 
     std::shared_ptr<BufferObject> mBufferObjectVertex;
     std::shared_ptr<BufferObject> mBufferObjectIndex;

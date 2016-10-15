@@ -1,6 +1,7 @@
 #include "ShaderTest.hpp"
 
 #include "../Source/Window.hpp"
+#include "../Source/Shader.hpp"
 
 
 void ShaderTest::SetUpTestCase() {

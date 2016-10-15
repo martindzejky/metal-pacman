@@ -2,10 +2,10 @@
 
 #include <gtest/gtest.h>
 
-#include "../Source/ArrayObject.hpp"
+#include "../Source/ShaderProgram.hpp"
 
 
-class ArrayObjectTest : public testing::Test {
+class ShaderProgramTest : public testing::Test {
 
 public:
 
@@ -13,6 +13,6 @@ public:
     static void TearDownTestCase();
     virtual void SetUp() override;
 
-    std::shared_ptr<ArrayObject> mArrayObject;
+    std::shared_ptr<ShaderProgram> mShaderProgram;
 
 };
