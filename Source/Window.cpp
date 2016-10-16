@@ -15,15 +15,14 @@ std::shared_ptr<Window> Window::Create(unsigned int width, unsigned int height, 
 
     PreInit();
 
-    Window *window = new Window();
+    std::shared_ptr<Window> window(new Window());
     window->mGlfwWindow = glfwCreateWindow(width, height, title.c_str(),
                                            fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
 
     PostInit(window->mGlfwWindow);
 
-    std::shared_ptr<Window> ptr(window);
-    SetSingleton(ptr);
-    return ptr;
+    SetSingleton(window);
+    return window;
 }
 
 std::shared_ptr<Window> Window::CreateHidden() {
@@ -34,14 +33,13 @@ std::shared_ptr<Window> Window::CreateHidden() {
     PreInit();
 
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-    Window *window = new Window();
+    std::shared_ptr<Window> window(new Window());
     window->mGlfwWindow = glfwCreateWindow(400, 300, "", NULL, NULL);
 
     PostInit(window->mGlfwWindow);
 
-    std::shared_ptr<Window> ptr(window);
-    SetSingleton(ptr);
-    return ptr;
+    SetSingleton(window);
+    return window;
 }
 
 void Window::Destroy() {

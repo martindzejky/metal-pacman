@@ -14,7 +14,7 @@ void ShaderProgramTest::TearDownTestCase() {
 }
 
 void ShaderProgramTest::SetUp() {
-    mShaderProgram = std::shared_ptr<ShaderProgram>(new ShaderProgram());
+    mShaderProgram = std::make_shared<ShaderProgram>();
 }
 
 

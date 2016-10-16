@@ -15,8 +15,8 @@ void BufferObjectTest::TearDownTestCase() {
 }
 
 void BufferObjectTest::SetUp() {
-    mBufferObjectVertex = std::shared_ptr<BufferObject>(new BufferObject(BufferObject::Type::Vertex));
-    mBufferObjectIndex = std::shared_ptr<BufferObject>(new BufferObject(BufferObject::Type::Index));
+    mBufferObjectVertex = std::make_shared<BufferObject>(BufferObject::Type::Vertex);
+    mBufferObjectIndex = std::make_shared<BufferObject>(BufferObject::Type::Index);
 }
 
 

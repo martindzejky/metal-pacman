@@ -47,7 +47,7 @@ TEST_F(EntityTest, Destroy) {
 
 
 TEST_F(EntityTest, Component) {
-    std::shared_ptr<Component> component(new ComponentMock());
+    std::shared_ptr<Component> component = std::make_shared<ComponentMock>();
 
     EXPECT_EQ(component->GetType(), "ComponentMock") << "Wrong component type";
     EXPECT_FALSE(component->IsAttached()) << "Component create as attached";

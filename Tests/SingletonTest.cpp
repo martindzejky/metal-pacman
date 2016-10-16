@@ -4,7 +4,7 @@
 SINGLETON_DEFINE(SingletonTest);
 
 void SingletonTest::SetSingletonValue(int value) {
-    auto ptr = std::shared_ptr<int>(new int());
+    auto ptr = std::make_shared<int>();
     *ptr.get() = value;
 
     SetSingleton(ptr);

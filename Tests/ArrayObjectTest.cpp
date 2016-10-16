@@ -14,7 +14,7 @@ void ArrayObjectTest::TearDownTestCase() {
 }
 
 void ArrayObjectTest::SetUp() {
-    mArrayObject = std::shared_ptr<ArrayObject>(new ArrayObject());
+    mArrayObject = std::make_shared<ArrayObject>();
 }
 
 
