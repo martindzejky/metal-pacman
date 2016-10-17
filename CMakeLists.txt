@@ -26,6 +26,7 @@ set(SOURCE_FILES
     Source/Error.cpp
     Source/Shader.cpp
     Source/ShaderProgram.cpp
+    Source/State.cpp
     Source/Transform.cpp
     Source/Window.cpp)
 
@@ -37,7 +38,9 @@ set(TEST_FILES
     Tests/ErrorTest.cpp
     Tests/SingletonTest.cpp
     Tests/ShaderTest.cpp
-    Tests/ShaderProgramTest.cpp Tests/EntityTest.cpp)
+    Tests/ShaderProgramTest.cpp
+    Tests/EntityTest.cpp
+    Tests/StateTest.cpp)
 
 
 # compile & link project
