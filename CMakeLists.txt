@@ -21,6 +21,7 @@ set(CMAKE_SKIP_RPATH 0)
 set(SOURCE_FILES
     Source/ArrayObject.cpp
     Source/BufferObject.cpp
+    Source/CameraComponent.cpp
     Source/Component.cpp
     Source/Entity.cpp
     Source/Error.cpp
@@ -30,6 +31,7 @@ set(SOURCE_FILES
     Source/Shader.cpp
     Source/ShaderProgram.cpp
     Source/State.cpp
+    Source/TransformComponent.cpp
     Source/Transform.cpp
     Source/Window.cpp
     )
