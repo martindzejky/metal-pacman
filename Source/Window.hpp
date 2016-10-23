@@ -24,6 +24,8 @@ public:
     static std::shared_ptr<Window> CreateHidden();
     static void Destroy();
 
+    void UpdateViewport();
+    void Clear();
     void SwapBuffers();
     void PollEvents();
     void Close();

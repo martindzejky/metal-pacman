@@ -64,12 +64,12 @@ std::shared_ptr<State> State::Paused() {
 void State::Run() {
     while (true) {
         if (msCurrent && msCurrent->IsRunning()) {
-            msCurrent->Update(0);
+            msCurrent->Update(0); // TODO: Calculate delta time
         }
         else {
             if (msCurrent) {
                 msCurrent->End();
-                msCurrent = std::shared_ptr<State>(); // TODO: Try nullptr
+                msCurrent = std::shared_ptr<State>();
             }
 
             if (msPaused && msPaused->IsPaused()) {

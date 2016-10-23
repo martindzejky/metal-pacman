@@ -24,23 +24,28 @@ set(SOURCE_FILES
     Source/Component.cpp
     Source/Entity.cpp
     Source/Error.cpp
+    Source/GameState.cpp
+    Source/LoadState.cpp
+    Source/SetupState.cpp
     Source/Shader.cpp
     Source/ShaderProgram.cpp
     Source/State.cpp
     Source/Transform.cpp
-    Source/Window.cpp)
+    Source/Window.cpp
+    )
 
 # test files
 set(TEST_FILES
     Tests/ArrayObjectTest.cpp
     Tests/BufferObjectTest.cpp
-    Tests/WindowTest.cpp
-    Tests/ErrorTest.cpp
-    Tests/SingletonTest.cpp
-    Tests/ShaderTest.cpp
-    Tests/ShaderProgramTest.cpp
     Tests/EntityTest.cpp
-    Tests/StateTest.cpp)
+    Tests/ErrorTest.cpp
+    Tests/ShaderProgramTest.cpp
+    Tests/ShaderTest.cpp
+    Tests/SingletonTest.cpp
+    Tests/StateTest.cpp
+    Tests/WindowTest.cpp
+    )
 
 
 # compile & link project

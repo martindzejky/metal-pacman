@@ -46,6 +46,17 @@ void Window::Destroy() {
     SetSingleton(std::shared_ptr<Window>());
 }
 
+void Window::UpdateViewport() {
+    int width, height;
+    GetSize(width, height);
+    glViewport(0, 0, width, height);
+}
+
+void Window::Clear() {
+    glClearColor(0, 0, 0, 0);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
 void Window::SwapBuffers() {
     glfwSwapBuffers(mGlfwWindow);
 }
