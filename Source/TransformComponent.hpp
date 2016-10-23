@@ -15,6 +15,10 @@ public:
 
     virtual std::string GetType() const override;
 
+    TransformComponent() = default;
+    TransformComponent(float x, float y, float z);
+    TransformComponent(glm::vec3 pos);
+
 };
 
 
