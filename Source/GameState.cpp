@@ -8,6 +8,7 @@
 #include "ShaderProgram.hpp"
 #include "TransformComponent.hpp"
 #include "CameraComponent.hpp"
+#include "PlayerComponent.hpp"
 #include "Events.hpp"
 #include "ArrayObject.hpp"
 #include "BufferObject.hpp"
@@ -19,6 +20,7 @@ void GameState::Start() {
     mCamera = Entity::Create();
     mCamera->AttachComponent(std::make_shared<TransformComponent>(0, 0, 200));
     mCamera->AttachComponent(std::make_shared<CameraComponent>(mShaderProgram));
+    mCamera->AttachComponent(std::make_shared<PlayerComponent>());
 
     // cube arrays
     float size = 40.f;
