@@ -26,6 +26,7 @@ set(SOURCE_FILES
     Source/Entity.cpp
     Source/Error.cpp
     Source/GameState.cpp
+    Source/Input.cpp
     Source/LoadState.cpp
     Source/SetupState.cpp
     Source/Shader.cpp

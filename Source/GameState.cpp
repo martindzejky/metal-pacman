@@ -1,8 +1,7 @@
 #include "GameState.hpp"
 
-#include <GLFW/glfw3.h>
-
 #include "Window.hpp"
+#include "Input.hpp"
 #include "Entity.hpp"
 #include "ShaderProgram.hpp"
 #include "TransformComponent.hpp"
@@ -24,8 +23,7 @@ void GameState::Update(float deltaSeconds) {
         return;
     }
 
-    // TODO: Make Input class and remove this
-    if (glfwGetKey(window->GetInternalPtr(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+    if (Input::IsKeyPressed(Input::Key::Escape)) {
         window->Close();
     }
 

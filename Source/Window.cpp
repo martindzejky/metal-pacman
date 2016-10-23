@@ -77,10 +77,6 @@ bool Window::IsClosed() const {
     return (bool) glfwWindowShouldClose(mGlfwWindow);
 }
 
-GLFWwindow *Window::GetInternalPtr() const {
-    return mGlfwWindow;
-}
-
 Window::~Window() {
     glfwDestroyWindow(mGlfwWindow);
     glfwTerminate();

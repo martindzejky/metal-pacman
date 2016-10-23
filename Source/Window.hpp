@@ -15,6 +15,7 @@ class GLFWwindow;
 
 
 class Window : public Singleton<Window> {
+    friend class Input;
 
 public:
 
@@ -32,8 +33,6 @@ public:
 
     void GetSize(int &width, int &height) const;
     bool IsClosed() const;
-
-    GLFWwindow *GetInternalPtr() const; // TODO: Refactor code so this is not necessary
 
     ~Window();
 

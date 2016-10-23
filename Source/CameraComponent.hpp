@@ -6,6 +6,7 @@
 /**
  * When attached to an entity, camera uses the transform to update
  * view matrix.
+ * TODO: Add tests
  */
 
 
