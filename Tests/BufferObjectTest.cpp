@@ -57,7 +57,7 @@ TEST_F(BufferObjectTest, CopyData) {
     EXPECT_EQ(mBufferObjectVertex->GetId(), bound) << "Vertex buffer object is not bound";
 
     double *mapped = (double *) glMapBuffer(GL_ARRAY_BUFFER, GL_READ_ONLY);
-    ASSERT_NE(mapped, (double *) NULL) << "Mapped data is null";
+    ASSERT_NE(mapped, (double *) nullptr) << "Mapped data is null";
 
     for (auto i = 0; i < dataLength; ++i) {
         EXPECT_EQ(data[i], mapped[i]) << "Mapped data is different at index " << i;

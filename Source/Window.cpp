@@ -17,7 +17,7 @@ std::shared_ptr<Window> Window::Create(unsigned int width, unsigned int height, 
 
     std::shared_ptr<Window> window(new Window());
     window->mGlfwWindow = glfwCreateWindow(width, height, title.c_str(),
-                                           fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
+                                           fullscreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
 
     PostInit(window->mGlfwWindow);
 
@@ -34,7 +34,7 @@ std::shared_ptr<Window> Window::CreateHidden() {
 
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     std::shared_ptr<Window> window(new Window());
-    window->mGlfwWindow = glfwCreateWindow(400, 300, "", NULL, NULL);
+    window->mGlfwWindow = glfwCreateWindow(400, 300, "", nullptr, nullptr);
 
     PostInit(window->mGlfwWindow);
 

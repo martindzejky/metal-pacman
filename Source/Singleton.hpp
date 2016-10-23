@@ -14,7 +14,7 @@ class Singleton {
 
 public:
 
-    static std::shared_ptr<Type> GetSingleton() {
+    static inline std::shared_ptr<Type> GetSingleton() {
         return msSingleton;
     }
 

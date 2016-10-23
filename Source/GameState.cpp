@@ -6,6 +6,7 @@
 #include "ShaderProgram.hpp"
 #include "TransformComponent.hpp"
 #include "CameraComponent.hpp"
+#include "Events.hpp"
 
 
 void GameState::Start() {
@@ -18,6 +19,8 @@ void GameState::Start() {
 
 void GameState::Update(float deltaSeconds) {
     auto window = Window::GetSingleton();
+    auto events = Events::GetSingleton();
+
     if (window->IsClosed()) {
         End();
         return;
@@ -29,6 +32,9 @@ void GameState::Update(float deltaSeconds) {
 
     window->UpdateViewport();
     window->Clear();
+
+    events->FireEvent("Update", &deltaSeconds);
+    events->FireEvent("Render", nullptr);
 
     window->SwapBuffers();
     window->PollEvents();

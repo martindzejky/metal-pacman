@@ -29,7 +29,7 @@ Shader::Shader(std::string filename, Shader::Type type) {
     const char *sourcePtr = source.c_str();
 
     mId = glCreateShader(type == Type::Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
-    glShaderSource(mId, 1, &sourcePtr, NULL);
+    glShaderSource(mId, 1, &sourcePtr, nullptr);
     glCompileShader(mId);
 
     GLint status;
@@ -37,7 +37,7 @@ Shader::Shader(std::string filename, Shader::Type type) {
 
     if (status != GL_TRUE) {
         char buffer[512];
-        glGetShaderInfoLog(mId, 512, NULL, buffer);
+        glGetShaderInfoLog(mId, 512, nullptr, buffer);
 
         std::stringstream ess;
         ess << "Failed to compile shader: " << buffer;
