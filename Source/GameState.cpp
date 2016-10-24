@@ -86,20 +86,20 @@ void GameState::Start() {
     // M LETTER
     // arrays
     float vertexArray2[] = {
-        -30, 30, size,
-        -20, 30, size,
-        -20, -30, size,
-        -30, -30, size,
-        30, 30, size,
-        20, 30, size,
-        20, -30, size,
-        30, -30, size,
-        -15, 30, size,
-        -20, 20, size,
-        15, 30, size,
-        20, 20, size,
-        0, 0, size,
-        0, -15, size
+        -60, 60, size + 1,
+        -40, 60, size + 1,
+        -40, -60, size + 1,
+        -60, -60, size + 1,
+        60, 60, size + 1,
+        40, 60, size + 1,
+        40, -60, size + 1,
+        60, -60, size + 1,
+        -30, 60, size + 1,
+        -40, 40, size + 1,
+        30, 60, size + 1,
+        40, 40, size + 1,
+        0, 0, size + 1,
+        0, -30, size + 1
     };
     float colorArray2[] = {
         .5f, .6f, 1.f,

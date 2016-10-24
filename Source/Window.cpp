@@ -54,7 +54,7 @@ void Window::UpdateViewport() {
 
 void Window::Clear() {
     glClearColor(0, 0, 0, 0);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Window::SwapBuffers() {
@@ -108,6 +108,7 @@ void Window::PostInit(GLFWwindow *window) {
     glfwSwapInterval(1);
 
     glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
