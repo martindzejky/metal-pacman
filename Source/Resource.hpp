@@ -10,8 +10,6 @@
  */
 
 
-class Resources;
-
 class Resource : public NonCopyable {
     friend class Resources;
 

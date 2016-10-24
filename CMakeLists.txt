@@ -19,6 +19,7 @@ set(CMAKE_SKIP_RPATH 0)
 
 # project files
 set(SOURCE_FILES
+    Libraries/tinyply.cpp
     Source/ArrayObject.cpp
     Source/BufferObject.cpp
     Source/CameraComponent.cpp
@@ -30,6 +31,7 @@ set(SOURCE_FILES
     Source/GameState.cpp
     Source/Input.cpp
     Source/LoadState.cpp
+    Source/ModelData.cpp
     Source/PlayerComponent.cpp
     Source/Resources.cpp
     Source/SetupState.cpp

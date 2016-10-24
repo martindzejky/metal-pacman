@@ -8,7 +8,7 @@
 void LoadState::Start() {
     State::Start();
 
-    // load shaders
+    // shaders
     auto vertexShader = Resources::GetSingleton()->Load("VertexShader", "Shaders/Vertex.glsl");
     auto fragmentShader = Resources::GetSingleton()->Load("FragmentShader", "Shaders/Fragment.glsl");
 
@@ -17,6 +17,9 @@ void LoadState::Start() {
     program->Add(((Shader *) fragmentShader.get())->GetId());
     program->Link("oColor");
     program->Use();
+
+    // models
+    Resources::GetSingleton()->Load("Model", "Models/Model.ply");
 
     SwitchInto(std::make_shared<GameState>(program));
 }
