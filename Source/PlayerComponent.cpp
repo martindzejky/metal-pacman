@@ -30,7 +30,13 @@ void PlayerComponent::Move() {
 
     // toggle lock
     if (Input::IsButtonPressed(Input::Button::Right)) {
-        input->ToggleMode();
+        if (!mPreviousMousePressed) {
+            mPreviousMousePressed = true;
+            input->ToggleMode();
+        }
+    }
+    else {
+        mPreviousMousePressed = false;
     }
 
     // movement

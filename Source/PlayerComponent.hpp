@@ -26,6 +26,7 @@ private:
 
     std::weak_ptr<Entity> mEntity;
     Events::ListenerId listenerId;
+    bool mPreviousMousePressed = false;
 
 };
 
