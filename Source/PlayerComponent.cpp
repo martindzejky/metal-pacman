@@ -9,7 +9,7 @@ void PlayerComponent::OnAttach(std::weak_ptr<Entity> entity) {
     Component::OnAttach(entity);
     mEntity = entity;
 
-    Events::GetSingleton()->AddListener("Update", [this](void *) { Move(); });
+    listenerId = Events::GetSingleton()->AddListener("Update", [this](void *) { Move(); });
 }
 
 void PlayerComponent::OnDetach() {

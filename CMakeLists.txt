@@ -22,6 +22,7 @@ set(SOURCE_FILES
     Source/ArrayObject.cpp
     Source/BufferObject.cpp
     Source/CameraComponent.cpp
+    Source/ColorCubeComponent.cpp
     Source/Component.cpp
     Source/Entity.cpp
     Source/Error.cpp

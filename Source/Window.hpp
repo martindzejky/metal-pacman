@@ -31,6 +31,8 @@ public:
     void PollEvents();
     void Close();
 
+    void DrawElements(unsigned int count);
+
     void GetSize(int &width, int &height) const;
     bool IsClosed() const;
 

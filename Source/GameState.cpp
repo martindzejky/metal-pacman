@@ -1,7 +1,5 @@
 #include "GameState.hpp"
 
-#include <GL/glew.h>
-
 #include "Window.hpp"
 #include "Input.hpp"
 #include "Entity.hpp"
@@ -9,7 +7,7 @@
 #include "TransformComponent.hpp"
 #include "CameraComponent.hpp"
 #include "PlayerComponent.hpp"
-#include "Events.hpp"
+#include "ColorCubeComponent.hpp"
 #include "ArrayObject.hpp"
 #include "BufferObject.hpp"
 
@@ -22,68 +20,13 @@ void GameState::Start() {
     mCamera->AttachComponent(std::make_shared<CameraComponent>(mShaderProgram));
     mCamera->AttachComponent(std::make_shared<PlayerComponent>());
 
-    // CUBE
-    // cube arrays
-    float size = 40.f;
-    float vertexArray[] = {
-        -size, -size, -size,
-        -size, -size, size,
-        -size, size, size,
-        -size, size, -size,
-        size, -size, -size,
-        size, -size, size,
-        size, size, size,
-        size, size, -size
-    };
-    float colorArray[] = {
-        0.f, 0.f, 0.f,
-        1.f, 0.f, 0.f,
-        1.f, 1.f, 0.f,
-        0.f, 1.f, 0.f,
-        0.f, 0.f, 1.f,
-        1.f, 0.f, 1.f,
-        1.f, 1.f, 1.f,
-        0.f, 1.f, 1.f
-    };
-    unsigned int indexArray[] = {
-        0, 1, 2,
-        0, 2, 3,
-        4, 6, 5,
-        4, 7, 6,
-        1, 5, 6,
-        1, 6, 2,
-        0, 3, 7,
-        0, 7, 4,
-        0, 4, 5,
-        0, 5, 1,
-        2, 6, 7,
-        2, 7, 3
-    };
-
-    // array object
-    ao = std::make_shared<ArrayObject>();
-    ao->Bind();
-
-    // buffer objects
-    vertices = std::make_shared<BufferObject>(BufferObject::Type::Vertex);
-    vertices->CopyData(sizeof(vertexArray), (void *) vertexArray);
-
-    colors = std::make_shared<BufferObject>(BufferObject::Type::Vertex);
-    colors->CopyData(sizeof(colorArray), (void *) colorArray);
-
-    indices = std::make_shared<BufferObject>(BufferObject::Type::Index);
-    indices->CopyData(sizeof(indexArray), (void *) indexArray);
-
-    // bind shader attributes
-    vertices->Bind();
-    mShaderProgram->Attribute("iPosition", 3);
-    colors->Bind();
-    mShaderProgram->Attribute("iColor", 3);
-
-    // transform
-    transform = std::make_shared<Transform>(0, 0, -50);
+    mCube = Entity::Create();
+    mCube->AttachComponent(std::make_shared<TransformComponent>());
+    mCube->AttachComponent(std::make_shared<ColorCubeComponent>(40, mShaderProgram));
 
     // M LETTER
+    float size = 40.f;
+
     // arrays
     float vertexArray2[] = {
         -60, 60, size + 1,
@@ -151,7 +94,7 @@ void GameState::Start() {
     mShaderProgram->Attribute("iColor", 3);
 
     // transform
-    transform2 = std::make_shared<Transform>(0, 0, -50);
+    transform2 = std::make_shared<Transform>();
 }
 
 void GameState::Update(float deltaSeconds) {
@@ -174,17 +117,12 @@ void GameState::Update(float deltaSeconds) {
     events->FireEvent("PostUpdate", nullptr);
     events->FireEvent("Render", nullptr);
 
-    transform->Yaw(.01f, Transform::Space::Global);
     transform2->Yaw(.01f, Transform::Space::Global);
     transform2->Roll(-.02f);
 
-    ao->Bind();
-    mShaderProgram->Uniform("uModel", transform->GetMatrix());
-    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
     ao2->Bind();
     mShaderProgram->Uniform("uModel", transform2->GetMatrix());
-    glDrawElements(GL_TRIANGLES, 30, GL_UNSIGNED_INT, 0);
+    window->DrawElements(30);
 
     window->SwapBuffers();
     window->PollEvents();

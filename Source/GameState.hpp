@@ -27,16 +27,12 @@ public:
 
 private:
 
-    std::shared_ptr<Entity> mCamera;
     std::shared_ptr<ShaderProgram> mShaderProgram;
 
-    // TODO: Remove
-    std::shared_ptr<ArrayObject> ao;
-    std::shared_ptr<BufferObject> vertices;
-    std::shared_ptr<BufferObject> colors;
-    std::shared_ptr<BufferObject> indices;
-    std::shared_ptr<Transform> transform;
+    std::shared_ptr<Entity> mCamera;
+    std::shared_ptr<Entity> mCube;
 
+    // TODO: Remove
     std::shared_ptr<ArrayObject> ao2;
     std::shared_ptr<BufferObject> vertices2;
     std::shared_ptr<BufferObject> colors2;

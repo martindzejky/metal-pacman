@@ -69,6 +69,10 @@ void Window::Close() {
     glfwSetWindowShouldClose(mGlfwWindow, true);
 }
 
+void Window::DrawElements(unsigned int count) {
+    glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, 0);
+}
+
 void Window::GetSize(int &width, int &height) const {
     glfwGetFramebufferSize(mGlfwWindow, &width, &height);
 }
