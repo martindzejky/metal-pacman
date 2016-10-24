@@ -38,5 +38,3 @@ private:
     std::unordered_map<std::string, std::unordered_map<ListenerId, Listener>> mListeners;
 
 };
-
-SINGLETON_DEFINE(Events);

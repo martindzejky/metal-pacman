@@ -20,3 +20,5 @@ void Events::FireEvent(std::string event, void *data) {
         listener.second(data);
     }
 }
+
+SINGLETON_DEFINE(Events);

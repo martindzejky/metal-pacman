@@ -1,12 +1,15 @@
 #pragma once
 
+#include <GLFW/glfw3.h>
+#include "Singleton.hpp"
+
 
 /**
  * Handles input events, wrapper around GLFW's API.
  */
 
 
-class Input {
+class Input : public Singleton<Input> {
 
 public:
 
@@ -61,11 +64,35 @@ public:
         LeftSuper = 343,
     };
 
+    enum class Button {
+        Left = 0,
+        Middle = 2,
+        Right = 1
+    };
+
 
 public:
 
+    static void Create();
+
+    void ToggleMode();
+
+    static void OnMouseMoved(GLFWwindow *_, double x, double y);
+
     static bool IsKeyPressed(Key key);
+    static bool IsButtonPressed(Button button);
+
+    const bool &IsMouseLocked() const;
+    const double &GetMouseDeltaX() const;
+    const double &GetMouseDeltaY() const;
+
+
+private:
+
+    bool mMouseLocked = false;
+    double mLastMouseX = 0;
+    double mLastMouseY = 0;
+    double mMouseDeltaX = 0;
+    double mMouseDeltaY = 0;
 
 };
-
-

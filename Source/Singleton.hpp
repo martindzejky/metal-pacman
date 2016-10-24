@@ -41,4 +41,6 @@ private:
 /**
  * Singleton definition help macro.
  */
-#define SINGLETON_DEFINE(Type) template<typename Type> std::shared_ptr<Type> Singleton<Type>::msSingleton
+// #define SINGLETON_DEFINE(Type) template<typename Type> std::shared_ptr<Type> Singleton<Type>::msSingleton
+#define SINGLETON_DEFINE(Type)
+template<typename Type> std::shared_ptr<Type> Singleton<Type>::msSingleton;

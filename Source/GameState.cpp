@@ -98,6 +98,7 @@ void GameState::Update(float deltaSeconds) {
     window->Clear();
 
     events->FireEvent("Update", &deltaSeconds);
+    events->FireEvent("PostUpdate", nullptr);
     events->FireEvent("Render", nullptr);
 
     indices->Bind();

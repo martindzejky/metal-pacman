@@ -22,9 +22,18 @@ std::string PlayerComponent::GetType() const {
 }
 
 void PlayerComponent::Move() {
-    auto transform = (TransformComponent*) mEntity.lock()->GetComponent("TransformComponent").get();
+    auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
+    auto input = Input::GetSingleton();
     auto speed = 2.f;
+    auto look = .01f;
+    auto mouseLook = .002f;
 
+    // toggle lock
+    if (Input::IsButtonPressed(Input::Button::Right)) {
+        input->ToggleMode();
+    }
+
+    // movement
     if (Input::IsKeyPressed(Input::Key::A)) {
         transform->Move(-speed, 0, 0);
     }
@@ -37,10 +46,30 @@ void PlayerComponent::Move() {
     if (Input::IsKeyPressed(Input::Key::S)) {
         transform->Move(0, 0, speed);
     }
-    if (Input::IsKeyPressed(Input::Key::F)) {
+    if (Input::IsKeyPressed(Input::Key::LeftControl)) {
         transform->Move(0, -speed, 0, Transform::Space::Global);
     }
-    if (Input::IsKeyPressed(Input::Key::R)) {
+    if (Input::IsKeyPressed(Input::Key::LeftShift)) {
         transform->Move(0, speed, 0, Transform::Space::Global);
+    }
+
+    // keyboard looking
+    if (Input::IsKeyPressed(Input::Key::Up)) {
+        transform->Pitch(look);
+    }
+    if (Input::IsKeyPressed(Input::Key::Down)) {
+        transform->Pitch(-look);
+    }
+    if (Input::IsKeyPressed(Input::Key::Left)) {
+        transform->Yaw(look, Transform::Space::Global);
+    }
+    if (Input::IsKeyPressed(Input::Key::Right)) {
+        transform->Yaw(-look, Transform::Space::Global);
+    }
+
+    // mouse looking
+    if (input->IsMouseLocked()) {
+        transform->Yaw(-mouseLook * (float) input->GetMouseDeltaX(), Transform::Space::Global);
+        transform->Pitch(-mouseLook * (float) input->GetMouseDeltaY());
     }
 }
