@@ -9,16 +9,12 @@
 #include "Error.hpp"
 
 
-const Shader::Id &Shader::GetId() const {
-    return mId;
-}
-
-Shader::Shader(std::string filename, Shader::Type type) {
-    std::ifstream file(filename);
+void Shader::Load(std::string path) {
+    std::ifstream file(path);
 
     if (!file.is_open()) {
         std::stringstream ess;
-        ess << "Can't find shader source file " << filename;
+        ess << "Can't find shader source file " << path;
         THROW_ERROR(ess.str());
     }
 
@@ -28,7 +24,7 @@ Shader::Shader(std::string filename, Shader::Type type) {
 
     const char *sourcePtr = source.c_str();
 
-    mId = glCreateShader(type == Type::Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
+    mId = glCreateShader(mType == Type::Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
     glShaderSource(mId, 1, &sourcePtr, nullptr);
     glCompileShader(mId);
 
@@ -44,6 +40,13 @@ Shader::Shader(std::string filename, Shader::Type type) {
         THROW_ERROR(ess.str());
     }
 }
+
+const Shader::Id &Shader::GetId() const {
+    return mId;
+}
+
+Shader::Shader(std::string name, Shader::Type type)
+    : Resource(name), mType(type) {}
 
 Shader::~Shader() {
     if (mId) {

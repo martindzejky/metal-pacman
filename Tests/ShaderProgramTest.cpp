@@ -24,8 +24,8 @@ TEST_F(ShaderProgramTest, Create) {
 
 
 TEST_F(ShaderProgramTest, AddLinkUse) {
-    Shader vertex("Shaders/Vertex.glsl", Shader::Type::Vertex);
-    Shader fragment("Shaders/Fragment.glsl", Shader::Type::Fragment);
+    Shader vertex(std::string(), "Shaders/Vertex.glsl");
+    Shader fragment(std::string(), "Shaders/Fragment.glsl");
 
     mShaderProgram->Add(vertex.GetId());
     mShaderProgram->Add(fragment.GetId());

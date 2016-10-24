@@ -31,6 +31,7 @@ set(SOURCE_FILES
     Source/Input.cpp
     Source/LoadState.cpp
     Source/PlayerComponent.cpp
+    Source/Resources.cpp
     Source/SetupState.cpp
     Source/Shader.cpp
     Source/ShaderProgram.cpp

@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "NonCopyable.hpp"
+#include "Resource.hpp"
 
 
 /**
@@ -10,7 +10,7 @@
  */
 
 
-class Shader : public NonCopyable {
+class Shader : public Resource {
 
 public:
 
@@ -24,14 +24,17 @@ public:
 
 public:
 
+    virtual void Load(std::string path) override;
+
     const Id &GetId() const;
 
-    Shader(std::string filename, Type type);
+    Shader(std::string name, Shader::Type type);
     ~Shader();
 
 
 private:
 
     Id mId = 0;
+    Type mType;
 
 };
