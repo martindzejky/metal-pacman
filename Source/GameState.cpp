@@ -22,6 +22,7 @@ void GameState::Start() {
     mCamera->AttachComponent(std::make_shared<CameraComponent>(mShaderProgram));
     mCamera->AttachComponent(std::make_shared<PlayerComponent>());
 
+    // CUBE
     // cube arrays
     float size = 40.f;
     float vertexArray[] = {
@@ -79,6 +80,78 @@ void GameState::Start() {
     colors->Bind();
     mShaderProgram->Attribute("iColor", 3);
 
+    // transform
+    transform = std::make_shared<Transform>(0, 0, -50);
+
+    // M LETTER
+    // arrays
+    float vertexArray2[] = {
+        -30, 30, size,
+        -20, 30, size,
+        -20, -30, size,
+        -30, -30, size,
+        30, 30, size,
+        20, 30, size,
+        20, -30, size,
+        30, -30, size,
+        -15, 30, size,
+        -20, 20, size,
+        15, 30, size,
+        20, 20, size,
+        0, 0, size,
+        0, -15, size
+    };
+    float colorArray2[] = {
+        .5f, .6f, 1.f,
+        .5f, .6f, 1.f,
+        .5f, .6f, 1.f,
+        .5f, .6f, 1.f,
+        1.f, .8f, .1f,
+        1.f, .8f, .1f,
+        1.f, .8f, .1f,
+        1.f, .8f, .1f,
+        .5f, .6f, 1.f,
+        .5f, .6f, 1.f,
+        1.f, .8f, .1f,
+        1.f, .8f, .1f,
+        1.f, .3f, .3f,
+        1.f, .3f, .3f
+    };
+    unsigned int indexArray2[] = {
+        0, 2, 1,
+        0, 3, 2,
+        4, 5, 6,
+        4, 6, 7,
+        1, 12, 8,
+        12, 5, 10,
+        1, 13, 12,
+        12, 13, 5,
+        9, 13, 1,
+        13, 11, 5
+    };
+
+    // array object
+    ao2 = std::make_shared<ArrayObject>();
+    ao2->Bind();
+
+    // buffer objects
+    vertices2 = std::make_shared<BufferObject>(BufferObject::Type::Vertex);
+    vertices2->CopyData(sizeof(vertexArray2), (void *) vertexArray2);
+
+    colors2 = std::make_shared<BufferObject>(BufferObject::Type::Vertex);
+    colors2->CopyData(sizeof(colorArray2), (void *) colorArray2);
+
+    indices2 = std::make_shared<BufferObject>(BufferObject::Type::Index);
+    indices2->CopyData(sizeof(indexArray2), (void *) indexArray2);
+
+    // bind shader attributes
+    vertices2->Bind();
+    mShaderProgram->Attribute("iPosition", 3);
+    colors2->Bind();
+    mShaderProgram->Attribute("iColor", 3);
+
+    // transform
+    transform2 = std::make_shared<Transform>(0, 0, -50);
 }
 
 void GameState::Update(float deltaSeconds) {
@@ -101,8 +174,17 @@ void GameState::Update(float deltaSeconds) {
     events->FireEvent("PostUpdate", nullptr);
     events->FireEvent("Render", nullptr);
 
-    indices->Bind();
+    transform->Yaw(.01f, Transform::Space::Global);
+    transform2->Yaw(.01f, Transform::Space::Global);
+    transform2->Roll(-.02f);
+
+    ao->Bind();
+    mShaderProgram->Uniform("uModel", transform->GetMatrix());
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+    ao2->Bind();
+    mShaderProgram->Uniform("uModel", transform2->GetMatrix());
+    glDrawElements(GL_TRIANGLES, 30, GL_UNSIGNED_INT, 0);
 
     window->SwapBuffers();
     window->PollEvents();
