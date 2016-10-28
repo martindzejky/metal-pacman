@@ -16,7 +16,7 @@ void CameraComponent::OnAttach(std::weak_ptr<Entity> entity) {
     int width, height;
     Window::GetSingleton()->GetSize(width, height);
 
-    auto projection = glm::perspective(glm::radians(45.f), (float) width / height, .1f, 1000.f);
+    auto projection = glm::perspective(glm::radians(45.), (double) width / height, .1, 100000.);
     mShaderProgram->Uniform("uProjection", projection);
 
     listenerId = Events::GetSingleton()->AddListener("Update", [this](void *) { OnUpdate(); });

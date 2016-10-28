@@ -20,6 +20,7 @@ void LoadState::Start() {
 
     // models
     Resources::GetSingleton()->Load("Model", "Models/Model.ply");
+    Resources::GetSingleton()->Load("Hook", "Models/Hook.ply");
 
     SwitchInto(std::make_shared<GameState>(program));
 }

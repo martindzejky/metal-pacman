@@ -27,13 +27,13 @@ void GameState::Start() {
 
     auto model2 = Entity::Create();
     auto transform2 = std::make_shared<TransformComponent>(100, 0, 0);
-    transform2->Scale(40);
+    transform2->Scale(20);
     model2->AttachComponent(transform2);
-    model2->AttachComponent(std::make_shared<ModelComponent>("Model", mShaderProgram));
+    model2->AttachComponent(std::make_shared<ModelComponent>("Hook", mShaderProgram));
 
     auto cube = Entity::Create();
     cube->AttachComponent(std::make_shared<TransformComponent>());
-    cube->AttachComponent(std::make_shared<ColorCubeComponent>(40, mShaderProgram));
+    cube->AttachComponent(std::make_shared<ColorCubeComponent>(30, mShaderProgram));
 }
 
 void GameState::Update(float deltaSeconds) {
