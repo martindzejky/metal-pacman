@@ -18,7 +18,7 @@ public:
 
     const std::vector<float> &GetVertices() const;
     const std::vector<float> &GetNormals() const;
-    const std::vector<unsigned char> &GetColors() const;
+    const std::vector<float> &GetColors() const;
     const std::vector<unsigned int> &GetIndices() const;
 
     ModelData(std::string name);
@@ -28,7 +28,7 @@ private:
 
     std::vector<float> mVertices;
     std::vector<float> mNormals;
-    std::vector<unsigned char> mColors;
+    std::vector<float> mColors;
     std::vector<unsigned int> mIndices;
 
 };

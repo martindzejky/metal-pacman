@@ -14,13 +14,20 @@ void ModelData::Load(std::string path) {
     }
 
     tinyply::PlyFile plyFile(file);
+    std::vector<unsigned char> rawColors;
 
     plyFile.request_properties_from_element("vertex", { "x", "y", "z" }, mVertices);
     plyFile.request_properties_from_element("vertex", { "nx", "ny", "nz" }, mNormals);
-    plyFile.request_properties_from_element("vertex", { "red", "green", "blue" }, mColors);
+    plyFile.request_properties_from_element("vertex", { "red", "green", "blue" }, rawColors);
     plyFile.request_properties_from_element("face", { "vertex_indices" }, mIndices, 3);
 
     plyFile.read(file);
+
+    // convert from [0-256] to [0-1] which is what OpenGL expects
+    mColors.reserve(rawColors.size());
+    for (auto c : rawColors) {
+        mColors.push_back((float) c / 255);
+    }
 }
 
 const std::vector<float> &ModelData::GetVertices() const {
@@ -31,7 +38,7 @@ const std::vector<float> &ModelData::GetNormals() const {
     return mNormals;
 }
 
-const std::vector<unsigned char> &ModelData::GetColors() const {
+const std::vector<float> &ModelData::GetColors() const {
     return mColors;
 }
 
