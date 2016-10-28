@@ -39,6 +39,11 @@ void PlayerComponent::Move() {
         mPreviousMousePressed = false;
     }
 
+    // sprint
+    if (Input::IsKeyPressed(Input::Key::LeftShift)) {
+        speed *= 4;
+    }
+
     // movement
     if (Input::IsKeyPressed(Input::Key::A)) {
         transform->Move(-speed, 0, 0);
@@ -52,10 +57,10 @@ void PlayerComponent::Move() {
     if (Input::IsKeyPressed(Input::Key::S)) {
         transform->Move(0, 0, speed);
     }
-    if (Input::IsKeyPressed(Input::Key::LeftControl)) {
+    if (Input::IsKeyPressed(Input::Key::F)) {
         transform->Move(0, -speed, 0, Transform::Space::Global);
     }
-    if (Input::IsKeyPressed(Input::Key::LeftShift)) {
+    if (Input::IsKeyPressed(Input::Key::R)) {
         transform->Move(0, speed, 0, Transform::Space::Global);
     }
 
