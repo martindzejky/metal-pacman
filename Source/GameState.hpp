@@ -25,9 +25,6 @@ private:
 
     std::shared_ptr<ShaderProgram> mShaderProgram;
 
-    std::shared_ptr<Entity> mCamera;
-    std::shared_ptr<Entity> mCube;
-
 };
 
 

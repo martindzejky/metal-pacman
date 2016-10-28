@@ -31,6 +31,7 @@ set(SOURCE_FILES
     Source/GameState.cpp
     Source/Input.cpp
     Source/LoadState.cpp
+    Source/ModelComponent.cpp
     Source/ModelData.cpp
     Source/PlayerComponent.cpp
     Source/Resources.cpp

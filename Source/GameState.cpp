@@ -7,20 +7,33 @@
 #include "TransformComponent.hpp"
 #include "CameraComponent.hpp"
 #include "PlayerComponent.hpp"
+#include "ModelComponent.hpp"
 #include "ColorCubeComponent.hpp"
 
 
 void GameState::Start() {
     State::Start();
 
-    mCamera = Entity::Create();
-    mCamera->AttachComponent(std::make_shared<TransformComponent>(0, 0, 200));
-    mCamera->AttachComponent(std::make_shared<CameraComponent>(mShaderProgram));
-    mCamera->AttachComponent(std::make_shared<PlayerComponent>());
+    auto camera = Entity::Create();
+    camera->AttachComponent(std::make_shared<TransformComponent>(0, 0, 200));
+    camera->AttachComponent(std::make_shared<CameraComponent>(mShaderProgram));
+    camera->AttachComponent(std::make_shared<PlayerComponent>());
 
-    mCube = Entity::Create();
-    mCube->AttachComponent(std::make_shared<TransformComponent>());
-    mCube->AttachComponent(std::make_shared<ColorCubeComponent>(40, mShaderProgram));
+    auto model1 = Entity::Create();
+    auto transform1 = std::make_shared<TransformComponent>(-100, 0, 0);
+    transform1->Scale(40);
+    model1->AttachComponent(transform1);
+    model1->AttachComponent(std::make_shared<ModelComponent>("Model", mShaderProgram));
+
+    auto model2 = Entity::Create();
+    auto transform2 = std::make_shared<TransformComponent>(100, 0, 0);
+    transform2->Scale(40);
+    model2->AttachComponent(transform2);
+    model2->AttachComponent(std::make_shared<ModelComponent>("Model", mShaderProgram));
+
+    auto cube = Entity::Create();
+    cube->AttachComponent(std::make_shared<TransformComponent>());
+    cube->AttachComponent(std::make_shared<ColorCubeComponent>(40, mShaderProgram));
 }
 
 void GameState::Update(float deltaSeconds) {
