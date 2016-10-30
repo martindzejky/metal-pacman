@@ -33,7 +33,9 @@ private:
 
     std::shared_ptr<ArrayObject> mArrayObject;
     std::shared_ptr<BufferObject> mVertices;
+    std::shared_ptr<BufferObject> mNormals;
     std::shared_ptr<BufferObject> mColors;
+    std::shared_ptr<BufferObject> mTexCoords;
     std::shared_ptr<BufferObject> mIndices;
     unsigned int mIndexNumber = 0;
 
