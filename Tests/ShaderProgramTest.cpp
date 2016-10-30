@@ -3,10 +3,12 @@
 #include <GL/glew.h>
 
 #include "../Source/Window.hpp"
+#include "../Source/Resources.hpp"
 
 
 void ShaderProgramTest::SetUpTestCase() {
     Window::CreateHidden();
+    Resources::Create();
 }
 
 void ShaderProgramTest::TearDownTestCase() {
@@ -24,11 +26,11 @@ TEST_F(ShaderProgramTest, Create) {
 
 
 TEST_F(ShaderProgramTest, AddLinkUse) {
-    Shader vertex(std::string(), "Shaders/Vertex.glsl");
-    Shader fragment(std::string(), "Shaders/Fragment.glsl");
+    auto vertexShader = Resources::GetSingleton()->Load("VertexShader", "Shaders/Vertex.glsl");
+    auto fragmentShader = Resources::GetSingleton()->Load("FragmentShader", "Shaders/Fragment.glsl");
 
-    mShaderProgram->Add(vertex.GetId());
-    mShaderProgram->Add(fragment.GetId());
+    mShaderProgram->Add(((Shader *) vertexShader.get())->GetId());
+    mShaderProgram->Add(((Shader *) fragmentShader.get())->GetId());
 
     ASSERT_NO_THROW(mShaderProgram->Link("oColor")) << "Shader program can't be linked";
 

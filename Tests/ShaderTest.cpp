@@ -2,10 +2,12 @@
 
 #include "../Source/Window.hpp"
 #include "../Source/Shader.hpp"
+#include "../Source/Resources.hpp"
 
 
 void ShaderTest::SetUpTestCase() {
     Window::CreateHidden();
+    Resources::Create();
 }
 
 void ShaderTest::TearDownTestCase() {
@@ -13,14 +15,14 @@ void ShaderTest::TearDownTestCase() {
 }
 
 TEST_F(ShaderTest, CreateAndCompile) {
-    std::shared_ptr<Shader> vertex;
-    std::shared_ptr<Shader> fragment;
+    std::shared_ptr<Resource> vertex;
+    std::shared_ptr<Resource> fragment;
 
-    EXPECT_NO_THROW(vertex = std::make_shared<Shader>("Shaders/Vertex.glsl", Shader::Type::Vertex))
-        << "Vertex shader not compiled";
-    EXPECT_NO_THROW(fragment = std::make_shared<Shader>("Shaders/Fragment.glsl", Shader::Type::Fragment))
-        << "Fragment shader not compiled";
+    EXPECT_NO_THROW(vertex = Resources::GetSingleton()->Load("VertexShader", "Shaders/Vertex.glsl"))
+                    << "Vertex shader not compiled";
+    EXPECT_NO_THROW(fragment = Resources::GetSingleton()->Load("FragmentShader", "Shaders/Fragment.glsl"))
+                    << "Fragment shader not compiled";
 
-    EXPECT_NE(vertex->GetId(), 0) << "Vertex shader not created";
-    EXPECT_NE(fragment->GetId(), 0) << "Fragment shader not created";
+    EXPECT_NE(((Shader *) vertex.get())->GetId(), 0) << "Vertex shader not created";
+    EXPECT_NE(((Shader *) fragment.get())->GetId(), 0) << "Fragment shader not created";
 }
