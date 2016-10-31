@@ -52,7 +52,7 @@ void ShaderProgram::Uniform(std::string name, const glm::mat4 &matrix) {
         position = glGetUniformLocation(mId, ModelViewProjectionUniformName.c_str());
         glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(modelViewProjection));
         position = glGetUniformLocation(mId, NormalUniformName.c_str());
-        glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(normal));
+        glUniformMatrix3fv(position, 1, GL_FALSE, glm::value_ptr(normal));
     }
     else {
         auto position = glGetUniformLocation(mId, name.c_str());
