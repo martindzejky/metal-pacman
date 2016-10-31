@@ -19,7 +19,7 @@ public:
     virtual void OnDetach() override;
     virtual std::string GetType() const override;
 
-    void Move();
+    void Move(float deltaSeconds);
 
 
 private:

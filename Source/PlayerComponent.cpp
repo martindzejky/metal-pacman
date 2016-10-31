@@ -9,7 +9,7 @@ void PlayerComponent::OnAttach(std::weak_ptr<Entity> entity) {
     Component::OnAttach(entity);
     mEntity = entity;
 
-    listenerId = Events::GetSingleton()->AddListener("Update", [this](void *) { Move(); });
+    listenerId = Events::GetSingleton()->AddListener("Update", [this](void *deltaPtr) { Move(*(float *) deltaPtr); });
 }
 
 void PlayerComponent::OnDetach() {
@@ -21,10 +21,10 @@ std::string PlayerComponent::GetType() const {
     return "PlayerComponent";
 }
 
-void PlayerComponent::Move() {
+void PlayerComponent::Move(float deltaSeconds) {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
     auto input = Input::GetSingleton();
-    auto speed = .05f;
+    auto speed = 3;
     auto look = .01f;
     auto mouseLook = .002f;
 
@@ -46,22 +46,22 @@ void PlayerComponent::Move() {
 
     // movement
     if (Input::IsKeyPressed(Input::Key::A)) {
-        transform->Move(-speed, 0, 0);
+        transform->Move(-speed * deltaSeconds, 0, 0);
     }
     if (Input::IsKeyPressed(Input::Key::D)) {
-        transform->Move(speed, 0, 0);
+        transform->Move(speed * deltaSeconds, 0, 0);
     }
     if (Input::IsKeyPressed(Input::Key::W)) {
-        transform->Move(0, 0, -speed);
+        transform->Move(0, 0, -speed * deltaSeconds);
     }
     if (Input::IsKeyPressed(Input::Key::S)) {
-        transform->Move(0, 0, speed);
+        transform->Move(0, 0, speed * deltaSeconds);
     }
     if (Input::IsKeyPressed(Input::Key::X) || Input::IsKeyPressed(Input::Key::C)) {
-        transform->Move(0, -speed, 0, Transform::Space::Global);
+        transform->Move(0, -speed * deltaSeconds, 0, Transform::Space::Global);
     }
     if (Input::IsKeyPressed(Input::Key::Space)) {
-        transform->Move(0, speed, 0, Transform::Space::Global);
+        transform->Move(0, speed * deltaSeconds, 0, Transform::Space::Global);
     }
 
     // keyboard looking

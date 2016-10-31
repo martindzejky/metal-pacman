@@ -1,5 +1,7 @@
 #include "State.hpp"
 
+#include <chrono>
+
 
 void State::Start(std::shared_ptr<State> state) {
     SwitchInto(state);
@@ -62,9 +64,14 @@ std::shared_ptr<State> State::Paused() {
 }
 
 void State::Run() {
+    auto timestamp = std::chrono::high_resolution_clock::now();
+
     while (true) {
         if (msCurrent && msCurrent->IsRunning()) {
-            msCurrent->Update(0); // TODO: Calculate delta time
+            auto newTimestamp = std::chrono::high_resolution_clock::now();
+            auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(newTimestamp - timestamp).count() / 1000.f;
+            msCurrent->Update(delta);
+            timestamp = newTimestamp;
         }
         else {
             if (msCurrent) {
