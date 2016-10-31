@@ -5,8 +5,8 @@ in vec3 iColor;
 in vec3 iNormal;
 in vec2 iTexCoord;
 
-uniform mat4 uView;
 uniform mat4 uProjection;
+uniform mat4 uView;
 uniform mat4 uModel;
 
 out vec3 Color;
