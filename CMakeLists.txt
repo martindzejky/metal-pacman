@@ -35,6 +35,7 @@ set(SOURCE_FILES
     Source/ModelData.cpp
     Source/PlayerComponent.cpp
     Source/Resources.cpp
+    Source/RotatingComponent.cpp
     Source/SetupState.cpp
     Source/Shader.cpp
     Source/ShaderProgram.cpp

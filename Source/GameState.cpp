@@ -8,6 +8,7 @@
 #include "PlayerComponent.hpp"
 #include "ModelComponent.hpp"
 #include "ColorCubeComponent.hpp"
+#include "RotatingComponent.hpp"
 
 
 void GameState::Start() {
@@ -31,6 +32,7 @@ void GameState::Start() {
     keyTransform->Scale(.05f);
     key->AttachComponent(keyTransform);
     key->AttachComponent(std::make_shared<ModelComponent>("Key"));
+    key->AttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::Y, 0.01f));
 }
 
 void GameState::Update(float deltaSeconds) {

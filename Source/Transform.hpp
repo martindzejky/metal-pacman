@@ -23,6 +23,12 @@ public:
         Global
     };
 
+    enum class Axis {
+        X,
+        Y,
+        Z
+    };
+
 
 public:
 
@@ -33,6 +39,7 @@ public:
     void Yaw(float angle, Space space = Space::Local);
     void Roll(float angle, Space space = Space::Local);
     void Rotate(glm::vec3 axis, float angle, Space space = Space::Local);
+    void Rotate(Axis axis, float angle, Space space = Space::Local);
     void Rotate(glm::quat quat, Space space = Space::Local);
 
     void Scale(float x, float y, float z);

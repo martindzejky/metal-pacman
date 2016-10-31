@@ -38,6 +38,22 @@ void Transform::Rotate(glm::vec3 axis, float angle, Space space) {
     Rotate(glm::angleAxis(angle, axis), space);
 }
 
+void Transform::Rotate(Transform::Axis axis, float angle, Transform::Space space) {
+    switch (axis) {
+        case Axis::X:
+            Pitch(angle, space);
+            break;
+
+        case Axis::Y:
+            Yaw(angle, space);
+            break;
+
+        case Axis::Z:
+            Roll(angle, space);
+            break;
+    }
+}
+
 void Transform::Rotate(glm::quat quat, Space space) {
     mDirty = true;
     glm::quat qnorm = glm::normalize(quat);

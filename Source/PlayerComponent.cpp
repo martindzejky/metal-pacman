@@ -57,10 +57,10 @@ void PlayerComponent::Move() {
     if (Input::IsKeyPressed(Input::Key::S)) {
         transform->Move(0, 0, speed);
     }
-    if (Input::IsKeyPressed(Input::Key::F)) {
+    if (Input::IsKeyPressed(Input::Key::X) || Input::IsKeyPressed(Input::Key::C)) {
         transform->Move(0, -speed, 0, Transform::Space::Global);
     }
-    if (Input::IsKeyPressed(Input::Key::R)) {
+    if (Input::IsKeyPressed(Input::Key::Space)) {
         transform->Move(0, speed, 0, Transform::Space::Global);
     }
 
