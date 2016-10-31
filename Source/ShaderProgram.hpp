@@ -28,13 +28,29 @@ public:
     void Use();
 
     void Attribute(std::string name, int size, int stride = 0, int offset = 0);
-    void Texture(std::string name, int unit = 0);
+    void Texture(std::string name = TextureUniformName, int unit = 0);
     void Uniform(std::string name, const glm::mat4 &matrix);
 
     const Id &GetId() const;
 
     ShaderProgram();
     ~ShaderProgram();
+
+
+public:
+
+    static const std::string PositionAttributeName;
+    static const std::string ColorAttributeName;
+    static const std::string NormalAttributeName;
+    static const std::string TexCoordAttributeName;
+
+    static const std::string ModelUniformName;
+    static const std::string ViewUniformName;
+    static const std::string ProjectionUniformName;
+    static const std::string NormalUniformName;
+    static const std::string ModelViewUniformName;
+    static const std::string ModelViewProjectionUniformName;
+    static const std::string TextureUniformName;
 
 
 private:

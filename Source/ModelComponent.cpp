@@ -31,10 +31,10 @@ void ModelComponent::OnRender() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
 
     ((Texture*) mTexture.get())->Bind();
-    ShaderProgram::GetSingleton()->Texture("uTexture");
+    ShaderProgram::GetSingleton()->Texture();
 
     mArrayObject->Bind();
-    ShaderProgram::GetSingleton()->Uniform("uModel", transform->GetMatrix());
+    ShaderProgram::GetSingleton()->Uniform(ShaderProgram::ModelUniformName, transform->GetMatrix());
     Window::GetSingleton()->DrawElements(mIndexNumber);
 }
 
@@ -66,19 +66,19 @@ ModelComponent::ModelComponent(std::string modelName, std::string textureName) {
     mIndexNumber = (unsigned int) model->GetIndices().size();
 
     mVertices->Bind();
-    ShaderProgram::GetSingleton()->Attribute("iPosition", 3);
+    ShaderProgram::GetSingleton()->Attribute(ShaderProgram::PositionAttributeName, 3);
 
     if (mColors) {
         mColors->Bind();
-        ShaderProgram::GetSingleton()->Attribute("iColor", 3);
+        ShaderProgram::GetSingleton()->Attribute(ShaderProgram::ColorAttributeName, 3);
     }
 
     mNormals->Bind();
-    ShaderProgram::GetSingleton()->Attribute("iNormal", 3);
+    ShaderProgram::GetSingleton()->Attribute(ShaderProgram::NormalAttributeName, 3);
 
     if (mTexCoords) {
         mTexCoords->Bind();
-        ShaderProgram::GetSingleton()->Attribute("iTexCoord", 2);
+        ShaderProgram::GetSingleton()->Attribute(ShaderProgram::TexCoordAttributeName, 2);
     }
 
     mTexture = Resources::GetSingleton()->GetResource(textureName);

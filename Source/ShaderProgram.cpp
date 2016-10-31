@@ -36,22 +36,22 @@ void ShaderProgram::Texture(std::string name, int unit) {
 }
 
 void ShaderProgram::Uniform(std::string name, const glm::mat4 &matrix) {
-    if (name.find("Projection") != std::string::npos) {
+    if (name == ProjectionUniformName) {
         mProjection = matrix;
     }
-    else if (name.find("View") != std::string::npos) {
+    else if (name == ViewUniformName) {
         mView = matrix;
     }
-    else if (name.find("Model") != std::string::npos) {
+    else if (name == ModelUniformName) {
         auto modelView = mView * matrix;
         auto modelViewProjection = mProjection * modelView;
         auto normal = glm::transpose(glm::inverse(glm::mat3(modelView)));
 
-        auto position = glGetUniformLocation(mId, "uModelView");
+        auto position = glGetUniformLocation(mId, ModelViewUniformName.c_str());
         glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(modelView));
-        position = glGetUniformLocation(mId, "uModelViewProjection");
+        position = glGetUniformLocation(mId, ModelViewProjectionUniformName.c_str());
         glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(modelViewProjection));
-        position = glGetUniformLocation(mId, "uNormal");
+        position = glGetUniformLocation(mId, NormalUniformName.c_str());
         glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(normal));
     }
     else {
@@ -73,3 +73,16 @@ ShaderProgram::~ShaderProgram() {
         glDeleteProgram(mId);
     }
 }
+
+const std::string ShaderProgram::PositionAttributeName = "iPosition";
+const std::string ShaderProgram::ColorAttributeName = "iColor";
+const std::string ShaderProgram::NormalAttributeName = "iNormal";
+const std::string ShaderProgram::TexCoordAttributeName = "iTexCoord";
+
+const std::string ShaderProgram::ModelUniformName = "uModel";
+const std::string ShaderProgram::ViewUniformName = "uView";
+const std::string ShaderProgram::ProjectionUniformName = "uProjection";
+const std::string ShaderProgram::NormalUniformName = "uNormal";
+const std::string ShaderProgram::ModelViewUniformName = "uModelView";
+const std::string ShaderProgram::ModelViewProjectionUniformName = "uModelViewProjection";
+const std::string ShaderProgram::TextureUniformName = "uTexture";

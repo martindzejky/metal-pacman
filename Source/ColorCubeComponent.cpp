@@ -31,10 +31,10 @@ void ColorCubeComponent::OnRender() {
     auto blank = Resources::GetSingleton()->GetResource("BlankTexture");
 
     ((Texture*) blank.get())->Bind();
-    ShaderProgram::GetSingleton()->Texture("uTexture");
+    ShaderProgram::GetSingleton()->Texture();
 
     mArrayObject->Bind();
-    ShaderProgram::GetSingleton()->Uniform("uModel", transform->GetMatrix());
+    ShaderProgram::GetSingleton()->Uniform(ShaderProgram::ModelUniformName, transform->GetMatrix());
     Window::GetSingleton()->DrawElements(36);
 }
 
@@ -51,9 +51,9 @@ ColorCubeComponent::ColorCubeComponent(float size) {
     CopyIndices();
 
     mVertices->Bind();
-    ShaderProgram::GetSingleton()->Attribute("iPosition", 3);
+    ShaderProgram::GetSingleton()->Attribute(ShaderProgram::PositionAttributeName, 3);
     mColors->Bind();
-    ShaderProgram::GetSingleton()->Attribute("iColor", 3);
+    ShaderProgram::GetSingleton()->Attribute(ShaderProgram::ColorAttributeName, 3);
 }
 
 void ColorCubeComponent::CopyVertices(float size) {
