@@ -26,7 +26,7 @@ public:
 
     void OnRender();
 
-    ModelComponent(std::string modelName, std::string textureName);
+    ModelComponent(std::string modelName, std::string textureName = "BlankTexture");
 
 
 private:

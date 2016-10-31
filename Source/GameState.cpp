@@ -14,19 +14,22 @@ void GameState::Start() {
     State::Start();
 
     auto camera = Entity::Create();
-    camera->AttachComponent(std::make_shared<TransformComponent>(0, 1.4, 3));
+    camera->AttachComponent(std::make_shared<TransformComponent>(0, 2, 4));
     camera->AttachComponent(std::make_shared<CameraComponent>());
     camera->AttachComponent(std::make_shared<PlayerComponent>());
-
-    auto cube = Entity::Create();
-    cube->AttachComponent(std::make_shared<TransformComponent>(0, 1, 0));
-    cube->AttachComponent(std::make_shared<ColorCubeComponent>(.5));
 
     auto level = Entity::Create();
     auto levelTransform = std::make_shared<TransformComponent>();
     levelTransform->Pitch(-3.14f / 2.f);
     level->AttachComponent(levelTransform);
     level->AttachComponent(std::make_shared<ModelComponent>("StoneLevel", "CobbleTexture"));
+
+    auto key = Entity::Create();
+    auto keyTransform = std::make_shared<TransformComponent>(0, 1, -1);
+    keyTransform->Pitch(-3.14f / 2.f);
+    keyTransform->Scale(.05f);
+    key->AttachComponent(keyTransform);
+    key->AttachComponent(std::make_shared<ModelComponent>("Key"));
 }
 
 void GameState::Update(float deltaSeconds) {

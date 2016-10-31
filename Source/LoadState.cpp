@@ -26,6 +26,7 @@ void LoadState::Start() {
 
     // models
     resources->Load("StoneLevel", "Models/StoneLevel.ply");
+    resources->Load("Key", "Models/Key.ply");
 
     SwitchInto(std::make_shared<GameState>());
 }
