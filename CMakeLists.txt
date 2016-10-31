@@ -39,6 +39,7 @@ set(SOURCE_FILES
     Source/Shader.cpp
     Source/ShaderProgram.cpp
     Source/State.cpp
+    Source/Texture.cpp
     Source/TransformComponent.cpp
     Source/Transform.cpp
     Source/Window.cpp

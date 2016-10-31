@@ -8,9 +8,11 @@
 void LoadState::Start() {
     State::Start();
 
+    auto resources = Resources::GetSingleton();
+
     // shaders
-    auto vertexShader = Resources::GetSingleton()->Load("VertexShader", "Shaders/Vertex.glsl");
-    auto fragmentShader = Resources::GetSingleton()->Load("FragmentShader", "Shaders/Fragment.glsl");
+    auto vertexShader = resources->Load("VertexShader", "Shaders/Vertex.glsl");
+    auto fragmentShader = resources->Load("FragmentShader", "Shaders/Fragment.glsl");
 
     auto program = ShaderProgram::Create();
     program->Add(((Shader *) vertexShader.get())->GetId());
@@ -18,8 +20,12 @@ void LoadState::Start() {
     program->Link("oColor");
     program->Use();
 
+    // textures
+    resources->Load("BlankTexture", "Textures/Blank.png");
+    resources->Load("CobbleTexture", "Textures/CobblestoneDiffuse.png");
+
     // models
-    Resources::GetSingleton()->Load("StoneLevel", "Models/StoneLevel.ply");
+    resources->Load("StoneLevel", "Models/StoneLevel.ply");
 
     SwitchInto(std::make_shared<GameState>());
 }

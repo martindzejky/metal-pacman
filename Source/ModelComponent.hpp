@@ -14,6 +14,7 @@
 class ArrayObject;
 class BufferObject;
 class Entity;
+class Resource;
 
 class ModelComponent : public Component {
 
@@ -25,7 +26,7 @@ public:
 
     void OnRender();
 
-    ModelComponent(std::string modelName);
+    ModelComponent(std::string modelName, std::string textureName);
 
 
 private:
@@ -40,6 +41,8 @@ private:
 
     std::weak_ptr<Entity> mEntity;
     Events::ListenerId mListenerId;
+
+    std::shared_ptr<Resource> mTexture;
 
 };
 

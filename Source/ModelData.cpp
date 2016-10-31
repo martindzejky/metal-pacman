@@ -24,10 +24,15 @@ void ModelData::Load(std::string path) {
 
     plyFile.read(file);
 
-    // convert from [0-256] to [0-1] which is what OpenGL expects
-    mColors.reserve(rawColors.size());
-    for (auto c : rawColors) {
-        mColors.push_back((float) c / 255);
+    if (rawColors.size() > 0) {
+        // convert from [0-256] to [0-1] which is what OpenGL expects
+        mColors.reserve(rawColors.size());
+        for (auto c : rawColors) {
+            mColors.push_back((float) c / 255);
+        }
+    }
+    else {
+        mColors.resize(mVertices.size(), 1);
     }
 }
 

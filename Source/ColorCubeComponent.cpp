@@ -6,6 +6,8 @@
 #include "TransformComponent.hpp"
 #include "Entity.hpp"
 #include "Window.hpp"
+#include "Resources.hpp"
+#include "Texture.hpp"
 
 
 void ColorCubeComponent::OnAttach(std::weak_ptr<Entity> entity) {
@@ -26,6 +28,10 @@ std::string ColorCubeComponent::GetType() const {
 
 void ColorCubeComponent::OnRender() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
+    auto blank = Resources::GetSingleton()->GetResource("BlankTexture");
+
+    ((Texture*) blank.get())->Bind();
+    ShaderProgram::GetSingleton()->Texture("uTexture");
 
     mArrayObject->Bind();
     ShaderProgram::GetSingleton()->Uniform("uModel", transform->GetMatrix());

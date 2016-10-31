@@ -3,6 +3,7 @@
 #include "Error.hpp"
 #include "Shader.hpp"
 #include "ModelData.hpp"
+#include "Texture.hpp"
 
 
 void Resources::Create() {
@@ -25,6 +26,10 @@ std::shared_ptr<Resource> Resources::Load(std::string name, std::string path) {
     }
     else if (ext == "ply") {
         resource = std::make_shared<ModelData>(name);
+        resource->Load(path);
+    }
+    else if (ext == "png") {
+        resource = std::make_shared<Texture>(name);
         resource->Load(path);
     }
 

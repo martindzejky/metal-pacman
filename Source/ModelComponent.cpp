@@ -8,6 +8,7 @@
 #include "Window.hpp"
 #include "Resources.hpp"
 #include "ModelData.hpp"
+#include "Texture.hpp"
 
 
 void ModelComponent::OnAttach(std::weak_ptr<Entity> entity) {
@@ -29,12 +30,15 @@ std::string ModelComponent::GetType() const {
 void ModelComponent::OnRender() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
 
+    ((Texture*) mTexture.get())->Bind();
+    ShaderProgram::GetSingleton()->Texture("uTexture");
+
     mArrayObject->Bind();
     ShaderProgram::GetSingleton()->Uniform("uModel", transform->GetMatrix());
     Window::GetSingleton()->DrawElements(mIndexNumber);
 }
 
-ModelComponent::ModelComponent(std::string modelName) {
+ModelComponent::ModelComponent(std::string modelName, std::string textureName) {
     mArrayObject = std::make_shared<ArrayObject>();
     mArrayObject->Bind();
 
@@ -76,4 +80,6 @@ ModelComponent::ModelComponent(std::string modelName) {
         mTexCoords->Bind();
         ShaderProgram::GetSingleton()->Attribute("iTexCoord", 2);
     }
+
+    mTexture = Resources::GetSingleton()->GetResource(textureName);
 }
