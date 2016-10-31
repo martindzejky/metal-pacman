@@ -28,12 +28,11 @@ void ColorCubeComponent::OnRender() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
 
     mArrayObject->Bind();
-    mShaderProgram->Uniform("uModel", transform->GetMatrix());
+    ShaderProgram::GetSingleton()->Uniform("uModel", transform->GetMatrix());
     Window::GetSingleton()->DrawElements(36);
 }
 
-ColorCubeComponent::ColorCubeComponent(float size, std::shared_ptr<ShaderProgram> shaderProgram)
-    : mShaderProgram(shaderProgram) {
+ColorCubeComponent::ColorCubeComponent(float size) {
     mArrayObject = std::make_shared<ArrayObject>();
     mVertices = std::make_shared<BufferObject>(BufferObject::Type::Vertex);
     mColors = std::make_shared<BufferObject>(BufferObject::Type::Vertex);
@@ -46,9 +45,9 @@ ColorCubeComponent::ColorCubeComponent(float size, std::shared_ptr<ShaderProgram
     CopyIndices();
 
     mVertices->Bind();
-    shaderProgram->Attribute("iPosition", 3);
+    ShaderProgram::GetSingleton()->Attribute("iPosition", 3);
     mColors->Bind();
-    shaderProgram->Attribute("iColor", 3);
+    ShaderProgram::GetSingleton()->Attribute("iColor", 3);
 }
 
 void ColorCubeComponent::CopyVertices(float size) {

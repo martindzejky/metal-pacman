@@ -11,7 +11,6 @@
  */
 
 
-class ShaderProgram;
 class Entity;
 
 class CameraComponent : public Component {
@@ -24,12 +23,9 @@ public:
 
     void OnUpdate();
 
-    CameraComponent(std::shared_ptr<ShaderProgram> shaderProgram);
-
 
 private:
 
-    std::shared_ptr<ShaderProgram> mShaderProgram;
     std::weak_ptr<Entity> mEntity;
     Events::ListenerId listenerId;
 

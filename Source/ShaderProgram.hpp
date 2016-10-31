@@ -3,7 +3,7 @@
 #include <string>
 #include <glm/glm.hpp>
 
-#include "NonCopyable.hpp"
+#include "Singleton.hpp"
 #include "Shader.hpp"
 
 
@@ -12,7 +12,7 @@
  */
 
 
-class ShaderProgram : public NonCopyable {
+class ShaderProgram : public Singleton<ShaderProgram> {
 
 public:
 
@@ -20,6 +20,8 @@ public:
 
 
 public:
+
+    static std::shared_ptr<ShaderProgram> Create();
 
     void Add(Shader::Id id);
     void Link(std::string fragmentOutput);

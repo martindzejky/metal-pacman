@@ -30,12 +30,11 @@ void ModelComponent::OnRender() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
 
     mArrayObject->Bind();
-    mShaderProgram->Uniform("uModel", transform->GetMatrix());
+    ShaderProgram::GetSingleton()->Uniform("uModel", transform->GetMatrix());
     Window::GetSingleton()->DrawElements(mIndexNumber);
 }
 
-ModelComponent::ModelComponent(std::string modelName, std::shared_ptr<ShaderProgram> shaderProgram)
-    : mShaderProgram(shaderProgram) {
+ModelComponent::ModelComponent(std::string modelName) {
     mArrayObject = std::make_shared<ArrayObject>();
     mArrayObject->Bind();
 
@@ -63,18 +62,18 @@ ModelComponent::ModelComponent(std::string modelName, std::shared_ptr<ShaderProg
     mIndexNumber = (unsigned int) model->GetIndices().size();
 
     mVertices->Bind();
-    shaderProgram->Attribute("iPosition", 3);
+    ShaderProgram::GetSingleton()->Attribute("iPosition", 3);
 
     if (mColors) {
         mColors->Bind();
-        shaderProgram->Attribute("iColor", 3);
+        ShaderProgram::GetSingleton()->Attribute("iColor", 3);
     }
 
     mNormals->Bind();
-    shaderProgram->Attribute("iNormal", 3);
+    ShaderProgram::GetSingleton()->Attribute("iNormal", 3);
 
     if (mTexCoords) {
         mTexCoords->Bind();
-        shaderProgram->Attribute("iTexCoord", 2);
+        ShaderProgram::GetSingleton()->Attribute("iTexCoord", 2);
     }
 }

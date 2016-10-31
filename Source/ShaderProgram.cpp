@@ -4,6 +4,12 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
+std::shared_ptr<ShaderProgram> ShaderProgram::Create() {
+    auto program = std::make_shared<ShaderProgram>();
+    SetSingleton(program);
+    return program;
+}
+
 void ShaderProgram::Add(Shader::Id id) {
     glAttachShader(mId, id);
 }

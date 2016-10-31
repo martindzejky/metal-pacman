@@ -11,7 +11,6 @@
 
 class ArrayObject;
 class BufferObject;
-class ShaderProgram;
 class Entity;
 
 class ColorCubeComponent : public Component {
@@ -24,7 +23,7 @@ public:
 
     void OnRender();
 
-    ColorCubeComponent(float size, std::shared_ptr<ShaderProgram> shaderProgram);
+    ColorCubeComponent(float size);
 
 
 private:
@@ -41,7 +40,6 @@ private:
     std::shared_ptr<BufferObject> mColors;
     std::shared_ptr<BufferObject> mIndices;
 
-    std::shared_ptr<ShaderProgram> mShaderProgram;
     std::weak_ptr<Entity> mEntity;
     Events::ListenerId listenerId;
 

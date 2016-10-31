@@ -13,7 +13,6 @@
 
 class ArrayObject;
 class BufferObject;
-class ShaderProgram;
 class Entity;
 
 class ModelComponent : public Component {
@@ -26,7 +25,7 @@ public:
 
     void OnRender();
 
-    ModelComponent(std::string modelName, std::shared_ptr<ShaderProgram> shaderProgram);
+    ModelComponent(std::string modelName);
 
 
 private:
@@ -39,7 +38,6 @@ private:
     std::shared_ptr<BufferObject> mIndices;
     unsigned int mIndexNumber = 0;
 
-    std::shared_ptr<ShaderProgram> mShaderProgram;
     std::weak_ptr<Entity> mEntity;
     Events::ListenerId mListenerId;
 

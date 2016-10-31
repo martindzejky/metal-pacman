@@ -3,7 +3,6 @@
 #include "Window.hpp"
 #include "Input.hpp"
 #include "Entity.hpp"
-#include "ShaderProgram.hpp"
 #include "TransformComponent.hpp"
 #include "CameraComponent.hpp"
 #include "PlayerComponent.hpp"
@@ -15,25 +14,20 @@ void GameState::Start() {
     State::Start();
 
     auto camera = Entity::Create();
-    camera->AttachComponent(std::make_shared<TransformComponent>(0, 0, 200));
-    camera->AttachComponent(std::make_shared<CameraComponent>(mShaderProgram));
+    camera->AttachComponent(std::make_shared<TransformComponent>(0, 50, 200));
+    camera->AttachComponent(std::make_shared<CameraComponent>());
     camera->AttachComponent(std::make_shared<PlayerComponent>());
 
-    auto model1 = Entity::Create();
-    auto transform1 = std::make_shared<TransformComponent>(-100, 0, 0);
-    transform1->Scale(40);
-    model1->AttachComponent(transform1);
-    model1->AttachComponent(std::make_shared<ModelComponent>("Model", mShaderProgram));
-
-    auto model2 = Entity::Create();
-    auto transform2 = std::make_shared<TransformComponent>(100, 0, 0);
-    transform2->Scale(20);
-    model2->AttachComponent(transform2);
-    model2->AttachComponent(std::make_shared<ModelComponent>("Hook", mShaderProgram));
-
     auto cube = Entity::Create();
-    cube->AttachComponent(std::make_shared<TransformComponent>());
-    cube->AttachComponent(std::make_shared<ColorCubeComponent>(30, mShaderProgram));
+    cube->AttachComponent(std::make_shared<TransformComponent>(0, 50, 0));
+    cube->AttachComponent(std::make_shared<ColorCubeComponent>(40));
+
+    auto level = Entity::Create();
+    auto levelTransform = std::make_shared<TransformComponent>();
+    levelTransform->Scale(40);
+    levelTransform->Pitch(-3.14f / 2.f);
+    level->AttachComponent(levelTransform);
+    level->AttachComponent(std::make_shared<ModelComponent>("StoneLevel"));
 }
 
 void GameState::Update(float deltaSeconds) {
@@ -59,8 +53,4 @@ void GameState::Update(float deltaSeconds) {
     window->SwapBuffers();
     window->PollEvents();
 
-}
-
-GameState::GameState(std::shared_ptr<ShaderProgram> shaderProgram)
-    : mShaderProgram(shaderProgram) {
 }

@@ -12,15 +12,14 @@ void LoadState::Start() {
     auto vertexShader = Resources::GetSingleton()->Load("VertexShader", "Shaders/Vertex.glsl");
     auto fragmentShader = Resources::GetSingleton()->Load("FragmentShader", "Shaders/Fragment.glsl");
 
-    auto program = std::make_shared<ShaderProgram>();
+    auto program = ShaderProgram::Create();
     program->Add(((Shader *) vertexShader.get())->GetId());
     program->Add(((Shader *) fragmentShader.get())->GetId());
     program->Link("oColor");
     program->Use();
 
     // models
-    Resources::GetSingleton()->Load("Model", "Models/Model.ply");
-    Resources::GetSingleton()->Load("Hook", "Models/Hook.ply");
+    Resources::GetSingleton()->Load("StoneLevel", "Models/StoneLevel.ply");
 
-    SwitchInto(std::make_shared<GameState>(program));
+    SwitchInto(std::make_shared<GameState>());
 }
