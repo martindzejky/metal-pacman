@@ -25,8 +25,7 @@ void LoadState::Start() {
     resources->Load("CobbleTexture", "Textures/CobblestoneDiffuse.png");
 
     // models
-    resources->Load("StoneLevel", "Models/StoneLevel.ply");
-    resources->Load("Key", "Models/Key.ply");
+    resources->Load("RoomModel", "Models/Room.ply");
 
     SwitchInto(std::make_shared<GameState>());
 }

@@ -15,7 +15,7 @@ void GameState::Start() {
     State::Start();
 
     auto camera = Entity::Create();
-    camera->AttachComponent(std::make_shared<TransformComponent>(0, 2, 4));
+    camera->AttachComponent(std::make_shared<TransformComponent>(0, 1.7, 0));
     camera->AttachComponent(std::make_shared<CameraComponent>());
     camera->AttachComponent(std::make_shared<PlayerComponent>());
 
@@ -23,16 +23,7 @@ void GameState::Start() {
     auto levelTransform = std::make_shared<TransformComponent>();
     levelTransform->Pitch(-3.14f / 2.f);
     level->AttachComponent(levelTransform);
-    level->AttachComponent(std::make_shared<ModelComponent>("StoneLevel", "CobbleTexture"));
-
-    auto key = Entity::Create();
-    auto keyTransform = std::make_shared<TransformComponent>(0, 1, -1);
-    keyTransform->Pitch(-3.14f / 2.f);
-    keyTransform->Yaw(3.14f / 2.f, Transform::Space::Global);
-    keyTransform->Scale(.05f);
-    key->AttachComponent(keyTransform);
-    key->AttachComponent(std::make_shared<ModelComponent>("Key"));
-    key->AttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::Y, 0.01f));
+    level->AttachComponent(std::make_shared<ModelComponent>("RoomModel", "CobbleTexture"));
 }
 
 void GameState::Update(float deltaSeconds) {
