@@ -17,7 +17,7 @@ std::shared_ptr<Resource> Resources::Load(std::string name, std::string path) {
 
     if (ext == "glsl") {
         Shader::Type type = Shader::Type::Vertex;
-        if (path.find("fragment") != std::string::npos || path.find("Fragment") != std::string::npos) {
+        if (path.find("Fragment") != std::string::npos) {
             type = Shader::Type::Fragment;
         }
 

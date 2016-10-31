@@ -27,6 +27,7 @@ void GameState::Start() {
     auto key = Entity::Create();
     auto keyTransform = std::make_shared<TransformComponent>(0, 1, -1);
     keyTransform->Pitch(-3.14f / 2.f);
+    keyTransform->Yaw(3.14f / 2.f, Transform::Space::Global);
     keyTransform->Scale(.05f);
     key->AttachComponent(keyTransform);
     key->AttachComponent(std::make_shared<ModelComponent>("Key"));

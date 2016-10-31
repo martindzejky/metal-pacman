@@ -41,4 +41,7 @@ private:
 
     Id mId = 0;
 
+    glm::mat4 mProjection;
+    glm::mat4 mView;
+
 };

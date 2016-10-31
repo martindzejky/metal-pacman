@@ -5,9 +5,7 @@ in vec3 iColor;
 in vec3 iNormal;
 in vec2 iTexCoord;
 
-uniform mat4 uProjection;
-uniform mat4 uView;
-uniform mat4 uModel;
+uniform mat4 uModelViewProjection;
 
 out vec3 Color;
 out vec3 Normal;
@@ -19,5 +17,5 @@ void main()
     Normal = iNormal;
     TexCoord = iTexCoord;
 
-    gl_Position = uProjection * uView * uModel * vec4(iPosition, 1.0);
+    gl_Position = uModelViewProjection * vec4(iPosition, 1.0);
 }
