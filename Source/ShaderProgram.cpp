@@ -47,7 +47,9 @@ void ShaderProgram::Uniform(std::string name, const glm::mat4 &matrix) {
         auto modelViewProjection = mProjection * modelView;
         auto normal = glm::transpose(glm::inverse(glm::mat3(modelView)));
 
-        auto position = glGetUniformLocation(mId, ModelViewUniformName.c_str());
+        auto position = glGetUniformLocation(mId, ViewUniformName.c_str());
+        glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(mView));
+        position = glGetUniformLocation(mId, ModelViewUniformName.c_str());
         glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(modelView));
         position = glGetUniformLocation(mId, ModelViewProjectionUniformName.c_str());
         glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(modelViewProjection));
