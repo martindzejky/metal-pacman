@@ -24,7 +24,7 @@ std::string PlayerComponent::GetType() const {
 void PlayerComponent::Move() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
     auto input = Input::GetSingleton();
-    auto speed = 2.f;
+    auto speed = .05f;
     auto look = .01f;
     auto mouseLook = .002f;
 
