@@ -15,12 +15,16 @@ out vec3 EyeNormal;
 out vec3 Color;
 out vec2 TexCoord;
 
-out vec3 EyeSun;
+out vec3 LightEyePosition;
 
+
+// calculate all things necessary for the fragment shader
+// and also the vertex position
 void main()
 {
-    vec3 sun = normalize(vec3(0.3, 1.0, 0.6));
-    EyeSun = normalize(mat3(uView) * sun);
+    const vec3 lightWorldPosition = vec3(1.0, 2.4, -4.0);
+    vec4 lightPosition = uView * vec4(lightWorldPosition, 1.0);
+    LightEyePosition = lightPosition.xyz / lightPosition.w;
 
     vec4 position = uModelView * vec4(iPosition, 1.0);
     EyePosition = position.xyz / position.w;
