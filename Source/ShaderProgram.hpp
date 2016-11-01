@@ -43,6 +43,7 @@ public:
     static const std::string ColorAttributeName;
     static const std::string NormalAttributeName;
     static const std::string TexCoordAttributeName;
+    static const std::string TangentAttributeName;
 
     static const std::string ModelUniformName;
     static const std::string ViewUniformName;
@@ -51,6 +52,7 @@ public:
     static const std::string ModelViewUniformName;
     static const std::string ModelViewProjectionUniformName;
     static const std::string TextureUniformName;
+    static const std::string NormalMapUniformName;
 
 
 private:

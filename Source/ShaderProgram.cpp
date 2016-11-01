@@ -80,6 +80,7 @@ const std::string ShaderProgram::PositionAttributeName = "iPosition";
 const std::string ShaderProgram::ColorAttributeName = "iColor";
 const std::string ShaderProgram::NormalAttributeName = "iNormal";
 const std::string ShaderProgram::TexCoordAttributeName = "iTexCoord";
+const std::string ShaderProgram::TangentAttributeName = "iTangent";
 
 const std::string ShaderProgram::ModelUniformName = "uModel";
 const std::string ShaderProgram::ViewUniformName = "uView";
@@ -88,3 +89,4 @@ const std::string ShaderProgram::NormalUniformName = "uNormal";
 const std::string ShaderProgram::ModelViewUniformName = "uModelView";
 const std::string ShaderProgram::ModelViewProjectionUniformName = "uModelViewProjection";
 const std::string ShaderProgram::TextureUniformName = "uTexture";
+const std::string ShaderProgram::NormalMapUniformName = "uNormalMap";

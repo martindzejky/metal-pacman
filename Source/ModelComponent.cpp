@@ -30,15 +30,17 @@ std::string ModelComponent::GetType() const {
 void ModelComponent::OnRender() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
 
-    ((Texture*) mTexture.get())->Bind();
-    ShaderProgram::GetSingleton()->Texture();
+    ((Texture*) mTexture.get())->Bind(0);
+    ShaderProgram::GetSingleton()->Texture(ShaderProgram::TextureUniformName, 0);
+    ((Texture*) mNormalMap.get())->Bind(1);
+    ShaderProgram::GetSingleton()->Texture(ShaderProgram::NormalMapUniformName, 1);
 
     mArrayObject->Bind();
     ShaderProgram::GetSingleton()->Uniform(ShaderProgram::ModelUniformName, transform->GetMatrix());
     Window::GetSingleton()->DrawElements(mIndexNumber);
 }
 
-ModelComponent::ModelComponent(std::string modelName, std::string textureName) {
+ModelComponent::ModelComponent(std::string modelName, std::string textureName, std::string normalMapName) {
     mArrayObject = std::make_shared<ArrayObject>();
     mArrayObject->Bind();
 
@@ -61,6 +63,9 @@ ModelComponent::ModelComponent(std::string modelName, std::string textureName) {
         mTexCoords->CopyData(sizeof(float) * model->GetTexCoords().size(), (void *) model->GetTexCoords().data());
     }
 
+    mTangents = std::make_shared<BufferObject>(BufferObject::Type::Vertex);
+    mTangents->CopyData(sizeof(float) * model->GetTangents().size(), (void *) model->GetTangents().data());
+
     mIndices = std::make_shared<BufferObject>(BufferObject::Type::Index);
     mIndices->CopyData(sizeof(unsigned int) * model->GetIndices().size(), (void *) model->GetIndices().data());
     mIndexNumber = (unsigned int) model->GetIndices().size();
@@ -81,5 +86,9 @@ ModelComponent::ModelComponent(std::string modelName, std::string textureName) {
         ShaderProgram::GetSingleton()->Attribute(ShaderProgram::TexCoordAttributeName, 2);
     }
 
+    mTangents->Bind();
+    ShaderProgram::GetSingleton()->Attribute(ShaderProgram::TangentAttributeName, 3);
+
     mTexture = Resources::GetSingleton()->GetResource(textureName);
+    mNormalMap = Resources::GetSingleton()->GetResource(normalMapName);
 }

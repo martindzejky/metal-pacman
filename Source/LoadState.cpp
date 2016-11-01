@@ -21,8 +21,11 @@ void LoadState::Start() {
     program->Use();
 
     // textures
-    resources->Load("BlankTexture", "Textures/Blank.png");
-    resources->Load("CobbleTexture", "Textures/CobblestoneDiffuse.png");
+    resources->Load("BlankDiffuseTexture", "Textures/BlankDiffuse.png");
+    resources->Load("BlankNormalTexture", "Textures/BlankNormal.png");
+    resources->Load("CobbleDiffuseTexture", "Textures/CobblestoneDiffuse.png");
+    resources->Load("CobbleNormalTexture", "Textures/CobblestoneNormal.png");
+    resources->Load("CobbleReflectionTexture", "Textures/CobblestoneReflection.png");
 
     // models
     resources->Load("RoomModel", "Models/Room.ply");

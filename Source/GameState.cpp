@@ -23,7 +23,7 @@ void GameState::Start() {
     auto levelTransform = std::make_shared<TransformComponent>();
     levelTransform->Pitch(-3.14f / 2.f);
     level->AttachComponent(levelTransform);
-    level->AttachComponent(std::make_shared<ModelComponent>("RoomModel", "CobbleTexture"));
+    level->AttachComponent(std::make_shared<ModelComponent>("RoomModel", "CobbleDiffuseTexture", "CobbleNormalTexture"));
 }
 
 void GameState::Update(float deltaSeconds) {

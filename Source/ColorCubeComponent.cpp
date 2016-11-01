@@ -28,7 +28,7 @@ std::string ColorCubeComponent::GetType() const {
 
 void ColorCubeComponent::OnRender() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
-    auto blank = Resources::GetSingleton()->GetResource("BlankTexture");
+    auto blank = Resources::GetSingleton()->GetResource("BlankDiffuseTexture");
 
     ((Texture*) blank.get())->Bind();
     ShaderProgram::GetSingleton()->Texture();

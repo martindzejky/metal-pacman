@@ -20,6 +20,7 @@ public:
     const std::vector<float> &GetNormals() const;
     const std::vector<float> &GetColors() const;
     const std::vector<float> &GetTexCoords() const;
+    const std::vector<float> &GetTangents() const;
     const std::vector<unsigned int> &GetIndices() const;
 
     ModelData(std::string name);
@@ -31,6 +32,7 @@ private:
     std::vector<float> mNormals;
     std::vector<float> mColors;
     std::vector<float> mTexCoords;
+    std::vector<float> mTangents;
     std::vector<unsigned int> mIndices;
 
 };

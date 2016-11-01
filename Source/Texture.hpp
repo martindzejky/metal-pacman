@@ -18,7 +18,7 @@ public:
 public:
 
     virtual void Load(std::string path) override;
-    void Bind();
+    void Bind(int unit = 0);
 
     const Id &GetId() const;
 

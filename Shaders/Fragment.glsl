@@ -4,10 +4,12 @@ in vec3 EyePosition;
 in vec3 EyeNormal;
 in vec3 Color;
 in vec2 TexCoord;
+in mat3 TBN;
 
 in vec3 LightEyePosition;
 
 uniform sampler2D uTexture;
+uniform sampler2D uNormalMap;
 
 out vec4 oColor;
 
@@ -34,6 +36,13 @@ vec4 TextureColor() {
 }
 
 
+// look into the normal map and get the normal
+vec3 NormalMapNormal() {
+    vec3 normalMapColor = texture(uNormalMap, TexCoord).rgb;
+    return normalize(normalMapColor * 2.0 - 1.0);
+}
+
+
 // ambient light
 vec4 AmbientLight() {
     return vec4(0.1, 0.1, 0.1, 1.0);
@@ -41,10 +50,10 @@ vec4 AmbientLight() {
 
 
 // diffuse light based on the lights in the scene
-vec4 DiffuseLight() {
+vec4 DiffuseLight(vec3 normal) {
     vec3 lightDir = LightEyePosition - EyePosition;
     float lightDistance = length(lightDir);
-    float diffuse = max(dot(EyeNormal, normalize(lightDir)), 0.0);
+    float diffuse = max(dot(normal, normalize(lightDir)), 0.0);
 
     vec3 lightFinal = lightColor * diffuse;
     float att = clamp(1.0 - lightDistance * lightDistance / (lightRadius * lightRadius), 0.0, 1.0);
@@ -55,18 +64,17 @@ vec4 DiffuseLight() {
 
 
 // specular highlights
-vec4 SpecularLight() {
+vec4 SpecularLight(vec3 normal) {
     const float strength = 0.3;
-    const int shininess = 32;
+    const int shininess = 128;
 
     vec3 viewDir = normalize(-EyePosition);
-    float viewDistance = length(EyePosition);
     vec3 lightDir = EyePosition - LightEyePosition;
     float lightDistance = length(lightDir);
-    vec3 reflectDir = reflect(normalize(lightDir), EyeNormal);
+    vec3 reflectDir = reflect(normalize(lightDir), normal);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
     vec3 specColor = lightColor * spec * strength;
-    float att = clamp(1.0 - lightDistance * viewDistance / (lightRadius * lightRadius), 0.0, 1.0);
+    float att = clamp(1.0 - lightDistance * lightDistance / (lightRadius * lightRadius), 0.0, 1.0);
 
     return vec4(specColor * att * att, 1.0);
 }
@@ -77,7 +85,11 @@ void main()
 {
     vec4 texColor = TextureColor();
 
-    vec4 light =  clamp(AmbientLight() + DiffuseLight() + SpecularLight(), 0.0, 1.0);
+    vec3 normal = texture(uNormalMap, TexCoord).rgb;
+    normal = normalize(normal * 2.0 - 1.0);
+    normal = normalize(TBN * normal);
+
+    vec4 light =  clamp(AmbientLight() + DiffuseLight(normal) + SpecularLight(normal), 0.0, 1.0);
     vec4 finalColor = texColor * light;
 
     oColor = MixFog(finalColor);

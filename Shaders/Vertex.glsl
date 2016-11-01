@@ -4,6 +4,7 @@ in vec3 iPosition;
 in vec3 iColor;
 in vec3 iNormal;
 in vec2 iTexCoord;
+in vec3 iTangent;
 
 uniform mat4 uView;
 uniform mat4 uModelView;
@@ -14,6 +15,7 @@ out vec3 EyePosition;
 out vec3 EyeNormal;
 out vec3 Color;
 out vec2 TexCoord;
+out mat3 TBN;
 
 out vec3 LightEyePosition;
 
@@ -32,6 +34,12 @@ void main()
 
     Color = iColor;
     TexCoord = iTexCoord;
+
+    vec3 bitangent = cross(iTangent, iNormal);
+    vec3 T = normalize(uNormal * iTangent);
+    vec3 B = normalize(uNormal * bitangent);
+    vec3 N = normalize(uNormal * iNormal);
+    TBN = mat3(T, B, N);
 
     gl_Position = uModelViewProjection * vec4(iPosition, 1.0);
 }

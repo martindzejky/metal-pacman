@@ -26,7 +26,8 @@ public:
 
     void OnRender();
 
-    ModelComponent(std::string modelName, std::string textureName = "BlankTexture");
+    ModelComponent(std::string modelName, std::string textureName = "BlankDiffuseTexture",
+                   std::string normalMapName = "BlankNormalTexture");
 
 
 private:
@@ -36,6 +37,7 @@ private:
     std::shared_ptr<BufferObject> mNormals;
     std::shared_ptr<BufferObject> mColors;
     std::shared_ptr<BufferObject> mTexCoords;
+    std::shared_ptr<BufferObject> mTangents;
     std::shared_ptr<BufferObject> mIndices;
     unsigned int mIndexNumber = 0;
 
@@ -43,6 +45,7 @@ private:
     Events::ListenerId mListenerId;
 
     std::shared_ptr<Resource> mTexture;
+    std::shared_ptr<Resource> mNormalMap;
 
 };
 
