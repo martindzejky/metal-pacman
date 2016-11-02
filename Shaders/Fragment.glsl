@@ -14,13 +14,15 @@ uniform sampler2D uReflectionMap;
 out vec4 oColor;
 
 
-const vec3 lightColor = vec3(1.0, 0.8, 0.4);
-const float lightRadius = 16.0;
+const float gamma = 2.2;
+
+const vec3 lightColor = vec3(0.9, 0.7, 0.3);
+const float lightRadius = 6.0;
 
 
 // calculate the fog color and mix it with the final fragment color
 vec4 MixFog(vec4 color) {
-    const vec4 fogColor = vec4(0.1, 0.05, 0.01, 1.0);
+    const vec4 fogColor = vec4(0.01, 0.008, 0.002, 1.0);
     const float e = 2.71828182845904523536028747135266249;
 
     float fogDensity = 0.03;
@@ -30,9 +32,16 @@ vec4 MixFog(vec4 color) {
 }
 
 
+// gamma-correct a color
+vec4 GammaCorrect(vec4 color) {
+    return vec4(pow(color.rgb, vec3(1.0 / gamma)), color.a);
+}
+
+
 // get texture color for the fragment and apply vertex color
 vec4 TextureColor() {
-    return texture(uTexture, TexCoord) * vec4(Color, 1.0);
+    vec4 color = texture(uTexture, TexCoord) * vec4(Color, 1.0);
+    return vec4(pow(color.rgb, vec3(gamma)), color.a);
 }
 
 
@@ -45,7 +54,7 @@ vec3 NormalMapNormal() {
 
 // ambient light
 vec4 AmbientLight() {
-    return vec4(0.14, 0.06, 0.02, 1.0);
+    return vec4(0.03, 0.01, 0.004, 1.0);
 }
 
 
@@ -65,8 +74,8 @@ vec4 DiffuseLight(vec3 normal) {
 
 // specular highlights
 vec4 SpecularLight(vec3 normal) {
-    const float strength = 0.8;
-    const int shininess = 128;
+    const float strength = 0.7;
+    const int shininess = 64;
 
     vec3 reflectionColor = texture(uReflectionMap, TexCoord).rgb;
     float reflection = (reflectionColor.r + reflectionColor.g + reflectionColor.b) / 3;
@@ -96,5 +105,6 @@ void main()
     vec4 light =  clamp(AmbientLight() + DiffuseLight(normal) + SpecularLight(normal), 0.0, 1.0);
     vec4 finalColor = texColor * light;
 
-    oColor = MixFog(finalColor);
+    vec4 fogColor = MixFog(finalColor);
+    oColor = GammaCorrect(fogColor);
 }
