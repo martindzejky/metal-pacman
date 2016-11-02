@@ -62,6 +62,21 @@ void ShaderProgram::Uniform(std::string name, const glm::mat4 &matrix) {
     }
 }
 
+void ShaderProgram::Uniform(std::string name, const glm::vec3 &vector) {
+    auto position = glGetUniformLocation(mId, name.c_str());
+    glUniform3fv(position, 1, glm::value_ptr(vector));
+}
+
+void ShaderProgram::Uniform(std::string name, const int &number) {
+    auto position = glGetUniformLocation(mId, name.c_str());
+    glUniform1i(position, number);
+}
+
+void ShaderProgram::Uniform(std::string name, const float &number) {
+    auto position = glGetUniformLocation(mId, name.c_str());
+    glUniform1f(position, number);
+}
+
 const ShaderProgram::Id &ShaderProgram::GetId() const {
     return mId;
 }
@@ -91,3 +106,8 @@ const std::string ShaderProgram::ModelViewProjectionUniformName = "uModelViewPro
 const std::string ShaderProgram::TextureUniformName = "uTexture";
 const std::string ShaderProgram::NormalMapUniformName = "uNormalMap";
 const std::string ShaderProgram::ReflectionMapUniformName = "uReflectionMap";
+
+const std::string ShaderProgram::LightCountUniformName = "uLightCount";
+const std::string ShaderProgram::LightPositionsUniformName = "uLightPositions";
+const std::string ShaderProgram::LightColorsUniformName = "uLightColors";
+const std::string ShaderProgram::LightRadiusesUniformName = "uLightRadiuses";

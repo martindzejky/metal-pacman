@@ -45,6 +45,7 @@ public:
     void Scale(float x, float y, float z);
     void Scale(float s);
 
+    const glm::vec3 &GetPosition() const;
     const glm::mat4 &GetMatrix();
     glm::mat4 GetInverse() const;
 

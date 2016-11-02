@@ -29,7 +29,7 @@ public:
     ListenerId AddListener(std::string event, Listener listener);
     void RemoveListener(std::string event, ListenerId listenerId);
 
-    void FireEvent(std::string event, void *data);
+    void FireEvent(std::string event, void *data = nullptr);
 
 
 private:

@@ -1,28 +1,30 @@
 #version 410
+#define MAX_LIGHTS 16
 
 in vec3 EyePosition;
 in vec3 Color;
 in vec2 TexCoord;
 in mat3 TBN;
 
-in vec3 LightEyePosition;
+in vec3 LightEyePositions[MAX_LIGHTS];
 
 uniform sampler2D uTexture;
 uniform sampler2D uNormalMap;
 uniform sampler2D uReflectionMap;
+
+uniform int uLightCount;
+uniform vec3 uLightColors[MAX_LIGHTS];
+uniform float uLightRadiuses[MAX_LIGHTS];
 
 out vec4 oColor;
 
 
 const float gamma = 2.2;
 
-const vec3 lightColor = vec3(0.9, 0.7, 0.3);
-const float lightRadius = 6.0;
-
 
 // calculate the fog color and mix it with the final fragment color
 vec4 MixFog(vec4 color) {
-    const vec4 fogColor = vec4(0.01, 0.008, 0.002, 1.0);
+    const vec4 fogColor = vec4(0.008, 0.006, 0.002, 1.0);
     const float e = 2.71828182845904523536028747135266249;
 
     float fogDensity = 0.03;
@@ -54,21 +56,28 @@ vec3 NormalMapNormal() {
 
 // ambient light
 vec4 AmbientLight() {
-    return vec4(0.03, 0.01, 0.004, 1.0);
+    return vec4(0.01, 0.007, 0.004, 1.0);
 }
 
 
 // diffuse light based on the lights in the scene
 vec4 DiffuseLight(vec3 normal) {
-    vec3 lightDir = LightEyePosition - EyePosition;
-    float lightDistance = length(lightDir);
-    float diffuse = max(dot(normal, normalize(lightDir)), 0.0);
+    vec3 finalColor = vec3(0.0, 0.0, 0.0);
 
-    vec3 lightFinal = lightColor * diffuse;
-    float att = clamp(1.0 - lightDistance * lightDistance / (lightRadius * lightRadius), 0.0, 1.0);
-    lightFinal *= att * att;
+    int maxLightCount = min(uLightCount, MAX_LIGHTS);
+    for (int i = 0; i < maxLightCount; ++i) {
+        vec3 lightDir = LightEyePositions[i] - EyePosition;
+        float lightDistance = length(lightDir);
+        float diffuse = max(dot(normal, normalize(lightDir)), 0.0);
 
-    return vec4(lightFinal, 1.0);
+        vec3 lightFinal = uLightColors[i] * diffuse;
+        float att = clamp(1.0 - lightDistance * lightDistance / (uLightRadiuses[i] * uLightRadiuses[i]), 0.0, 1.0);
+        lightFinal *= att * att;
+
+        finalColor += lightFinal;
+    }
+
+    return vec4(finalColor, 1.0);
 }
 
 
@@ -77,19 +86,27 @@ vec4 SpecularLight(vec3 normal) {
     const float strength = 0.7;
     const int shininess = 64;
 
-    vec3 reflectionColor = texture(uReflectionMap, TexCoord).rgb;
-    float reflection = (reflectionColor.r + reflectionColor.g + reflectionColor.b) / 3;
+    vec3 finalColor = vec3(0.0, 0.0, 0.0);
 
-    vec3 viewDir = normalize(-EyePosition);
-    vec3 lightDir = LightEyePosition - EyePosition ;
-    float lightDistance = length(lightDir);
-    vec3 halfwayDir = normalize(normalize(lightDir) + viewDir);
+    int maxLightCount = min(uLightCount, MAX_LIGHTS);
+    for (int i = 0; i < maxLightCount; ++i) {
+        vec3 reflectionColor = texture(uReflectionMap, TexCoord).rgb;
+        float reflection = (reflectionColor.r + reflectionColor.g + reflectionColor.b) / 3;
 
-    float spec = pow(max(dot(normal, halfwayDir), 0.0), shininess);
-    vec3 specColor = lightColor * spec * strength;
-    float att = clamp(1.0 - lightDistance * lightDistance / (lightRadius * lightRadius), 0.0, 1.0);
+        vec3 viewDir = normalize(-EyePosition);
+        vec3 lightDir = LightEyePositions[i] - EyePosition ;
+        float lightDistance = length(lightDir);
+        vec3 halfwayDir = normalize(normalize(lightDir) + viewDir);
 
-    return vec4(specColor * att * att * reflection, 1.0);
+        float spec = pow(max(dot(normal, halfwayDir), 0.0), shininess);
+        vec3 specColor = uLightColors[i] * spec * strength;
+        float att = clamp(1.0 - lightDistance * lightDistance / (uLightRadiuses[i] * uLightRadiuses[i]), 0.0, 1.0);
+        vec3 finalSpecColor = specColor * att * att * reflection;
+
+        finalColor += finalSpecColor;
+    }
+
+    return vec4(finalColor, 1.0);
 }
 
 

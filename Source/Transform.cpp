@@ -77,6 +77,10 @@ void Transform::Scale(float s) {
     mScale *= glm::vec3(s, s, s);
 }
 
+const glm::vec3 &Transform::GetPosition() const {
+    return mPosition;
+}
+
 const glm::mat4 &Transform::GetMatrix() {
     if (mDirty) {
         mDirty = false;

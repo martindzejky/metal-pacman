@@ -1,4 +1,5 @@
 #version 410
+#define MAX_LIGHTS 16
 
 in vec3 iPosition;
 in vec3 iColor;
@@ -11,21 +12,26 @@ uniform mat4 uModelView;
 uniform mat4 uModelViewProjection;
 uniform mat3 uNormal;
 
+uniform int uLightCount;
+uniform vec3 uLightPositions[MAX_LIGHTS];
+
 out vec3 EyePosition;
 out vec3 Color;
 out vec2 TexCoord;
 out mat3 TBN;
 
-out vec3 LightEyePosition;
+out vec3 LightEyePositions[MAX_LIGHTS];
 
 
 // calculate all things necessary for the fragment shader
 // and also the vertex position
 void main()
 {
-    const vec3 lightWorldPosition = vec3(1.0, 2.4, -4.0);
-    vec4 lightPosition = uView * vec4(lightWorldPosition, 1.0);
-    LightEyePosition = lightPosition.xyz / lightPosition.w;
+    int maxLightCount = min(uLightCount, MAX_LIGHTS);
+    for (int i = 0; i < maxLightCount; ++i) {
+        vec4 lightPosition = uView * vec4(uLightPositions[i], 1.0);
+        LightEyePositions[i] = lightPosition.xyz / lightPosition.w;
+    }
 
     vec4 position = uModelView * vec4(iPosition, 1.0);
     EyePosition = position.xyz / position.w;

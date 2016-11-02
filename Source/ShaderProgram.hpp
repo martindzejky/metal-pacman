@@ -30,6 +30,9 @@ public:
     void Attribute(std::string name, int size, int stride = 0, int offset = 0);
     void Texture(std::string name = TextureUniformName, int unit = 0);
     void Uniform(std::string name, const glm::mat4 &matrix);
+    void Uniform(std::string name, const glm::vec3 &vector);
+    void Uniform(std::string name, const int &number);
+    void Uniform(std::string name, const float &number);
 
     const Id &GetId() const;
 
@@ -54,6 +57,11 @@ public:
     static const std::string TextureUniformName;
     static const std::string NormalMapUniformName;
     static const std::string ReflectionMapUniformName;
+
+    static const std::string LightCountUniformName;
+    static const std::string LightPositionsUniformName;
+    static const std::string LightColorsUniformName;
+    static const std::string LightRadiusesUniformName;
 
 
 private:
