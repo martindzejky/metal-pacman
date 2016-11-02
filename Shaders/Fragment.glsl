@@ -65,17 +65,18 @@ vec4 DiffuseLight(vec3 normal) {
 
 // specular highlights
 vec4 SpecularLight(vec3 normal) {
-    const float strength = 0.3;
+    const float strength = 0.8;
     const int shininess = 128;
 
     vec3 reflectionColor = texture(uReflectionMap, TexCoord).rgb;
     float reflection = (reflectionColor.r + reflectionColor.g + reflectionColor.b) / 3;
 
     vec3 viewDir = normalize(-EyePosition);
-    vec3 lightDir = EyePosition - LightEyePosition;
+    vec3 lightDir = LightEyePosition - EyePosition ;
     float lightDistance = length(lightDir);
-    vec3 reflectDir = reflect(normalize(lightDir), normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+    vec3 halfwayDir = normalize(normalize(lightDir) + viewDir);
+
+    float spec = pow(max(dot(normal, halfwayDir), 0.0), shininess);
     vec3 specColor = lightColor * spec * strength;
     float att = clamp(1.0 - lightDistance * lightDistance / (lightRadius * lightRadius), 0.0, 1.0);
 
