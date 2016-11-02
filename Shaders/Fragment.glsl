@@ -10,6 +10,7 @@ in vec3 LightEyePosition;
 
 uniform sampler2D uTexture;
 uniform sampler2D uNormalMap;
+uniform sampler2D uReflectionMap;
 
 out vec4 oColor;
 
@@ -68,6 +69,9 @@ vec4 SpecularLight(vec3 normal) {
     const float strength = 0.3;
     const int shininess = 128;
 
+    vec3 reflectionColor = texture(uReflectionMap, TexCoord).rgb;
+    float reflection = (reflectionColor.r + reflectionColor.g + reflectionColor.b) / 3;
+
     vec3 viewDir = normalize(-EyePosition);
     vec3 lightDir = EyePosition - LightEyePosition;
     float lightDistance = length(lightDir);
@@ -76,7 +80,7 @@ vec4 SpecularLight(vec3 normal) {
     vec3 specColor = lightColor * spec * strength;
     float att = clamp(1.0 - lightDistance * lightDistance / (lightRadius * lightRadius), 0.0, 1.0);
 
-    return vec4(specColor * att * att, 1.0);
+    return vec4(specColor * att * att * reflection, 1.0);
 }
 
 

@@ -23,6 +23,7 @@ void LoadState::Start() {
     // textures
     resources->Load("BlankDiffuseTexture", "Textures/BlankDiffuse.png");
     resources->Load("BlankNormalTexture", "Textures/BlankNormal.png");
+    resources->Load("BlankReflectionTexture", "Textures/BlankReflection.png");
     resources->Load("CobbleDiffuseTexture", "Textures/CobblestoneDiffuse.png");
     resources->Load("CobbleNormalTexture", "Textures/CobblestoneNormal.png");
     resources->Load("CobbleReflectionTexture", "Textures/CobblestoneReflection.png");

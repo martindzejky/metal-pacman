@@ -53,6 +53,7 @@ public:
     static const std::string ModelViewProjectionUniformName;
     static const std::string TextureUniformName;
     static const std::string NormalMapUniformName;
+    static const std::string ReflectionMapUniformName;
 
 
 private:

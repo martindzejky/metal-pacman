@@ -90,3 +90,4 @@ const std::string ShaderProgram::ModelViewUniformName = "uModelView";
 const std::string ShaderProgram::ModelViewProjectionUniformName = "uModelViewProjection";
 const std::string ShaderProgram::TextureUniformName = "uTexture";
 const std::string ShaderProgram::NormalMapUniformName = "uNormalMap";
+const std::string ShaderProgram::ReflectionMapUniformName = "uReflectionMap";

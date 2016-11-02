@@ -12,8 +12,11 @@
 
 
 class ArrayObject;
+
 class BufferObject;
+
 class Entity;
+
 class Resource;
 
 class ModelComponent : public Component {
@@ -27,7 +30,8 @@ public:
     void OnRender();
 
     ModelComponent(std::string modelName, std::string textureName = "BlankDiffuseTexture",
-                   std::string normalMapName = "BlankNormalTexture");
+                   std::string normalMapName = "BlankNormalTexture",
+                   std::string reflectionMapName = "BlankReflectionTexture");
 
 
 private:
@@ -46,6 +50,7 @@ private:
 
     std::shared_ptr<Resource> mTexture;
     std::shared_ptr<Resource> mNormalMap;
+    std::shared_ptr<Resource> mReflectionMap;
 
 };
 

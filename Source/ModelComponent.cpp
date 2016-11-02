@@ -30,17 +30,20 @@ std::string ModelComponent::GetType() const {
 void ModelComponent::OnRender() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
 
-    ((Texture*) mTexture.get())->Bind(0);
+    ((Texture *) mTexture.get())->Bind(0);
     ShaderProgram::GetSingleton()->Texture(ShaderProgram::TextureUniformName, 0);
-    ((Texture*) mNormalMap.get())->Bind(1);
+    ((Texture *) mNormalMap.get())->Bind(1);
     ShaderProgram::GetSingleton()->Texture(ShaderProgram::NormalMapUniformName, 1);
+    ((Texture *) mReflectionMap.get())->Bind(2);
+    ShaderProgram::GetSingleton()->Texture(ShaderProgram::ReflectionMapUniformName, 2);
 
     mArrayObject->Bind();
     ShaderProgram::GetSingleton()->Uniform(ShaderProgram::ModelUniformName, transform->GetMatrix());
     Window::GetSingleton()->DrawElements(mIndexNumber);
 }
 
-ModelComponent::ModelComponent(std::string modelName, std::string textureName, std::string normalMapName) {
+ModelComponent::ModelComponent(std::string modelName, std::string textureName, std::string normalMapName,
+                               std::string reflectionMapName) {
     mArrayObject = std::make_shared<ArrayObject>();
     mArrayObject->Bind();
 
@@ -91,4 +94,5 @@ ModelComponent::ModelComponent(std::string modelName, std::string textureName, s
 
     mTexture = Resources::GetSingleton()->GetResource(textureName);
     mNormalMap = Resources::GetSingleton()->GetResource(normalMapName);
+    mReflectionMap = Resources::GetSingleton()->GetResource(reflectionMapName);
 }
