@@ -1,7 +1,6 @@
 #version 410
 
 in vec3 EyePosition;
-in vec3 EyeNormal;
 in vec3 Color;
 in vec2 TexCoord;
 in mat3 TBN;
@@ -15,7 +14,7 @@ uniform sampler2D uReflectionMap;
 out vec4 oColor;
 
 
-const vec3 lightColor = vec3(1.0, 0.6, 0.3);
+const vec3 lightColor = vec3(1.0, 0.8, 0.4);
 const float lightRadius = 16.0;
 
 
@@ -46,7 +45,7 @@ vec3 NormalMapNormal() {
 
 // ambient light
 vec4 AmbientLight() {
-    return vec4(0.1, 0.1, 0.1, 1.0);
+    return vec4(0.14, 0.06, 0.02, 1.0);
 }
 
 

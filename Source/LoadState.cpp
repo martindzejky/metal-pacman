@@ -27,9 +27,13 @@ void LoadState::Start() {
     resources->Load("CobbleDiffuseTexture", "Textures/CobblestoneDiffuse.png");
     resources->Load("CobbleNormalTexture", "Textures/CobblestoneNormal.png");
     resources->Load("CobbleReflectionTexture", "Textures/CobblestoneReflection.png");
+    resources->Load("WoodDiffuseTexture", "Textures/WoodDiffuse.png");
+    resources->Load("WoodNormalTexture", "Textures/WoodNormal.png");
+    resources->Load("WoodReflectionTexture", "Textures/WoodReflection.png");
 
     // models
     resources->Load("RoomModel", "Models/Room.ply");
+    resources->Load("TableModel", "Models/Table.ply");
 
     SwitchInto(std::make_shared<GameState>());
 }

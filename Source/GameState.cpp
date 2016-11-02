@@ -15,7 +15,7 @@ void GameState::Start() {
     State::Start();
 
     auto camera = Entity::Create();
-    camera->AttachComponent(std::make_shared<TransformComponent>(0, 1.7, 0));
+    camera->AttachComponent(std::make_shared<TransformComponent>(0, 1.7f, 0));
     camera->AttachComponent(std::make_shared<CameraComponent>());
     camera->AttachComponent(std::make_shared<PlayerComponent>());
 
@@ -25,6 +25,13 @@ void GameState::Start() {
     level->AttachComponent(levelTransform);
     level->AttachComponent(std::make_shared<ModelComponent>("RoomModel", "CobbleDiffuseTexture",
                                                             "CobbleNormalTexture", "CobbleReflectionTexture"));
+
+    auto table = Entity::Create();
+    auto tableTransform = std::make_shared<TransformComponent>(2.7f, 0.72f, -5.f);
+    tableTransform->Pitch(-3.14f / 2.f);
+    table->AttachComponent(tableTransform);
+    table->AttachComponent(std::make_shared<ModelComponent>("TableModel", "WoodDiffuseTexture",
+                                                            "WoodNormalTexture", "WoodReflectionTexture"));
 }
 
 void GameState::Update(float deltaSeconds) {
