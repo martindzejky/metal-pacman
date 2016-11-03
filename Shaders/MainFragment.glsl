@@ -7,16 +7,17 @@ in vec2 TexCoord;
 in mat3 TBN;
 
 in vec3 LightEyePositions[MAX_LIGHTS];
-in vec3 LightSpacePositions[MAX_LIGHTS];
+in vec4 LightSpacePosition;
 
 uniform sampler2D uTexture;
 uniform sampler2D uNormalMap;
 uniform sampler2D uReflectionMap;
-uniform sampler2D uShadowMap;
 
 uniform int uLightCount;
 uniform vec3 uLightColors[MAX_LIGHTS];
 uniform float uLightRadiuses[MAX_LIGHTS];
+
+uniform sampler2D uShadowMap;
 
 out vec4 oColor;
 
@@ -58,10 +59,14 @@ vec3 NormalMapNormal() {
 
 // calculate how much this fragment is in the shadow of the light
 float Shadow(int light) {
-    vec3 lightSpacePosition = LightSpacePositions[light] * 0.5 + 0.5;
-    float closestDepth = texture(uShadowMap, lightSpacePosition.xy).r;
-    float currentDepth = lightSpacePosition.z;
-    return currentDepth < closestDepth  ? 1.0 : 0.2;
+    const float bias = 0.0001;
+
+    vec3 position = LightSpacePosition.xyz / LightSpacePosition.w;
+    vec3 positionNormalized = position * 0.5 + 0.5;
+    float closestDepth = texture(uShadowMap, positionNormalized.xy).r;
+    float currentDepth = positionNormalized.z;
+
+    return currentDepth > 1.0 || currentDepth - bias < closestDepth  ? 1.0 : 0.02;
 }
 
 

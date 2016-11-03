@@ -25,7 +25,7 @@ void LoadState::Start() {
     auto lightProgram = ShaderProgram::Create("Light");
     lightProgram->Add(((Shader *) lightVertexShader.get())->GetId());
     lightProgram->Add(((Shader *) lightFragmentShader.get())->GetId());
-    lightProgram->Link("oColor");
+    lightProgram->Link();
 
     // textures
     resources->Load("BlankDiffuseTexture", "Textures/BlankDiffuse.png");

@@ -62,7 +62,7 @@ void GameState::Update(float deltaSeconds) {
     events->FireEvent("PostUpdate");
 
     events->FireEvent("PreRender");
-    //events->FireEvent("ShadowMaps");
+    events->FireEvent("ShadowMaps");
 
     window->UpdateViewport();
     events->FireEvent("Lights");

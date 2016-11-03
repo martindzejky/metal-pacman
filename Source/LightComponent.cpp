@@ -50,7 +50,7 @@ void LightComponent::OnUpdate() {
     std::stringstream positions;
     positions << ShaderProgram::LightPositionsUniformName << "[" << index << "]";
     std::stringstream spaces;
-    spaces << ShaderProgram::LightSpacesUniformName << "[" << index << "]";
+    spaces << ShaderProgram::LightSpacesUniformName;
     std::stringstream colors;
     colors << ShaderProgram::LightColorsUniformName << "[" << index << "]";
     std::stringstream radiuses;
@@ -80,6 +80,7 @@ void LightComponent::OnShadowMaps() {
     mShadowMap->Bind();
     Window::GetSingleton()->SetViewport(msShadowMapWidth, msShadowMapHeight);
     Window::GetSingleton()->Clear();
+    Window::GetSingleton()->CullFront();
 
     // TODO: Store as a member
     auto projection = glm::perspective(glm::radians(90.f), 1.f, .1f, mRadius);
@@ -89,8 +90,10 @@ void LightComponent::OnShadowMaps() {
     ShaderProgram::Get("Light")->Uniform(ShaderProgram::ViewUniformName, transform);
 
     Events::GetSingleton()->FireEvent("RenderShadows");
+
     mShadowMap->Unbind();
     ShaderProgram::Get("Main")->Use();
+    Window::GetSingleton()->CullBack();
 }
 
 LightComponent::LightComponent(float r, float g, float b, float radius)

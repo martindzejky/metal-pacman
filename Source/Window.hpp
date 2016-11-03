@@ -27,6 +27,8 @@ public:
 
     void UpdateViewport();
     void SetViewport(int width, int height);
+    void CullFront();
+    void CullBack();
     void Clear();
     void SwapBuffers();
     void PollEvents();
