@@ -58,7 +58,10 @@ vec3 NormalMapNormal() {
 
 // calculate how much this fragment is in the shadow of the light
 float Shadow(int light) {
-    return 1.0;
+    vec3 lightSpacePosition = LightSpacePositions[light] * 0.5 + 0.5;
+    float closestDepth = texture(uShadowMap, lightSpacePosition.xy).r;
+    float currentDepth = lightSpacePosition.z;
+    return currentDepth < closestDepth  ? 1.0 : 0.2;
 }
 
 
