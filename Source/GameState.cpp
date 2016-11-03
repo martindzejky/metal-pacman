@@ -27,10 +27,18 @@ void GameState::Start() {
                                                             "CobbleNormalTexture", "CobbleReflectionTexture"));
 
     auto table = Entity::Create();
-    auto tableTransform = std::make_shared<TransformComponent>(2.7f, 0.72f, -5.f);
+    auto tableTransform = std::make_shared<TransformComponent>(2.7f, 0.68f, -5.f);
     tableTransform->Pitch(-3.14f / 2.f);
     table->AttachComponent(tableTransform);
     table->AttachComponent(std::make_shared<ModelComponent>("TableModel", "WoodDiffuseTexture",
+                                                            "WoodNormalTexture", "WoodReflectionTexture"));
+
+    auto table2 = Entity::Create();
+    auto table2Transform = std::make_shared<TransformComponent>(-.4f, 0.68f, -3.f);
+    table2Transform->Pitch(-3.14f / 2.f);
+    table2Transform->Yaw(3.14f / 2, Transform::Space::Global);
+    table2->AttachComponent(table2Transform);
+    table2->AttachComponent(std::make_shared<ModelComponent>("TableModel", "WoodDiffuseTexture",
                                                             "WoodNormalTexture", "WoodReflectionTexture"));
 
     auto light = Entity::Create();
