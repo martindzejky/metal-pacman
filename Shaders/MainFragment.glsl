@@ -18,7 +18,7 @@ uniform vec3 uLightPositions[MAX_LIGHTS];
 uniform vec3 uLightColors[MAX_LIGHTS];
 uniform float uLightRadiuses[MAX_LIGHTS];
 
-uniform samplerCube uShadowMaps[2];
+uniform samplerCube uShadowMaps[MAX_LIGHTS];
 
 out vec4 oColor;
 

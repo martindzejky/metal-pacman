@@ -34,9 +34,9 @@ void GameState::Start() {
                                                             "WoodNormalTexture", "WoodReflectionTexture"));
 
     auto table2 = Entity::Create();
-    auto table2Transform = std::make_shared<TransformComponent>(-.4f, 0.68f, -3.f);
+    auto table2Transform = std::make_shared<TransformComponent>(-2.4f, 0.68f, 4.4f);
     table2Transform->Pitch(-3.14f / 2.f);
-    table2Transform->Yaw(3.14f / 2, Transform::Space::Global);
+    table2Transform->Yaw(2.f, Transform::Space::Global);
     table2->AttachComponent(table2Transform);
     table2->AttachComponent(std::make_shared<ModelComponent>("TableModel", "WoodDiffuseTexture",
                                                             "WoodNormalTexture", "WoodReflectionTexture"));
@@ -46,7 +46,7 @@ void GameState::Start() {
     light->AttachComponent(std::make_shared<LightComponent>(.9f, .7f, .4f, 12));
 
     auto light2 = Entity::Create();
-    light2->AttachComponent(std::make_shared<TransformComponent>(-2.f, 1.6f, -1.f));
+    light2->AttachComponent(std::make_shared<TransformComponent>(-2.f, .8f, 8.f));
     light2->AttachComponent(std::make_shared<LightComponent>(.1f, .5f, .9f, 9));
 }
 
