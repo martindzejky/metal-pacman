@@ -7,10 +7,12 @@ in vec2 TexCoord;
 in mat3 TBN;
 
 in vec3 LightEyePositions[MAX_LIGHTS];
+in vec3 LightSpacePositions[MAX_LIGHTS];
 
 uniform sampler2D uTexture;
 uniform sampler2D uNormalMap;
 uniform sampler2D uReflectionMap;
+uniform sampler2D uShadowMap;
 
 uniform int uLightCount;
 uniform vec3 uLightColors[MAX_LIGHTS];
@@ -54,6 +56,12 @@ vec3 NormalMapNormal() {
 }
 
 
+// calculate how much this fragment is in the shadow of the light
+float Shadow(int light) {
+    return 1.0;
+}
+
+
 // ambient light
 vec4 AmbientLight() {
     return vec4(0.01, 0.007, 0.004, 1.0);
@@ -74,7 +82,7 @@ vec4 DiffuseLight(vec3 normal) {
         float att = clamp(1.0 - lightDistance * lightDistance / (uLightRadiuses[i] * uLightRadiuses[i]), 0.0, 1.0);
         lightFinal *= att * att;
 
-        finalColor += lightFinal;
+        finalColor += lightFinal * Shadow(i);
     }
 
     return vec4(finalColor, 1.0);
@@ -103,7 +111,7 @@ vec4 SpecularLight(vec3 normal) {
         float att = clamp(1.0 - lightDistance * lightDistance / (uLightRadiuses[i] * uLightRadiuses[i]), 0.0, 1.0);
         vec3 finalSpecColor = specColor * att * att * reflection;
 
-        finalColor += finalSpecColor;
+        finalColor += finalSpecColor * Shadow(i);
     }
 
     return vec4(finalColor, 1.0);
