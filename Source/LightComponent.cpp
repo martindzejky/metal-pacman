@@ -52,6 +52,8 @@ void LightComponent::OnUpdate() {
     colors << ShaderProgram::LightColorsUniformName << "[" << index << "]";
     std::stringstream radiuses;
     radiuses << ShaderProgram::LightRadiusesUniformName << "[" << index << "]";
+    std::stringstream shadowMaps;
+    shadowMaps << ShaderProgram::ShadowMapsUniformName << "[" << index << "]";
 
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
     auto position = transform->GetPosition();
@@ -60,8 +62,8 @@ void LightComponent::OnUpdate() {
     ShaderProgram::Get("Main")->Uniform(colors.str(), glm::vec3(mRed, mGreen, mBlue));
     ShaderProgram::Get("Main")->Uniform(radiuses.str(), mRadius);
 
-    mShadowMap->BindTexture(3);
-    ShaderProgram::Get("Main")->Texture(ShaderProgram::ShadowMapsUniformName, 3);
+    mShadowMap->BindTexture(index + 3);
+    ShaderProgram::Get("Main")->Texture(shadowMaps.str(), index + 3);
 }
 
 void LightComponent::OnShadowMaps() {

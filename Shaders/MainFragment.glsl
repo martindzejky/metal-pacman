@@ -18,7 +18,7 @@ uniform vec3 uLightPositions[MAX_LIGHTS];
 uniform vec3 uLightColors[MAX_LIGHTS];
 uniform float uLightRadiuses[MAX_LIGHTS];
 
-uniform samplerCube uShadowMap;
+uniform samplerCube uShadowMaps[2];
 
 out vec4 oColor;
 
@@ -63,7 +63,14 @@ float Shadow(int light) {
     const float bias = 0.0001;
 
     vec3 direction = Position - uLightPositions[light];
-    float closestDepth = texture(uShadowMap, direction).r * uLightRadiuses[light];
+    float sampledDepth = 1.0;
+
+    switch (light) {
+        case 0: sampledDepth = texture(uShadowMaps[0], direction).r; break;
+        case 1: sampledDepth = texture(uShadowMaps[1], direction).r; break;
+    }
+
+    float closestDepth = sampledDepth * uLightRadiuses[light];
     float currentDepth = length(direction);
 
     return currentDepth - bias < closestDepth  ? 1.0 : 0.02;

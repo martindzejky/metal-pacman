@@ -62,7 +62,6 @@ public:
 
     static const std::string LightCountUniformName;
     static const std::string LightPositionsUniformName;
-    static const std::string LightSpacesUniformName;
     static const std::string LightColorsUniformName;
     static const std::string LightRadiusesUniformName;
     static const std::string ShadowMapsUniformName;
@@ -70,7 +69,6 @@ public:
 
 private:
 
-    static std::shared_ptr<ShaderProgram> msCurrent;
     static std::unordered_map<std::string, std::shared_ptr<ShaderProgram>> msShaderPrograms;
 
     std::string mName;

@@ -46,7 +46,7 @@ void GameState::Start() {
     light->AttachComponent(std::make_shared<LightComponent>(.9f, .7f, .4f, 12));
 
     auto light2 = Entity::Create();
-    light2->AttachComponent(std::make_shared<TransformComponent>(-3.f, 1.f, 1.f));
+    light2->AttachComponent(std::make_shared<TransformComponent>(-2.f, 1.6f, -1.f));
     light2->AttachComponent(std::make_shared<LightComponent>(.1f, .5f, .9f, 9));
 }
 

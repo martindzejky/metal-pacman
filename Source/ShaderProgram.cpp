@@ -34,8 +34,6 @@ void ShaderProgram::Link(std::string fragmentOutput) {
 
 void ShaderProgram::Use() {
     glUseProgram(mId);
-
-    msCurrent = Get(mName);
 }
 
 void ShaderProgram::Attribute(std::string name, int size, int stride, int offset) {
@@ -125,13 +123,11 @@ const std::string ShaderProgram::ModelViewProjectionUniformName = "uModelViewPro
 const std::string ShaderProgram::TextureUniformName = "uTexture";
 const std::string ShaderProgram::NormalMapUniformName = "uNormalMap";
 const std::string ShaderProgram::ReflectionMapUniformName = "uReflectionMap";
-const std::string ShaderProgram::ShadowMapsUniformName = "uShadowMap";
+const std::string ShaderProgram::ShadowMapsUniformName = "uShadowMaps";
 
 const std::string ShaderProgram::LightCountUniformName = "uLightCount";
 const std::string ShaderProgram::LightPositionsUniformName = "uLightPositions";
-const std::string ShaderProgram::LightSpacesUniformName = "uLightSpace";
 const std::string ShaderProgram::LightColorsUniformName = "uLightColors";
 const std::string ShaderProgram::LightRadiusesUniformName = "uLightRadiuses";
 
-std::shared_ptr<ShaderProgram> ShaderProgram::msCurrent;
 std::unordered_map<std::string, std::shared_ptr<ShaderProgram>> ShaderProgram::msShaderPrograms;
