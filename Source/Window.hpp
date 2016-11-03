@@ -26,6 +26,7 @@ public:
     static void Destroy();
 
     void UpdateViewport();
+    void SetViewport(int width, int height);
     void Clear();
     void SwapBuffers();
     void PollEvents();

@@ -49,6 +49,10 @@ void Window::Destroy() {
 void Window::UpdateViewport() {
     int width, height;
     GetSize(width, height);
+    SetViewport(width, height);
+}
+
+void Window::SetViewport(int width, int height) {
     glViewport(0, 0, width, height);
 }
 
