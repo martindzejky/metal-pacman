@@ -28,6 +28,7 @@ set(SOURCE_FILES
     Source/Entity.cpp
     Source/Error.cpp
     Source/Events.cpp
+    Source/FrameBuffer.cpp
     Source/GameState.cpp
     Source/Input.cpp
     Source/LightComponent.cpp
