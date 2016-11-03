@@ -62,8 +62,10 @@ public:
 
     static const std::string LightCountUniformName;
     static const std::string LightPositionsUniformName;
+    static const std::string LightSpacesUniformName;
     static const std::string LightColorsUniformName;
     static const std::string LightRadiusesUniformName;
+    static const std::string ShadowMapsUniformName;
 
 
 private:

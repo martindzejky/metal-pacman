@@ -62,7 +62,9 @@ void ShaderProgram::Uniform(std::string name, const glm::mat4 &matrix) {
         auto modelViewProjection = mProjection * modelView;
         auto normal = glm::transpose(glm::inverse(glm::mat3(modelView)));
 
-        auto position = glGetUniformLocation(mId, ViewUniformName.c_str());
+        auto position = glGetUniformLocation(mId, "uModel"); // TODO: Get rid of this
+        glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(matrix));
+        position = glGetUniformLocation(mId, ViewUniformName.c_str());
         glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(mView));
         position = glGetUniformLocation(mId, ModelViewUniformName.c_str());
         glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(modelView));
@@ -121,9 +123,11 @@ const std::string ShaderProgram::ModelViewProjectionUniformName = "uModelViewPro
 const std::string ShaderProgram::TextureUniformName = "uTexture";
 const std::string ShaderProgram::NormalMapUniformName = "uNormalMap";
 const std::string ShaderProgram::ReflectionMapUniformName = "uReflectionMap";
+const std::string ShaderProgram::ShadowMapsUniformName = "uShadowMap";
 
 const std::string ShaderProgram::LightCountUniformName = "uLightCount";
 const std::string ShaderProgram::LightPositionsUniformName = "uLightPositions";
+const std::string ShaderProgram::LightSpacesUniformName = "uLightSpaces";
 const std::string ShaderProgram::LightColorsUniformName = "uLightColors";
 const std::string ShaderProgram::LightRadiusesUniformName = "uLightRadiuses";
 

@@ -12,6 +12,7 @@
 
 
 class Entity;
+class FrameBuffer;
 
 class LightComponent : public Component {
 
@@ -22,6 +23,7 @@ public:
     virtual std::string GetType() const override;
 
     void OnUpdate();
+    void OnShadowMaps();
 
     LightComponent(float r, float g, float b, float radius);
 
@@ -30,8 +32,14 @@ private:
 
     static std::list<LightComponent*> msLightList;
 
+    const static unsigned int msShadowMapWidth;
+    const static unsigned int msShadowMapHeight;
+
     std::weak_ptr<Entity> mEntity;
-    Events::ListenerId listenerId;
+    Events::ListenerId mUpdateListenerId;
+    Events::ListenerId mShadowsListenerId;
+
+    std::shared_ptr<FrameBuffer> mShadowMap;
 
     float mRed;
     float mGreen;
