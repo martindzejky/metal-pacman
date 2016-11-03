@@ -24,7 +24,17 @@ void Shader::Load(std::string path) {
 
     const char *sourcePtr = source.c_str();
 
-    mId = glCreateShader(mType == Type::Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
+    switch (mType) {
+        case Type::Vertex:
+            mId = glCreateShader(GL_VERTEX_SHADER);
+            break;
+        case Type::Geometry:
+            mId = glCreateShader(GL_GEOMETRY_SHADER);
+            break;
+        case Type::Fragment:
+            mId = glCreateShader(GL_FRAGMENT_SHADER);
+            break;
+    }
     glShaderSource(mId, 1, &sourcePtr, nullptr);
     glCompileShader(mId);
 

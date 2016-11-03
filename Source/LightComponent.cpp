@@ -1,11 +1,10 @@
 #include "LightComponent.hpp"
 
+#include <vector>
 #include <sstream>
-#include <iostream>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <GL/glew.h>
 
 #include "ShaderProgram.hpp"
 #include "TransformComponent.hpp"
@@ -49,8 +48,6 @@ void LightComponent::OnUpdate() {
 
     std::stringstream positions;
     positions << ShaderProgram::LightPositionsUniformName << "[" << index << "]";
-    std::stringstream spaces;
-    spaces << ShaderProgram::LightSpacesUniformName;
     std::stringstream colors;
     colors << ShaderProgram::LightColorsUniformName << "[" << index << "]";
     std::stringstream radiuses;
@@ -59,12 +56,7 @@ void LightComponent::OnUpdate() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
     auto position = transform->GetPosition();
 
-    // TODO: Store as a member
-    auto projection = glm::perspective(glm::radians(90.f), 1.f, .1f, mRadius);
-    auto myTransform = glm::lookAt(position, glm::vec3(2.7f, 0.72f, -5.f), glm::vec3(0, 1, 0));
-
     ShaderProgram::Get("Main")->Uniform(positions.str(), position);
-    ShaderProgram::Get("Main")->Uniform(spaces.str(), projection * myTransform);
     ShaderProgram::Get("Main")->Uniform(colors.str(), glm::vec3(mRed, mGreen, mBlue));
     ShaderProgram::Get("Main")->Uniform(radiuses.str(), mRadius);
 
@@ -83,11 +75,25 @@ void LightComponent::OnShadowMaps() {
     Window::GetSingleton()->CullFront();
 
     // TODO: Store as a member
-    auto projection = glm::perspective(glm::radians(90.f), 1.f, .1f, mRadius);
-    auto transform = glm::lookAt(position, glm::vec3(2.7f, 0.72f, -5.f), glm::vec3(0, 1, 0));
-
+    auto projection = glm::perspective(glm::radians(90.f), (float) msShadowMapWidth / msShadowMapHeight, .1f, mRadius);
     ShaderProgram::Get("Light")->Uniform(ShaderProgram::ProjectionUniformName, projection);
-    ShaderProgram::Get("Light")->Uniform(ShaderProgram::ViewUniformName, transform);
+
+    ShaderProgram::Get("Light")->Uniform("uLightPosition", position); // TODO: Store the name in ShaderProgram
+    ShaderProgram::Get("Light")->Uniform("uFarPlane", mRadius); // TODO: Store the name in ShaderProgram
+
+    std::vector<glm::mat4> transforms;
+    transforms.push_back(glm::lookAt(position, position + glm::vec3(1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
+    transforms.push_back(glm::lookAt(position, position + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
+    transforms.push_back(glm::lookAt(position, position + glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)));
+    transforms.push_back(glm::lookAt(position, position + glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.0, 0.0, -1.0)));
+    transforms.push_back(glm::lookAt(position, position + glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, -1.0, 0.0)));
+    transforms.push_back(glm::lookAt(position, position + glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, -1.0, 0.0)));
+
+    for (auto i = 0; i < 6; ++i) {
+        std::stringstream ss;
+        ss << ShaderProgram::ViewUniformName << '[' << i << ']';
+        ShaderProgram::Get("Light")->Uniform(ss.str(), transforms[i]);
+    }
 
     Events::GetSingleton()->FireEvent("RenderShadows");
 
@@ -101,7 +107,7 @@ LightComponent::LightComponent(float r, float g, float b, float radius)
     mShadowMap = std::make_shared<ShadowMap>(msShadowMapWidth, msShadowMapHeight);
 }
 
-std::list<LightComponent*> LightComponent::msLightList;
+std::list<LightComponent *> LightComponent::msLightList;
 
 const unsigned int LightComponent::msShadowMapWidth = 1024;
 const unsigned int LightComponent::msShadowMapHeight = 1024;

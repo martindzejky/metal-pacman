@@ -19,6 +19,9 @@ std::shared_ptr<Resource> Resources::Load(std::string name, std::string path) {
         if (path.find("Fragment") != std::string::npos) {
             type = Shader::Type::Fragment;
         }
+        else if (path.find("Geometry") != std::string::npos) {
+            type = Shader::Type::Geometry;
+        }
 
         resource = std::make_shared<Shader>(name, type);
         resource->Load(path);

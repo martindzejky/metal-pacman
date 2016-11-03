@@ -15,15 +15,14 @@ uniform mat3 uNormal;
 
 uniform int uLightCount;
 uniform vec3 uLightPositions[MAX_LIGHTS];
-uniform mat4 uLightSpace;
 
+out vec3 Position;
 out vec3 EyePosition;
 out vec3 Color;
 out vec2 TexCoord;
 out mat3 TBN;
 
 out vec3 LightEyePositions[MAX_LIGHTS];
-out vec4 LightSpacePosition;
 
 
 // calculate all things necessary for the fragment shader
@@ -34,13 +33,12 @@ void main()
     for (int i = 0; i < maxLightCount; ++i) {
         vec4 lightPosition = uView * vec4(uLightPositions[i], 1.0);
         LightEyePositions[i] = lightPosition.xyz / lightPosition.w;
-
-        vec4 fragLightSpacePosition = uLightSpace * vec4(vec3(uModel * vec4(iPosition, 1.0)), 1.0);
-        LightSpacePosition = fragLightSpacePosition;
     }
 
-    vec4 position = uModelView * vec4(iPosition, 1.0);
-    EyePosition = position.xyz / position.w;
+    vec4 position = uModel * vec4(iPosition, 1.0);
+    Position = position.xyz / position.w;
+    vec4 eyePosition = uModelView * vec4(iPosition, 1.0);
+    EyePosition = eyePosition.xyz / eyePosition.w;
 
     Color = iColor;
     TexCoord = iTexCoord;

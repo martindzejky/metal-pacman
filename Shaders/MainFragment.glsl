@@ -1,23 +1,24 @@
 #version 410
 #define MAX_LIGHTS 16
 
+in vec3 Position;
 in vec3 EyePosition;
 in vec3 Color;
 in vec2 TexCoord;
 in mat3 TBN;
 
 in vec3 LightEyePositions[MAX_LIGHTS];
-in vec4 LightSpacePosition;
 
 uniform sampler2D uTexture;
 uniform sampler2D uNormalMap;
 uniform sampler2D uReflectionMap;
 
 uniform int uLightCount;
+uniform vec3 uLightPositions[MAX_LIGHTS];
 uniform vec3 uLightColors[MAX_LIGHTS];
 uniform float uLightRadiuses[MAX_LIGHTS];
 
-uniform sampler2D uShadowMap;
+uniform samplerCube uShadowMap;
 
 out vec4 oColor;
 
@@ -61,12 +62,11 @@ vec3 NormalMapNormal() {
 float Shadow(int light) {
     const float bias = 0.0001;
 
-    vec3 position = LightSpacePosition.xyz / LightSpacePosition.w;
-    vec3 positionNormalized = position * 0.5 + 0.5;
-    float closestDepth = texture(uShadowMap, positionNormalized.xy).r;
-    float currentDepth = positionNormalized.z;
+    vec3 direction = Position - uLightPositions[light];
+    float closestDepth = texture(uShadowMap, direction).r * uLightRadiuses[light];
+    float currentDepth = length(direction);
 
-    return currentDepth > 1.0 || currentDepth - bias < closestDepth  ? 1.0 : 0.02;
+    return currentDepth - bias < closestDepth  ? 1.0 : 0.02;
 }
 
 

@@ -14,6 +14,7 @@ void LoadState::Start() {
     auto mainVertexShader = resources->Load("MainVertexShader", "Shaders/MainVertex.glsl");
     auto mainFragmentShader = resources->Load("MainFragmentShader", "Shaders/MainFragment.glsl");
     auto lightVertexShader = resources->Load("LightVertexShader", "Shaders/LightVertex.glsl");
+    auto lightGeometryShader = resources->Load("LightGeometryShader", "Shaders/LightGeometry.glsl");
     auto lightFragmentShader = resources->Load("LightFragmentShader", "Shaders/LightFragment.glsl");
 
     auto mainProgram = ShaderProgram::Create("Main");
@@ -24,6 +25,7 @@ void LoadState::Start() {
 
     auto lightProgram = ShaderProgram::Create("Light");
     lightProgram->Add(((Shader *) lightVertexShader.get())->GetId());
+    lightProgram->Add(((Shader *) lightGeometryShader.get())->GetId());
     lightProgram->Add(((Shader *) lightFragmentShader.get())->GetId());
     lightProgram->Link();
 

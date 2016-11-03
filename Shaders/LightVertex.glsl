@@ -2,11 +2,11 @@
 
 in vec3 iPosition;
 
-uniform mat4 uModelViewProjection;
+uniform mat4 uModel;
 
 
 // calculate the vertex position
 void main()
 {
-    gl_Position = uModelViewProjection * vec4(iPosition, 1.0);
+    gl_Position = uModel * vec4(iPosition, 1.0);
 }

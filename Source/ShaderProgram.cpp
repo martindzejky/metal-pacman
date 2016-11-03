@@ -53,9 +53,13 @@ void ShaderProgram::Texture(std::string name, int unit) {
 void ShaderProgram::Uniform(std::string name, const glm::mat4 &matrix) {
     if (name == ProjectionUniformName) {
         mProjection = matrix;
+        auto position = glGetUniformLocation(mId, ProjectionUniformName.c_str());
+        glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(mProjection));
     }
     else if (name == ViewUniformName) {
         mView = matrix;
+        auto position = glGetUniformLocation(mId, ViewUniformName.c_str());
+        glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(mView));
     }
     else if (name == ModelUniformName) {
         auto modelView = mView * matrix;
@@ -64,8 +68,6 @@ void ShaderProgram::Uniform(std::string name, const glm::mat4 &matrix) {
 
         auto position = glGetUniformLocation(mId, ModelUniformName.c_str());
         glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(matrix));
-        position = glGetUniformLocation(mId, ViewUniformName.c_str());
-        glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(mView));
         position = glGetUniformLocation(mId, ModelViewUniformName.c_str());
         glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(modelView));
         position = glGetUniformLocation(mId, ModelViewProjectionUniformName.c_str());
