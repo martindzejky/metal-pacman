@@ -10,7 +10,6 @@
  * Transform defines an object's position and orientation in space. It uses
  * vectors and quaternions to store the state. It can also easily made into
  * a matric and passed to OpenGL.
- * TODO: Add tests
  */
 
 

@@ -11,7 +11,6 @@ void Resources::Create() {
 }
 
 std::shared_ptr<Resource> Resources::Load(std::string name, std::string path) {
-    // TODO: Add resource loaders
     auto resource = std::shared_ptr<Resource>();
     auto ext = path.substr(path.find_last_of('.') + 1);
 

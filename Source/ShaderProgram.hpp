@@ -24,7 +24,6 @@ public:
 
     static std::shared_ptr<ShaderProgram> Create(std::string name);
     static std::shared_ptr<ShaderProgram> Get(std::string name);
-    static std::shared_ptr<ShaderProgram> GetCurrent();
 
     void Add(Shader::Id id);
     void Link(std::string fragmentOutput = "");

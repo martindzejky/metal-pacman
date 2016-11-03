@@ -21,10 +21,6 @@ std::shared_ptr<ShaderProgram> ShaderProgram::Get(std::string name) {
     }
 }
 
-std::shared_ptr<ShaderProgram> ShaderProgram::GetCurrent() {
-    return msCurrent;
-}
-
 void ShaderProgram::Add(Shader::Id id) {
     glAttachShader(mId, id);
 }

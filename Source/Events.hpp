@@ -10,7 +10,6 @@
 /**
  * The global events center. Helps with decoupling and communication.
  * Listen to and fire events right here.
- * TODO: Add tests
  */
 
 

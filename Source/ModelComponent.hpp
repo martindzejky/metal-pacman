@@ -12,11 +12,8 @@
 
 
 class ArrayObject;
-
 class BufferObject;
-
 class Entity;
-
 class Resource;
 
 class ModelComponent : public Component {
@@ -28,6 +25,7 @@ public:
     virtual std::string GetType() const override;
 
     void OnRender();
+    void OnShadow();
 
     ModelComponent(std::string modelName, std::string textureName = "BlankDiffuseTexture",
                    std::string normalMapName = "BlankNormalTexture",
@@ -37,6 +35,8 @@ public:
 private:
 
     std::shared_ptr<ArrayObject> mArrayObject;
+    std::shared_ptr<ArrayObject> mShadowArrayObject;
+
     std::shared_ptr<BufferObject> mVertices;
     std::shared_ptr<BufferObject> mNormals;
     std::shared_ptr<BufferObject> mColors;
@@ -46,7 +46,8 @@ private:
     unsigned int mIndexNumber = 0;
 
     std::weak_ptr<Entity> mEntity;
-    Events::ListenerId mListenerId;
+    Events::ListenerId mRenderListenerId;
+    Events::ListenerId mShadowListenerId;
 
     std::shared_ptr<Resource> mTexture;
     std::shared_ptr<Resource> mNormalMap;

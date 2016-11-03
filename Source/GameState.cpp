@@ -9,7 +9,6 @@
 #include "ModelComponent.hpp"
 #include "ColorCubeComponent.hpp"
 #include "LightComponent.hpp"
-#include "ShaderProgram.hpp"
 
 
 void GameState::Start() {
@@ -54,12 +53,6 @@ void GameState::Update(float deltaSeconds) {
 
     if (Input::IsKeyPressed(Input::Key::Escape)) {
         window->Close();
-    }
-    if (Input::IsKeyPressed(Input::Key::R)) {
-        ShaderProgram::Get("Main")->Use();
-    }
-    if (Input::IsKeyPressed(Input::Key::T)) {
-        ShaderProgram::Get("Light")->Use();
     }
 
     window->UpdateViewport();

@@ -15,12 +15,14 @@ void ModelComponent::OnAttach(std::weak_ptr<Entity> entity) {
     Component::OnAttach(entity);
     mEntity = entity;
 
-    mListenerId = Events::GetSingleton()->AddListener("Render", [this](void *) { OnRender(); });
+    mRenderListenerId = Events::GetSingleton()->AddListener("Render", [this](void *) { OnRender(); });
+    mShadowListenerId = Events::GetSingleton()->AddListener("RenderShadows", [this](void *) { OnShadow(); });
 }
 
 void ModelComponent::OnDetach() {
     Component::OnDetach();
-    Events::GetSingleton()->RemoveListener("Render", mListenerId);
+    Events::GetSingleton()->RemoveListener("Render", mRenderListenerId);
+    Events::GetSingleton()->RemoveListener("RenderShadows", mShadowListenerId);
 }
 
 std::string ModelComponent::GetType() const {
@@ -31,14 +33,22 @@ void ModelComponent::OnRender() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
 
     ((Texture *) mTexture.get())->Bind(0);
-    ShaderProgram::GetCurrent()->Texture(ShaderProgram::TextureUniformName, 0);
+    ShaderProgram::Get("Main")->Texture(ShaderProgram::TextureUniformName, 0);
     ((Texture *) mNormalMap.get())->Bind(1);
-    ShaderProgram::GetCurrent()->Texture(ShaderProgram::NormalMapUniformName, 1);
+    ShaderProgram::Get("Main")->Texture(ShaderProgram::NormalMapUniformName, 1);
     ((Texture *) mReflectionMap.get())->Bind(2);
-    ShaderProgram::GetCurrent()->Texture(ShaderProgram::ReflectionMapUniformName, 2);
+    ShaderProgram::Get("Main")->Texture(ShaderProgram::ReflectionMapUniformName, 2);
 
     mArrayObject->Bind();
-    ShaderProgram::GetCurrent()->Uniform(ShaderProgram::ModelUniformName, transform->GetMatrix());
+    ShaderProgram::Get("Main")->Uniform(ShaderProgram::ModelUniformName, transform->GetMatrix());
+    Window::GetSingleton()->DrawElements(mIndexNumber);
+}
+
+void ModelComponent::OnShadow() {
+    auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
+
+    mShadowArrayObject->Bind();
+    ShaderProgram::Get("Light")->Uniform(ShaderProgram::ModelUniformName, transform->GetMatrix());
     Window::GetSingleton()->DrawElements(mIndexNumber);
 }
 
@@ -74,25 +84,32 @@ ModelComponent::ModelComponent(std::string modelName, std::string textureName, s
     mIndexNumber = (unsigned int) model->GetIndices().size();
 
     mVertices->Bind();
-    ShaderProgram::GetCurrent()->Attribute(ShaderProgram::PositionAttributeName, 3);
+    ShaderProgram::Get("Main")->Attribute(ShaderProgram::PositionAttributeName, 3);
 
     if (mColors) {
         mColors->Bind();
-        ShaderProgram::GetCurrent()->Attribute(ShaderProgram::ColorAttributeName, 3);
+        ShaderProgram::Get("Main")->Attribute(ShaderProgram::ColorAttributeName, 3);
     }
 
     mNormals->Bind();
-    ShaderProgram::GetCurrent()->Attribute(ShaderProgram::NormalAttributeName, 3);
+    ShaderProgram::Get("Main")->Attribute(ShaderProgram::NormalAttributeName, 3);
 
     if (mTexCoords) {
         mTexCoords->Bind();
-        ShaderProgram::GetCurrent()->Attribute(ShaderProgram::TexCoordAttributeName, 2);
+        ShaderProgram::Get("Main")->Attribute(ShaderProgram::TexCoordAttributeName, 2);
     }
 
     mTangents->Bind();
-    ShaderProgram::GetCurrent()->Attribute(ShaderProgram::TangentAttributeName, 3);
+    ShaderProgram::Get("Main")->Attribute(ShaderProgram::TangentAttributeName, 3);
 
     mTexture = Resources::GetSingleton()->GetResource(textureName);
     mNormalMap = Resources::GetSingleton()->GetResource(normalMapName);
     mReflectionMap = Resources::GetSingleton()->GetResource(reflectionMapName);
+
+    mShadowArrayObject = std::make_shared<ArrayObject>();
+    mShadowArrayObject->Bind();
+
+    mVertices->Bind();
+    ShaderProgram::Get("Light")->Attribute(ShaderProgram::PositionAttributeName, 3);
+    mIndices->Bind();
 }

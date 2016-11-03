@@ -11,7 +11,6 @@
 /**
  * Global resource manager. Loads game resources like textures and models
  * from the disk drive.
- * TODO: Add tests
  */
 
 
