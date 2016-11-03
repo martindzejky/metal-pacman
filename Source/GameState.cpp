@@ -45,9 +45,9 @@ void GameState::Start() {
     light->AttachComponent(std::make_shared<TransformComponent>(1.f, 2.f, -4.f));
     light->AttachComponent(std::make_shared<LightComponent>(.9f, .7f, .4f, 12));
 
-    //auto light2 = Entity::Create();
-    //light2->AttachComponent(std::make_shared<TransformComponent>(-3.f, 1.f, 8.f));
-    //light2->AttachComponent(std::make_shared<LightComponent>(.1f, .5f, .9f, 9));
+    auto light2 = Entity::Create();
+    light2->AttachComponent(std::make_shared<TransformComponent>(-3.f, 1.f, 1.f));
+    light2->AttachComponent(std::make_shared<LightComponent>(.1f, .5f, .9f, 9));
 }
 
 void GameState::Update(float deltaSeconds) {
