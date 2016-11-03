@@ -10,7 +10,7 @@
 #include "ShaderProgram.hpp"
 #include "TransformComponent.hpp"
 #include "Entity.hpp"
-#include "FrameBuffer.hpp"
+#include "ShadowMap.hpp"
 #include "Window.hpp"
 
 
@@ -98,7 +98,7 @@ void LightComponent::OnShadowMaps() {
 
 LightComponent::LightComponent(float r, float g, float b, float radius)
     : mRed(r), mGreen(g), mBlue(b), mRadius(radius) {
-    mShadowMap = std::make_shared<FrameBuffer>(msShadowMapWidth, msShadowMapHeight);
+    mShadowMap = std::make_shared<ShadowMap>(msShadowMapWidth, msShadowMapHeight);
 }
 
 std::list<LightComponent*> LightComponent::msLightList;

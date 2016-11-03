@@ -4,12 +4,11 @@
 
 
 /**
- * OpenGL frame buffer. Usable as a render target, for example for shadow maps.
- * Note: Currently supports only shadow maps!
+ * OpenGL frame buffer used for shadow maps.
  */
 
 
-class FrameBuffer : public NonCopyable {
+class ShadowMap : public NonCopyable {
 
 public:
 
@@ -27,8 +26,8 @@ public:
     const Id &GetId() const;
 
 
-    FrameBuffer(Size width, Size height);
-    ~FrameBuffer();
+    ShadowMap(Size width, Size height);
+    ~ShadowMap();
 
 
 private:

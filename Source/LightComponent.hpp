@@ -12,7 +12,7 @@
 
 
 class Entity;
-class FrameBuffer;
+class ShadowMap;
 
 class LightComponent : public Component {
 
@@ -39,7 +39,7 @@ private:
     Events::ListenerId mUpdateListenerId;
     Events::ListenerId mShadowsListenerId;
 
-    std::shared_ptr<FrameBuffer> mShadowMap;
+    std::shared_ptr<ShadowMap> mShadowMap;
 
     float mRed;
     float mGreen;

@@ -1,26 +1,26 @@
-#include "FrameBuffer.hpp"
+#include "ShadowMap.hpp"
 
 #include <GL/glew.h>
 
 
-void FrameBuffer::Unbind() {
+void ShadowMap::Unbind() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void FrameBuffer::Bind() {
+void ShadowMap::Bind() {
     glBindFramebuffer(GL_FRAMEBUFFER, mId);
 }
 
-void FrameBuffer::BindTexture(int unit) {
+void ShadowMap::BindTexture(int unit) {
     glActiveTexture((GLenum) (GL_TEXTURE0 + unit));
     glBindTexture(GL_TEXTURE_2D, mTextureId);
 }
 
-const FrameBuffer::Id &FrameBuffer::GetId() const {
+const ShadowMap::Id &ShadowMap::GetId() const {
     return mId;
 }
 
-FrameBuffer::FrameBuffer(Size width, Size height) {
+ShadowMap::ShadowMap(Size width, Size height) {
     glGenFramebuffers(1, &mId);
     glGenTextures(1, &mTextureId);
 
@@ -40,7 +40,7 @@ FrameBuffer::FrameBuffer(Size width, Size height) {
     Unbind();
 }
 
-FrameBuffer::~FrameBuffer() {
+ShadowMap::~ShadowMap() {
     if (mId) {
         glDeleteTextures(1, &mTextureId);
         glDeleteFramebuffers(1, &mId);
