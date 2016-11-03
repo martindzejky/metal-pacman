@@ -3,11 +3,26 @@
 #include <GL/glew.h>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Error.hpp"
 
-std::shared_ptr<ShaderProgram> ShaderProgram::Create() {
-    auto program = std::make_shared<ShaderProgram>();
-    SetSingleton(program);
+
+std::shared_ptr<ShaderProgram> ShaderProgram::Create(std::string name) {
+    auto program = std::make_shared<ShaderProgram>(name);
+    msShaderPrograms[name] = program;
     return program;
+}
+
+std::shared_ptr<ShaderProgram> ShaderProgram::Get(std::string name) {
+    if (msShaderPrograms.count(name)) {
+        return msShaderPrograms[name];
+    }
+    else {
+        THROW_ERROR(std::string("Unknown shader program ") + name);
+    }
+}
+
+std::shared_ptr<ShaderProgram> ShaderProgram::GetCurrent() {
+    return msCurrent;
 }
 
 void ShaderProgram::Add(Shader::Id id) {
@@ -15,12 +30,16 @@ void ShaderProgram::Add(Shader::Id id) {
 }
 
 void ShaderProgram::Link(std::string fragmentOutput) {
-    glBindFragDataLocation(mId, 0, fragmentOutput.c_str());
+    if (fragmentOutput != "") {
+        glBindFragDataLocation(mId, 0, fragmentOutput.c_str());
+    }
     glLinkProgram(mId);
 }
 
 void ShaderProgram::Use() {
     glUseProgram(mId);
+
+    msCurrent = Get(mName);
 }
 
 void ShaderProgram::Attribute(std::string name, int size, int stride, int offset) {
@@ -81,7 +100,7 @@ const ShaderProgram::Id &ShaderProgram::GetId() const {
     return mId;
 }
 
-ShaderProgram::ShaderProgram() {
+ShaderProgram::ShaderProgram(std::string name) : mName(name) {
     mId = glCreateProgram();
 }
 
@@ -111,3 +130,6 @@ const std::string ShaderProgram::LightCountUniformName = "uLightCount";
 const std::string ShaderProgram::LightPositionsUniformName = "uLightPositions";
 const std::string ShaderProgram::LightColorsUniformName = "uLightColors";
 const std::string ShaderProgram::LightRadiusesUniformName = "uLightRadiuses";
+
+std::shared_ptr<ShaderProgram> ShaderProgram::msCurrent;
+std::unordered_map<std::string, std::shared_ptr<ShaderProgram>> ShaderProgram::msShaderPrograms;

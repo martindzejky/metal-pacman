@@ -14,7 +14,7 @@ void LightComponent::OnAttach(std::weak_ptr<Entity> entity) {
 
     msLightList.push_back(this);
     auto size = (int) msLightList.size();
-    ShaderProgram::GetSingleton()->Uniform(ShaderProgram::LightCountUniformName, size);
+    ShaderProgram::GetCurrent()->Uniform(ShaderProgram::LightCountUniformName, size);
 }
 
 void LightComponent::OnDetach() {
@@ -23,7 +23,7 @@ void LightComponent::OnDetach() {
 
     msLightList.remove(this);
     auto size = (int) msLightList.size();
-    ShaderProgram::GetSingleton()->Uniform(ShaderProgram::LightCountUniformName, size);
+    ShaderProgram::GetCurrent()->Uniform(ShaderProgram::LightCountUniformName, size);
 }
 
 std::string LightComponent::GetType() const {
@@ -47,9 +47,9 @@ void LightComponent::OnUpdate() {
 
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
     auto position = transform->GetPosition();
-    ShaderProgram::GetSingleton()->Uniform(positions.str(), position);
-    ShaderProgram::GetSingleton()->Uniform(colors.str(), glm::vec3(mRed, mGreen, mBlue));
-    ShaderProgram::GetSingleton()->Uniform(radiuses.str(), mRadius);
+    ShaderProgram::GetCurrent()->Uniform(positions.str(), position);
+    ShaderProgram::GetCurrent()->Uniform(colors.str(), glm::vec3(mRed, mGreen, mBlue));
+    ShaderProgram::GetCurrent()->Uniform(radiuses.str(), mRadius);
 }
 
 LightComponent::LightComponent(float r, float g, float b, float radius)

@@ -26,6 +26,7 @@ public:
     static std::shared_ptr<Entity> Create();
     static std::shared_ptr<Entity> Get(Id id);
     static void Destroy(Entity::Id id);
+    static void DestroyAll();
 
     void AttachComponent(std::shared_ptr<Component> component);
     std::shared_ptr<Component> GetComponent(std::string type);

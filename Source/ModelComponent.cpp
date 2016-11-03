@@ -31,14 +31,14 @@ void ModelComponent::OnRender() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
 
     ((Texture *) mTexture.get())->Bind(0);
-    ShaderProgram::GetSingleton()->Texture(ShaderProgram::TextureUniformName, 0);
+    ShaderProgram::GetCurrent()->Texture(ShaderProgram::TextureUniformName, 0);
     ((Texture *) mNormalMap.get())->Bind(1);
-    ShaderProgram::GetSingleton()->Texture(ShaderProgram::NormalMapUniformName, 1);
+    ShaderProgram::GetCurrent()->Texture(ShaderProgram::NormalMapUniformName, 1);
     ((Texture *) mReflectionMap.get())->Bind(2);
-    ShaderProgram::GetSingleton()->Texture(ShaderProgram::ReflectionMapUniformName, 2);
+    ShaderProgram::GetCurrent()->Texture(ShaderProgram::ReflectionMapUniformName, 2);
 
     mArrayObject->Bind();
-    ShaderProgram::GetSingleton()->Uniform(ShaderProgram::ModelUniformName, transform->GetMatrix());
+    ShaderProgram::GetCurrent()->Uniform(ShaderProgram::ModelUniformName, transform->GetMatrix());
     Window::GetSingleton()->DrawElements(mIndexNumber);
 }
 
@@ -74,23 +74,23 @@ ModelComponent::ModelComponent(std::string modelName, std::string textureName, s
     mIndexNumber = (unsigned int) model->GetIndices().size();
 
     mVertices->Bind();
-    ShaderProgram::GetSingleton()->Attribute(ShaderProgram::PositionAttributeName, 3);
+    ShaderProgram::GetCurrent()->Attribute(ShaderProgram::PositionAttributeName, 3);
 
     if (mColors) {
         mColors->Bind();
-        ShaderProgram::GetSingleton()->Attribute(ShaderProgram::ColorAttributeName, 3);
+        ShaderProgram::GetCurrent()->Attribute(ShaderProgram::ColorAttributeName, 3);
     }
 
     mNormals->Bind();
-    ShaderProgram::GetSingleton()->Attribute(ShaderProgram::NormalAttributeName, 3);
+    ShaderProgram::GetCurrent()->Attribute(ShaderProgram::NormalAttributeName, 3);
 
     if (mTexCoords) {
         mTexCoords->Bind();
-        ShaderProgram::GetSingleton()->Attribute(ShaderProgram::TexCoordAttributeName, 2);
+        ShaderProgram::GetCurrent()->Attribute(ShaderProgram::TexCoordAttributeName, 2);
     }
 
     mTangents->Bind();
-    ShaderProgram::GetSingleton()->Attribute(ShaderProgram::TangentAttributeName, 3);
+    ShaderProgram::GetCurrent()->Attribute(ShaderProgram::TangentAttributeName, 3);
 
     mTexture = Resources::GetSingleton()->GetResource(textureName);
     mNormalMap = Resources::GetSingleton()->GetResource(normalMapName);

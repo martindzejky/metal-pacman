@@ -18,9 +18,9 @@ TEST_F(ShaderTest, CreateAndCompile) {
     std::shared_ptr<Resource> vertex;
     std::shared_ptr<Resource> fragment;
 
-    EXPECT_NO_THROW(vertex = Resources::GetSingleton()->Load("VertexShader", "Shaders/Vertex.glsl"))
+    EXPECT_NO_THROW(vertex = Resources::GetSingleton()->Load("VertexShader", "Shaders/MainVertex.glsl"))
                     << "Vertex shader not compiled";
-    EXPECT_NO_THROW(fragment = Resources::GetSingleton()->Load("FragmentShader", "Shaders/Fragment.glsl"))
+    EXPECT_NO_THROW(fragment = Resources::GetSingleton()->Load("FragmentShader", "Shaders/MainFragment.glsl"))
                     << "Fragment shader not compiled";
 
     EXPECT_NE(((Shader *) vertex.get())->GetId(), 0) << "Vertex shader not created";

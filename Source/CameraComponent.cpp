@@ -17,7 +17,7 @@ void CameraComponent::OnAttach(std::weak_ptr<Entity> entity) {
     Window::GetSingleton()->GetSize(width, height);
 
     auto projection = glm::perspective(glm::radians(45.), (double) width / height, .1, 100000.);
-    ShaderProgram::GetSingleton()->Uniform(ShaderProgram::ProjectionUniformName, projection);
+    ShaderProgram::GetCurrent()->Uniform(ShaderProgram::ProjectionUniformName, projection);
 
     listenerId = Events::GetSingleton()->AddListener("Update", [this](void *) { OnUpdate(); });
 }
@@ -35,5 +35,5 @@ void CameraComponent::OnUpdate() {
     auto transform = (TransformComponent*) mEntity.lock()->GetComponent("TransformComponent").get();
     auto view = transform->GetMatrix();
     auto inverse = glm::inverse(view);
-    ShaderProgram::GetSingleton()->Uniform(ShaderProgram::ViewUniformName, inverse);
+    ShaderProgram::GetCurrent()->Uniform(ShaderProgram::ViewUniformName, inverse);
 }

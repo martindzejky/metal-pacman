@@ -26,8 +26,8 @@ TEST_F(ShaderProgramTest, Create) {
 
 
 TEST_F(ShaderProgramTest, AddLinkUse) {
-    auto vertexShader = Resources::GetSingleton()->Load("VertexShader", "Shaders/Vertex.glsl");
-    auto fragmentShader = Resources::GetSingleton()->Load("FragmentShader", "Shaders/Fragment.glsl");
+    auto vertexShader = Resources::GetSingleton()->Load("VertexShader", "Shaders/MainVertex.glsl");
+    auto fragmentShader = Resources::GetSingleton()->Load("FragmentShader", "Shaders/MainFragment.glsl");
 
     mShaderProgram->Add(((Shader *) vertexShader.get())->GetId());
     mShaderProgram->Add(((Shader *) fragmentShader.get())->GetId());

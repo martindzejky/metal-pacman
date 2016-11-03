@@ -11,14 +11,21 @@ void LoadState::Start() {
     auto resources = Resources::GetSingleton();
 
     // shaders
-    auto vertexShader = resources->Load("VertexShader", "Shaders/Vertex.glsl");
-    auto fragmentShader = resources->Load("FragmentShader", "Shaders/Fragment.glsl");
+    auto mainVertexShader = resources->Load("MainVertexShader", "Shaders/MainVertex.glsl");
+    auto mainFragmentShader = resources->Load("MainFragmentShader", "Shaders/MainFragment.glsl");
+    auto lightVertexShader = resources->Load("LightVertexShader", "Shaders/LightVertex.glsl");
+    auto lightFragmentShader = resources->Load("LightFragmentShader", "Shaders/LightFragment.glsl");
 
-    auto program = ShaderProgram::Create();
-    program->Add(((Shader *) vertexShader.get())->GetId());
-    program->Add(((Shader *) fragmentShader.get())->GetId());
-    program->Link("oColor");
-    program->Use();
+    auto mainProgram = ShaderProgram::Create("Main");
+    mainProgram->Add(((Shader *) mainVertexShader.get())->GetId());
+    mainProgram->Add(((Shader *) mainFragmentShader.get())->GetId());
+    mainProgram->Link("oColor");
+    mainProgram->Use();
+
+    auto lightProgram = ShaderProgram::Create("Light");
+    lightProgram->Add(((Shader *) lightVertexShader.get())->GetId());
+    lightProgram->Add(((Shader *) lightFragmentShader.get())->GetId());
+    lightProgram->Link("oColor");
 
     // textures
     resources->Load("BlankDiffuseTexture", "Textures/BlankDiffuse.png");

@@ -16,6 +16,7 @@ public:
 
     virtual void Start() override;
     virtual void Update(float deltaSeconds) override;
+    virtual void End() override;
 
 };
 

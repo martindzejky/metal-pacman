@@ -1,9 +1,10 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
+
 #include <glm/glm.hpp>
 
-#include "Singleton.hpp"
 #include "Shader.hpp"
 
 
@@ -12,7 +13,7 @@
  */
 
 
-class ShaderProgram : public Singleton<ShaderProgram> {
+class ShaderProgram {
 
 public:
 
@@ -21,10 +22,12 @@ public:
 
 public:
 
-    static std::shared_ptr<ShaderProgram> Create();
+    static std::shared_ptr<ShaderProgram> Create(std::string name);
+    static std::shared_ptr<ShaderProgram> Get(std::string name);
+    static std::shared_ptr<ShaderProgram> GetCurrent();
 
     void Add(Shader::Id id);
-    void Link(std::string fragmentOutput);
+    void Link(std::string fragmentOutput = "");
     void Use();
 
     void Attribute(std::string name, int size, int stride = 0, int offset = 0);
@@ -36,7 +39,7 @@ public:
 
     const Id &GetId() const;
 
-    ShaderProgram();
+    ShaderProgram(std::string name);
     ~ShaderProgram();
 
 
@@ -66,6 +69,10 @@ public:
 
 private:
 
+    static std::shared_ptr<ShaderProgram> msCurrent;
+    static std::unordered_map<std::string, std::shared_ptr<ShaderProgram>> msShaderPrograms;
+
+    std::string mName;
     Id mId = 0;
 
     glm::mat4 mProjection;

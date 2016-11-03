@@ -27,6 +27,10 @@ void Entity::Destroy(Entity::Id id) {
     msEntities.erase(id);
 }
 
+void Entity::DestroyAll() {
+    msEntities.clear();
+}
+
 void Entity::AttachComponent(std::shared_ptr<Component> component) {
     if (component->IsAttached()) {
         THROW_ERROR("Component already attached");
@@ -74,4 +78,5 @@ Entity::~Entity() {
 
 const Entity::Id Entity::Invalid = 0;
 Entity::Id Entity::msLastId = 0;
+
 std::unordered_map<Entity::Id, std::shared_ptr<Entity>> Entity::msEntities;
