@@ -1,5 +1,5 @@
 #version 410
-#define MAX_LIGHTS 16
+#define MAX_LIGHTS 12
 
 in vec3 Position;
 in vec3 EyePosition;
@@ -68,12 +68,22 @@ float Shadow(int light) {
     switch (light) {
         case 0: sampledDepth = texture(uShadowMaps[0], direction).r; break;
         case 1: sampledDepth = texture(uShadowMaps[1], direction).r; break;
+        case 2: sampledDepth = texture(uShadowMaps[2], direction).r; break;
+        case 3: sampledDepth = texture(uShadowMaps[3], direction).r; break;
+        case 4: sampledDepth = texture(uShadowMaps[4], direction).r; break;
+        case 5: sampledDepth = texture(uShadowMaps[5], direction).r; break;
+        case 6: sampledDepth = texture(uShadowMaps[6], direction).r; break;
+        case 7: sampledDepth = texture(uShadowMaps[7], direction).r; break;
+        case 8: sampledDepth = texture(uShadowMaps[8], direction).r; break;
+        case 9: sampledDepth = texture(uShadowMaps[9], direction).r; break;
+        case 10: sampledDepth = texture(uShadowMaps[10], direction).r; break;
+        case 11: sampledDepth = texture(uShadowMaps[11], direction).r; break;
     }
 
     float closestDepth = sampledDepth * uLightRadiuses[light];
     float currentDepth = length(direction);
 
-    return currentDepth - bias < closestDepth  ? 1.0 : 0.02;
+    return currentDepth - bias < closestDepth  ? 1.0 : 0.0;
 }
 
 

@@ -1,8 +1,11 @@
 #include "LoadState.hpp"
 
+#include <sstream>
+
 #include "GameState.hpp"
 #include "Resources.hpp"
 #include "ShaderProgram.hpp"
+#include "ShadowMap.hpp"
 
 
 void LoadState::Start() {
@@ -28,6 +31,15 @@ void LoadState::Start() {
     lightProgram->Add(((Shader *) lightGeometryShader.get())->GetId());
     lightProgram->Add(((Shader *) lightFragmentShader.get())->GetId());
     lightProgram->Link();
+
+    // shadow maps
+    auto empty = ShadowMap::CreateEmpty();
+    for (auto i = 0; i < 12; ++i) {
+        std::stringstream shadowMaps;
+        shadowMaps << ShaderProgram::ShadowMapsUniformName << "[" << i << "]";
+        empty->BindTexture(i + 3);
+        ShaderProgram::Get("Main")->Texture(shadowMaps.str(), i + 3);
+    }
 
     // textures
     resources->Load("BlankDiffuseTexture", "Textures/BlankDiffuse.png");

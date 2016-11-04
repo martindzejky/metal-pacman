@@ -3,6 +3,12 @@
 #include <GL/glew.h>
 
 
+std::shared_ptr<ShadowMap> ShadowMap::CreateEmpty() {
+    auto empty = std::make_shared<ShadowMap>(1, 1);
+    msEmpty = empty;
+    return empty;
+}
+
 void ShadowMap::Unbind() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
@@ -18,6 +24,10 @@ void ShadowMap::BindTexture(int unit) {
 
 const ShadowMap::Id &ShadowMap::GetId() const {
     return mId;
+}
+
+std::shared_ptr<ShadowMap> ShadowMap::GetEmpty() {
+    return msEmpty;
 }
 
 ShadowMap::ShadowMap(Size width, Size height) {
@@ -49,3 +59,5 @@ ShadowMap::~ShadowMap() {
         glDeleteFramebuffers(1, &mId);
     }
 }
+
+std::shared_ptr<ShadowMap> ShadowMap::msEmpty;
