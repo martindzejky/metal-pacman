@@ -41,6 +41,21 @@ void GameState::Start() {
     table2->AttachComponent(std::make_shared<ModelComponent>("TableModel", "WoodDiffuseTexture",
                                                             "WoodNormalTexture", "WoodReflectionTexture"));
 
+    auto chair = Entity::Create();
+    auto chairTransform = std::make_shared<TransformComponent>(2.7f, 0.45f, -4.f);
+    chairTransform->Pitch(-3.14f / 2.f);
+    chairTransform->Yaw(3.14f / 2.f, Transform::Space::Global);
+    chair->AttachComponent(chairTransform);
+    chair->AttachComponent(std::make_shared<ModelComponent>("ChairModel", "WoodDiffuseTexture",
+                                                            "WoodNormalTexture", "WoodReflectionTexture"));
+
+    auto chair2 = Entity::Create();
+    auto chair2Transform = std::make_shared<TransformComponent>(1.4f, 0.24f, 7.4f);
+    chair2Transform->Yaw(2.5f, Transform::Space::Global);
+    chair2->AttachComponent(chair2Transform);
+    chair2->AttachComponent(std::make_shared<ModelComponent>("ChairModel", "WoodDiffuseTexture",
+                                                            "WoodNormalTexture", "WoodReflectionTexture"));
+
     auto light = Entity::Create();
     light->AttachComponent(std::make_shared<TransformComponent>(1.f, 2.f, -4.f));
     light->AttachComponent(std::make_shared<LightComponent>(.9f, .7f, .4f, 12));

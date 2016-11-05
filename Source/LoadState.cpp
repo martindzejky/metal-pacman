@@ -55,6 +55,7 @@ void LoadState::Start() {
     // models
     resources->Load("RoomModel", "Models/Room.ply");
     resources->Load("TableModel", "Models/Table.ply");
+    resources->Load("ChairModel", "Models/Chair.ply");
 
     SwitchInto(std::make_shared<GameState>());
 }
