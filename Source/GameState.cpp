@@ -7,7 +7,6 @@
 #include "CameraComponent.hpp"
 #include "PlayerComponent.hpp"
 #include "ModelComponent.hpp"
-#include "ColorCubeComponent.hpp"
 #include "LightComponent.hpp"
 
 
