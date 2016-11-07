@@ -63,6 +63,13 @@ void GameState::Start() {
     auto light2 = Entity::Create();
     light2->AttachComponent(std::make_shared<TransformComponent>(-2.f, .8f, 8.f));
     light2->AttachComponent(std::make_shared<LightComponent>(.1f, .5f, .9f, 9));
+
+    auto bucket = Entity::Create();
+    auto bucketTransform = std::make_shared<TransformComponent>(1.1f, 0.2f, -6.1f);
+    bucketTransform->Pitch(-3.14f / 2.f);
+    bucket->AttachComponent(bucketTransform);
+    bucket->AttachComponent(std::make_shared<ModelComponent>("BucketModel", "DarkWoodDiffuseTexture",
+                                                            "DarkWoodNormalTexture", "DarkWoodReflectionTexture"));
 }
 
 void GameState::Update(float deltaSeconds) {

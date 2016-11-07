@@ -51,11 +51,15 @@ void LoadState::Start() {
     resources->Load("WoodDiffuseTexture", "Textures/WoodDiffuse.png");
     resources->Load("WoodNormalTexture", "Textures/WoodNormal.png");
     resources->Load("WoodReflectionTexture", "Textures/WoodReflection.png");
+    resources->Load("DarkWoodDiffuseTexture", "Textures/DarkWoodDiffuse.png");
+    resources->Load("DarkWoodNormalTexture", "Textures/DarkWoodNormal.png");
+    resources->Load("DarkWoodReflectionTexture", "Textures/DarkWoodReflection.png");
 
     // models
     resources->Load("RoomModel", "Models/Room.ply");
     resources->Load("TableModel", "Models/Table.ply");
     resources->Load("ChairModel", "Models/Chair.ply");
+    resources->Load("BucketModel", "Models/Bucket.ply");
 
     SwitchInto(std::make_shared<GameState>());
 }
