@@ -18,7 +18,7 @@ public:
     virtual void OnDetach() override;
     virtual std::string GetType() const override;
 
-    void OnUpdate();
+    void OnUpdate(float deltaSeconds);
 
     RotatingComponent(Transform::Axis axis, float speed, Transform::Space space = Transform::Space::Local);
 

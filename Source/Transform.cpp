@@ -77,6 +77,14 @@ void Transform::Scale(float s) {
     mScale *= glm::vec3(s, s, s);
 }
 
+void Transform::Attach(std::shared_ptr<Transform> parent) {
+    mParent = parent;
+}
+
+void Transform::Detach() {
+    mParent = std::shared_ptr<Transform>();
+}
+
 const glm::vec3 &Transform::GetPosition() const {
     return mPosition;
 }
@@ -92,11 +100,13 @@ const glm::mat4 &Transform::GetMatrix() {
         mMatrix = position * rotation * scale;
     }
 
-    return mMatrix;
-}
-
-glm::mat4 Transform::GetInverse() const {
-    return glm::inverse(mMatrix);
+    if (mParent) {
+        mMatrixWithParent = mParent->GetMatrix() * mMatrix;
+    }
+    else {
+        mMatrixWithParent = mMatrix;
+    }
+    return mMatrixWithParent;
 }
 
 Transform::Transform() :

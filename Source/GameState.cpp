@@ -8,6 +8,7 @@
 #include "PlayerComponent.hpp"
 #include "ModelComponent.hpp"
 #include "LightComponent.hpp"
+#include "RotatingComponent.hpp"
 
 
 void GameState::Start() {
@@ -64,11 +65,28 @@ void GameState::Start() {
     light2->AttachComponent(std::make_shared<LightComponent>(.1f, .5f, .9f, 9));
 
     auto bucket = Entity::Create();
-    auto bucketTransform = std::make_shared<TransformComponent>(1.1f, 0.2f, -6.1f);
+    auto bucketTransform = std::make_shared<TransformComponent>(1.1f, 1.2f, -6.1f);
     bucketTransform->Pitch(-3.14f / 2.f);
     bucket->AttachComponent(bucketTransform);
     bucket->AttachComponent(std::make_shared<ModelComponent>("BucketModel", "DarkWoodDiffuseTexture",
                                                             "DarkWoodNormalTexture", "DarkWoodReflectionTexture"));
+    bucket->AttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::Z, .3f));
+
+    auto bucket2 = Entity::Create();
+    auto bucket2Transform = std::make_shared<TransformComponent>(1.1f, .2f, .1f);
+    bucket2Transform->Pitch(-3.14f / 2.f);
+    bucket2->AttachComponent(bucket2Transform);
+    bucket2->AttachComponent(std::make_shared<ModelComponent>("BucketModel", "DarkWoodDiffuseTexture",
+                                                             "DarkWoodNormalTexture", "DarkWoodReflectionTexture"));
+    bucket2->AttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::X, 1.f));
+    bucket2Transform->Attach(bucketTransform);
+
+    auto bucket3 = Entity::Create();
+    auto bucket3Transform = std::make_shared<TransformComponent>(0, .8f, 0);
+    bucket3->AttachComponent(bucket3Transform);
+    bucket3->AttachComponent(std::make_shared<ModelComponent>("BucketModel", "DarkWoodDiffuseTexture",
+                                                              "DarkWoodNormalTexture", "DarkWoodReflectionTexture"));
+    bucket3Transform->Attach(bucket2Transform);
 }
 
 void GameState::Update(float deltaSeconds) {

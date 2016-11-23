@@ -8,7 +8,9 @@ void RotatingComponent::OnAttach(std::weak_ptr<Entity> entity) {
     Component::OnAttach(entity);
     mEntity = entity;
 
-    listenerId = Events::GetSingleton()->AddListener("Update", [this](void *) { OnUpdate(); });
+    listenerId = Events::GetSingleton()->AddListener("Update", [this](void *deltaSeconds) {
+        OnUpdate(*((float *) deltaSeconds));
+    });
 }
 
 void RotatingComponent::OnDetach() {
@@ -20,9 +22,9 @@ std::string RotatingComponent::GetType() const {
     return "RotatingComponent";
 }
 
-void RotatingComponent::OnUpdate() {
+void RotatingComponent::OnUpdate(float deltaSeconds) {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
-    transform->Rotate(mAxis, mSpeed, mSpace);
+    transform->Rotate(mAxis, mSpeed * deltaSeconds, mSpace);
 }
 
 RotatingComponent::RotatingComponent(Transform::Axis axis, float speed, Transform::Space space)

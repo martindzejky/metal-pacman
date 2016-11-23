@@ -1,6 +1,8 @@
 #pragma once
 
 
+#include <memory>
+
 #include <glm/fwd.hpp>
 #include <glm/vec3.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -9,7 +11,7 @@
 /**
  * Transform defines an object's position and orientation in space. It uses
  * vectors and quaternions to store the state. It can also easily made into
- * a matric and passed to OpenGL.
+ * a matrix and passed to OpenGL.
  */
 
 
@@ -44,9 +46,11 @@ public:
     void Scale(float x, float y, float z);
     void Scale(float s);
 
+    void Attach(std::shared_ptr<Transform> parent);
+    void Detach();
+
     const glm::vec3 &GetPosition() const;
     const glm::mat4 &GetMatrix();
-    glm::mat4 GetInverse() const;
 
     Transform();
     Transform(float x, float y, float z);
@@ -61,5 +65,8 @@ private:
     glm::mat4 mMatrix;
 
     bool mDirty = true;
+
+    std::shared_ptr<Transform> mParent;
+    glm::mat4 mMatrixWithParent;
 
 };
