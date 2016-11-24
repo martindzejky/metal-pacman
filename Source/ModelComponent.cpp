@@ -39,6 +39,8 @@ void ModelComponent::OnRender() {
     ((Texture *) mReflectionMap.get())->Bind(2);
     ShaderProgram::Get("Main")->Texture(ShaderProgram::ReflectionMapUniformName, 2);
 
+    ShaderProgram::Get("Main")->Uniform(ShaderProgram::EmissionUniformName, mEmission);
+
     mArrayObject->Bind();
     ShaderProgram::Get("Main")->Uniform(ShaderProgram::ModelUniformName, transform->GetMatrix());
     Window::GetSingleton()->DrawElements(mIndexNumber);
@@ -53,7 +55,9 @@ void ModelComponent::OnShadow() {
 }
 
 ModelComponent::ModelComponent(std::string modelName, std::string textureName, std::string normalMapName,
-                               std::string reflectionMapName) {
+                               std::string reflectionMapName, float emission) {
+    mEmission = emission;
+
     mArrayObject = std::make_shared<ArrayObject>();
     mArrayObject->Bind();
 

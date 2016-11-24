@@ -25,6 +25,7 @@ set(SOURCE_FILES
     Source/CameraComponent.cpp
     Source/Component.cpp
     Source/Entity.cpp
+    Source/EntityFactory.cpp
     Source/Error.cpp
     Source/Events.cpp
     Source/ShadowMap.cpp
@@ -34,7 +35,7 @@ set(SOURCE_FILES
     Source/LoadState.cpp
     Source/ModelComponent.cpp
     Source/ModelData.cpp
-    Source/PlayerComponent.cpp
+    Source/CameraControlComponent.cpp
     Source/Resources.cpp
     Source/RotatingComponent.cpp
     Source/SetupState.cpp

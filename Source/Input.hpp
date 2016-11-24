@@ -89,7 +89,7 @@ public:
 
 private:
 
-    bool mMouseLocked = false;
+    bool mMouseLocked = true;
     double mLastMouseX = 0;
     double mLastMouseY = 0;
     double mMouseDeltaX = 0;

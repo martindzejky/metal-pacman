@@ -2,91 +2,20 @@
 
 #include "Window.hpp"
 #include "Input.hpp"
-#include "Entity.hpp"
+#include "Events.hpp"
+#include "EntityFactory.hpp"
 #include "TransformComponent.hpp"
-#include "CameraComponent.hpp"
-#include "PlayerComponent.hpp"
-#include "ModelComponent.hpp"
 #include "LightComponent.hpp"
-#include "RotatingComponent.hpp"
 
 
 void GameState::Start() {
     State::Start();
 
-    auto camera = Entity::Create();
-    camera->AttachComponent(std::make_shared<TransformComponent>(0, 1.7f, 0));
-    camera->AttachComponent(std::make_shared<CameraComponent>());
-    camera->AttachComponent(std::make_shared<PlayerComponent>());
-
-    auto level = Entity::Create();
-    auto levelTransform = std::make_shared<TransformComponent>();
-    levelTransform->Pitch(-3.14f / 2.f);
-    level->AttachComponent(levelTransform);
-    level->AttachComponent(std::make_shared<ModelComponent>("RoomModel", "CobbleDiffuseTexture",
-                                                            "CobbleNormalTexture", "CobbleReflectionTexture"));
-
-    auto table = Entity::Create();
-    auto tableTransform = std::make_shared<TransformComponent>(2.7f, 0.68f, -5.f);
-    tableTransform->Pitch(-3.14f / 2.f);
-    table->AttachComponent(tableTransform);
-    table->AttachComponent(std::make_shared<ModelComponent>("TableModel", "WoodDiffuseTexture",
-                                                            "WoodNormalTexture", "WoodReflectionTexture"));
-
-    auto table2 = Entity::Create();
-    auto table2Transform = std::make_shared<TransformComponent>(-2.4f, 0.68f, 4.4f);
-    table2Transform->Pitch(-3.14f / 2.f);
-    table2Transform->Yaw(2.f, Transform::Space::Global);
-    table2->AttachComponent(table2Transform);
-    table2->AttachComponent(std::make_shared<ModelComponent>("TableModel", "WoodDiffuseTexture",
-                                                            "WoodNormalTexture", "WoodReflectionTexture"));
-
-    auto chair = Entity::Create();
-    auto chairTransform = std::make_shared<TransformComponent>(2.7f, 0.45f, -4.f);
-    chairTransform->Pitch(-3.14f / 2.f);
-    chairTransform->Yaw(3.14f / 2.f, Transform::Space::Global);
-    chair->AttachComponent(chairTransform);
-    chair->AttachComponent(std::make_shared<ModelComponent>("ChairModel", "WoodDiffuseTexture",
-                                                            "WoodNormalTexture", "WoodReflectionTexture"));
-
-    auto chair2 = Entity::Create();
-    auto chair2Transform = std::make_shared<TransformComponent>(1.4f, 0.24f, 7.4f);
-    chair2Transform->Yaw(2.5f, Transform::Space::Global);
-    chair2->AttachComponent(chair2Transform);
-    chair2->AttachComponent(std::make_shared<ModelComponent>("ChairModel", "WoodDiffuseTexture",
-                                                            "WoodNormalTexture", "WoodReflectionTexture"));
+    EntityFactory::CreatePlayer();
 
     auto light = Entity::Create();
-    light->AttachComponent(std::make_shared<TransformComponent>(1.f, 2.f, -4.f));
-    light->AttachComponent(std::make_shared<LightComponent>(.9f, .7f, .4f, 12));
-
-    auto light2 = Entity::Create();
-    light2->AttachComponent(std::make_shared<TransformComponent>(-2.f, .8f, 8.f));
-    light2->AttachComponent(std::make_shared<LightComponent>(.1f, .5f, .9f, 9));
-
-    auto bucket = Entity::Create();
-    auto bucketTransform = std::make_shared<TransformComponent>(1.1f, 1.2f, -6.1f);
-    bucketTransform->Pitch(-3.14f / 2.f);
-    bucket->AttachComponent(bucketTransform);
-    bucket->AttachComponent(std::make_shared<ModelComponent>("BucketModel", "DarkWoodDiffuseTexture",
-                                                            "DarkWoodNormalTexture", "DarkWoodReflectionTexture"));
-    bucket->AttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::Z, .3f));
-
-    auto bucket2 = Entity::Create();
-    auto bucket2Transform = std::make_shared<TransformComponent>(1.1f, .2f, .1f);
-    bucket2Transform->Pitch(-3.14f / 2.f);
-    bucket2->AttachComponent(bucket2Transform);
-    bucket2->AttachComponent(std::make_shared<ModelComponent>("BucketModel", "DarkWoodDiffuseTexture",
-                                                             "DarkWoodNormalTexture", "DarkWoodReflectionTexture"));
-    bucket2->AttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::X, 1.f));
-    bucket2Transform->Attach(bucketTransform);
-
-    auto bucket3 = Entity::Create();
-    auto bucket3Transform = std::make_shared<TransformComponent>(0, .8f, 0);
-    bucket3->AttachComponent(bucket3Transform);
-    bucket3->AttachComponent(std::make_shared<ModelComponent>("BucketModel", "DarkWoodDiffuseTexture",
-                                                              "DarkWoodNormalTexture", "DarkWoodReflectionTexture"));
-    bucket3Transform->Attach(bucket2Transform);
+    light->AttachComponent(std::make_shared<TransformComponent>(1.4f, 2.f, -2.1f));
+    light->AttachComponent(std::make_shared<LightComponent>(1, 1, 1, 5));
 }
 
 void GameState::Update(float deltaSeconds) {

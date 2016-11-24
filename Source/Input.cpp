@@ -12,6 +12,7 @@ void Input::Create() {
 
     glfwGetCursorPos(Window::GetSingleton()->mGlfwWindow, &(singleton->mLastMouseX), &(singleton->mLastMouseY));
     glfwSetCursorPosCallback(Window::GetSingleton()->mGlfwWindow, OnMouseMoved);
+    glfwSetInputMode(Window::GetSingleton()->mGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     Events::GetSingleton()->AddListener("PostUpdate", [](void *) {
         GetSingleton()->mMouseDeltaX = 0;

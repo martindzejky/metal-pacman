@@ -48,18 +48,23 @@ void LoadState::Start() {
     resources->Load("CobbleDiffuseTexture", "Textures/CobblestoneDiffuse.png");
     resources->Load("CobbleNormalTexture", "Textures/CobblestoneNormal.png");
     resources->Load("CobbleReflectionTexture", "Textures/CobblestoneReflection.png");
-    resources->Load("WoodDiffuseTexture", "Textures/WoodDiffuse.png");
-    resources->Load("WoodNormalTexture", "Textures/WoodNormal.png");
-    resources->Load("WoodReflectionTexture", "Textures/WoodReflection.png");
-    resources->Load("DarkWoodDiffuseTexture", "Textures/DarkWoodDiffuse.png");
-    resources->Load("DarkWoodNormalTexture", "Textures/DarkWoodNormal.png");
-    resources->Load("DarkWoodReflectionTexture", "Textures/DarkWoodReflection.png");
+    resources->Load("RustDiffuseTexture", "Textures/RustDiffuse.png");
+    resources->Load("RustNormalTexture", "Textures/RustNormal.png");
+    resources->Load("RustReflectionTexture", "Textures/RustReflection.png");
+    resources->Load("RedMetalDiffuseTexture", "Textures/RedMetalDiffuse.png");
+    resources->Load("RedMetalNormalTexture", "Textures/RedMetalNormal.png");
+    resources->Load("RedMetalReflectionTexture", "Textures/RedMetalReflection.png");
+    resources->Load("YellowMetalDiffuseTexture", "Textures/YellowMetalDiffuse.png");
+    resources->Load("YellowMetalNormalTexture", "Textures/YellowMetalNormal.png");
+    resources->Load("YellowMetalReflectionTexture", "Textures/YellowMetalReflection.png");
 
     // models
     resources->Load("RoomModel", "Models/Room.ply");
-    resources->Load("TableModel", "Models/Table.ply");
-    resources->Load("ChairModel", "Models/Chair.ply");
-    resources->Load("BucketModel", "Models/Bucket.ply");
+    resources->Load("PacmanBottomModel", "Models/PacmanBottom.ply");
+    resources->Load("PacmanTeethBottomModel", "Models/PacmanTeethBottom.ply");
+    resources->Load("PacmanTeethTopModel", "Models/PacmanTeethTop.ply");
+    resources->Load("PacmanTopModel", "Models/PacmanTop.ply");
+    resources->Load("PacmanEyesModel", "Models/PacmanEyes.ply");
 
     SwitchInto(std::make_shared<GameState>());
 }

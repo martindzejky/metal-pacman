@@ -66,6 +66,8 @@ public:
     static const std::string LightRadiusesUniformName;
     static const std::string ShadowMapsUniformName;
 
+    static const std::string EmissionUniformName;
+
 
 private:
 

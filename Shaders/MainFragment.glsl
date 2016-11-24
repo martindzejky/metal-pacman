@@ -20,6 +20,8 @@ uniform float uLightRadiuses[MAX_LIGHTS];
 
 uniform samplerCube uShadowMaps[MAX_LIGHTS];
 
+uniform float uEmission;
+
 out vec4 oColor;
 
 
@@ -147,13 +149,19 @@ vec4 SpecularLight(vec3 normal) {
 void main()
 {
     vec4 texColor = TextureColor();
+    vec4 finalColor;
 
-    vec3 normal = texture(uNormalMap, TexCoord).rgb;
-    normal = normalize(normal * 2.0 - 1.0);
-    normal = normalize(TBN * normal);
+    if (uEmission < 0.1) {
+        vec3 normal = texture(uNormalMap, TexCoord).rgb;
+        normal = normalize(normal * 2.0 - 1.0);
+        normal = normalize(TBN * normal);
 
-    vec4 light =  clamp(AmbientLight() + DiffuseLight(normal) + SpecularLight(normal), 0.0, 1.0);
-    vec4 finalColor = texColor * light;
+        vec4 light =  clamp(AmbientLight() + DiffuseLight(normal) + SpecularLight(normal), 0.0, 1.0);
+        finalColor = texColor * light;
+    }
+    else {
+        finalColor = texColor * uEmission;
+    }
 
     vec4 fogColor = MixFog(finalColor);
     oColor = GammaCorrect(fogColor);

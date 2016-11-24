@@ -130,4 +130,6 @@ const std::string ShaderProgram::LightPositionsUniformName = "uLightPositions";
 const std::string ShaderProgram::LightColorsUniformName = "uLightColors";
 const std::string ShaderProgram::LightRadiusesUniformName = "uLightRadiuses";
 
+const std::string ShaderProgram::EmissionUniformName = "uEmission";
+
 std::unordered_map<std::string, std::shared_ptr<ShaderProgram>> ShaderProgram::msShaderPrograms;

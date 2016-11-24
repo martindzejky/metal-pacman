@@ -1,32 +1,31 @@
-#include "PlayerComponent.hpp"
+#include "CameraControlComponent.hpp"
 
 #include "Entity.hpp"
 #include "Input.hpp"
 #include "TransformComponent.hpp"
 
 
-void PlayerComponent::OnAttach(std::weak_ptr<Entity> entity) {
+void CameraControlComponent::OnAttach(std::weak_ptr<Entity> entity) {
     Component::OnAttach(entity);
     mEntity = entity;
 
-    listenerId = Events::GetSingleton()->AddListener("Update", [this](void *deltaPtr) { Move(*(float *) deltaPtr); });
+    listenerId = Events::GetSingleton()->AddListener("Update", [this](void *_) { Move(); });
 }
 
-void PlayerComponent::OnDetach() {
+void CameraControlComponent::OnDetach() {
     Component::OnDetach();
     Events::GetSingleton()->RemoveListener("Update", listenerId);
 }
 
-std::string PlayerComponent::GetType() const {
-    return "PlayerComponent";
+std::string CameraControlComponent::GetType() const {
+    return "CameraControlComponent";
 }
 
-void PlayerComponent::Move(float deltaSeconds) {
+void CameraControlComponent::Move() {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
     auto input = Input::GetSingleton();
-    auto speed = 3;
-    auto look = .01f;
-    auto mouseLook = .002f;
+    auto look = .08f;
+    auto mouseLook = .004f;
 
     // toggle lock
     if (Input::IsButtonPressed(Input::Button::Right)) {
@@ -37,31 +36,6 @@ void PlayerComponent::Move(float deltaSeconds) {
     }
     else {
         mPreviousMousePressed = false;
-    }
-
-    // sprint
-    if (Input::IsKeyPressed(Input::Key::LeftShift)) {
-        speed *= 4;
-    }
-
-    // movement
-    if (Input::IsKeyPressed(Input::Key::A)) {
-        transform->Move(-speed * deltaSeconds, 0, 0);
-    }
-    if (Input::IsKeyPressed(Input::Key::D)) {
-        transform->Move(speed * deltaSeconds, 0, 0);
-    }
-    if (Input::IsKeyPressed(Input::Key::W)) {
-        transform->Move(0, 0, -speed * deltaSeconds);
-    }
-    if (Input::IsKeyPressed(Input::Key::S)) {
-        transform->Move(0, 0, speed * deltaSeconds);
-    }
-    if (Input::IsKeyPressed(Input::Key::X) || Input::IsKeyPressed(Input::Key::C)) {
-        transform->Move(0, -speed * deltaSeconds, 0, Transform::Space::Global);
-    }
-    if (Input::IsKeyPressed(Input::Key::Space)) {
-        transform->Move(0, speed * deltaSeconds, 0, Transform::Space::Global);
     }
 
     // keyboard looking

@@ -11,7 +11,7 @@
 
 class Entity;
 
-class PlayerComponent : public Component {
+class CameraControlComponent : public Component {
 
 public:
 
@@ -19,7 +19,7 @@ public:
     virtual void OnDetach() override;
     virtual std::string GetType() const override;
 
-    void Move(float deltaSeconds);
+    void Move();
 
 
 private:
