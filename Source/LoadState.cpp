@@ -57,6 +57,12 @@ void LoadState::Start() {
     resources->Load("YellowMetalDiffuseTexture", "Textures/YellowMetalDiffuse.png");
     resources->Load("YellowMetalNormalTexture", "Textures/YellowMetalNormal.png");
     resources->Load("YellowMetalReflectionTexture", "Textures/YellowMetalReflection.png");
+    resources->Load("BlueMetalDiffuseTexture", "Textures/BlueMetalDiffuse.png");
+    resources->Load("BlueMetalNormalTexture", "Textures/BlueMetalNormal.png");
+    resources->Load("BlueMetalReflectionTexture", "Textures/BlueMetalReflection.png");
+    resources->Load("GrayMetalDiffuseTexture", "Textures/GrayMetalDiffuse.png");
+    resources->Load("GrayMetalNormalTexture", "Textures/GrayMetalNormal.png");
+    resources->Load("GrayMetalReflectionTexture", "Textures/GrayMetalReflection.png");
 
     // models
     resources->Load("RoomModel", "Models/Room.ply");
@@ -65,6 +71,10 @@ void LoadState::Start() {
     resources->Load("PacmanTeethTopModel", "Models/PacmanTeethTop.ply");
     resources->Load("PacmanTopModel", "Models/PacmanTop.ply");
     resources->Load("PacmanEyesModel", "Models/PacmanEyes.ply");
+    resources->Load("MonsterBodyModel", "Models/MonsterBody.ply");
+    resources->Load("MonsterTeethModel", "Models/MonsterTeeth.ply");
+    resources->Load("MonsterEyesModel", "Models/MonsterEyes.ply");
+    resources->Load("MonsterArmModel", "Models/MonsterArm.ply");
 
     SwitchInto(std::make_shared<GameState>());
 }

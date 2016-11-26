@@ -12,9 +12,10 @@ void GameState::Start() {
     State::Start();
 
     EntityFactory::CreatePlayer();
+    EntityFactory::CreateMonster(1.2f, 0, -2.8f);
 
     auto light = Entity::Create();
-    light->AttachComponent(std::make_shared<TransformComponent>(1.4f, 2.f, -2.1f));
+    light->AttachComponent(std::make_shared<TransformComponent>(1.6f, 2.f, -1.f));
     light->AttachComponent(std::make_shared<LightComponent>(1, 1, 1, 5));
 }
 

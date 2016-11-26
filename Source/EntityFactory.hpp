@@ -14,6 +14,7 @@ class EntityFactory {
 public:
 
     static std::shared_ptr<Entity> CreatePlayer(float x = 0, float y = 0, float z = 0);
+    static std::shared_ptr<Entity> CreateMonster(float x = 0, float y = 0, float z = 0);
 
 };
 
