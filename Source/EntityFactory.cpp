@@ -4,6 +4,7 @@
 #include "ModelComponent.hpp"
 #include "CameraComponent.hpp"
 #include "CameraControlComponent.hpp"
+#include "PacmanAnimationComponent.hpp"
 
 
 std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
@@ -52,6 +53,7 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
     teethTop->AttachComponent(
         std::make_shared<ModelComponent>("PacmanTeethTopModel", "RustDiffuseTexture", "RustNormalTexture",
                                          "RustReflectionTexture"));
+    teethTop->AttachComponent(std::make_shared<PacmanAnimationComponent>());
 
     auto top = Entity::Create();
     auto topTransform = std::make_shared<TransformComponent>();
@@ -61,6 +63,7 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
     top->AttachComponent(
         std::make_shared<ModelComponent>("PacmanTopModel", "YellowMetalDiffuseTexture", "YellowMetalNormalTexture",
                                          "YellowMetalReflectionTexture"));
+    top->AttachComponent(std::make_shared<PacmanAnimationComponent>());
 
     auto eyes = Entity::Create();
     auto eyesTransform = std::make_shared<TransformComponent>();
@@ -70,6 +73,7 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
     eyes->AttachComponent(
         std::make_shared<ModelComponent>("PacmanEyesModel", "RedMetalDiffuseTexture", "RedMetalNormalTexture",
                                          "RedMetalReflectionTexture", 2));
+    eyes->AttachComponent(std::make_shared<PacmanAnimationComponent>());
 
     return root;
 }

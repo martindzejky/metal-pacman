@@ -70,11 +70,18 @@ void Transform::Rotate(glm::quat quat, Space space) {
 }
 
 void Transform::Scale(float x, float y, float z) {
+    mDirty = true;
     mScale *= glm::vec3(x, y, z);
 }
 
 void Transform::Scale(float s) {
+    mDirty = true;
     mScale *= glm::vec3(s, s, s);
+}
+
+void Transform::SetPosition(float x, float y, float z) {
+    mDirty = true;
+    mPosition = glm::vec3(x, y, z);
 }
 
 void Transform::Attach(std::shared_ptr<Transform> parent) {

@@ -23,6 +23,7 @@ set(SOURCE_FILES
     Source/ArrayObject.cpp
     Source/BufferObject.cpp
     Source/CameraComponent.cpp
+    Source/CameraControlComponent.cpp
     Source/Component.cpp
     Source/Entity.cpp
     Source/EntityFactory.cpp
@@ -35,7 +36,7 @@ set(SOURCE_FILES
     Source/LoadState.cpp
     Source/ModelComponent.cpp
     Source/ModelData.cpp
-    Source/CameraControlComponent.cpp
+    Source/PacmanAnimationComponent.cpp
     Source/Resources.cpp
     Source/RotatingComponent.cpp
     Source/SetupState.cpp

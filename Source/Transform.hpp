@@ -46,6 +46,8 @@ public:
     void Scale(float x, float y, float z);
     void Scale(float s);
 
+    void SetPosition(float x, float y, float z);
+
     void Attach(std::shared_ptr<Transform> parent);
     void Detach();
 
