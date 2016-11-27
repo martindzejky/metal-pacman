@@ -12,7 +12,19 @@ void GameState::Start() {
     State::Start();
 
     EntityFactory::CreatePlayer();
-    EntityFactory::CreateMonster(1.2f, 0, -2.8f);
+    EntityFactory::CreateMonster(1, 0, -3);
+    EntityFactory::CreateFloor();
+    EntityFactory::CreateFloor(1, 0, 0);
+    EntityFactory::CreateFloor(1, 0, -1);
+    EntityFactory::CreateFloor(1, 0, -2);
+    EntityFactory::CreateFloor(1, 0, -3);
+    EntityFactory::CreateFloor(0, 0, -1);
+    EntityFactory::CreateFloor(0, 0, -2);
+    EntityFactory::CreateFloor(0, 0, -3);
+    EntityFactory::CreateWall(1, -1, 0, 0);
+    EntityFactory::CreateWall(2, -1, 0, -1);
+    EntityFactory::CreateWall(3, -1, 0, -2);
+    EntityFactory::CreateWall(2, -1, 0, -3);
 
     auto light = Entity::Create();
     light->AttachComponent(std::make_shared<TransformComponent>(1.6f, 2.f, -1.f));

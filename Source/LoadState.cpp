@@ -45,9 +45,6 @@ void LoadState::Start() {
     resources->Load("BlankDiffuseTexture", "Textures/BlankDiffuse.png");
     resources->Load("BlankNormalTexture", "Textures/BlankNormal.png");
     resources->Load("BlankReflectionTexture", "Textures/BlankReflection.png");
-    resources->Load("CobbleDiffuseTexture", "Textures/CobblestoneDiffuse.png");
-    resources->Load("CobbleNormalTexture", "Textures/CobblestoneNormal.png");
-    resources->Load("CobbleReflectionTexture", "Textures/CobblestoneReflection.png");
     resources->Load("RustDiffuseTexture", "Textures/RustDiffuse.png");
     resources->Load("RustNormalTexture", "Textures/RustNormal.png");
     resources->Load("RustReflectionTexture", "Textures/RustReflection.png");
@@ -75,6 +72,10 @@ void LoadState::Start() {
     resources->Load("MonsterTeethModel", "Models/MonsterTeeth.ply");
     resources->Load("MonsterEyesModel", "Models/MonsterEyes.ply");
     resources->Load("MonsterArmModel", "Models/MonsterArm.ply");
+    resources->Load("FloorModel", "Models/Floor.ply");
+    resources->Load("Wall1Model", "Models/Wall1.ply");
+    resources->Load("Wall2Model", "Models/Wall2.ply");
+    resources->Load("Wall3Model", "Models/Wall3.ply");
 
     SwitchInto(std::make_shared<GameState>());
 }

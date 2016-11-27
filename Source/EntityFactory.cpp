@@ -149,3 +149,56 @@ std::shared_ptr<Entity> EntityFactory::CreateMonster(float x, float y, float z) 
 
     return root;
 }
+
+std::shared_ptr<Entity> EntityFactory::CreateFloor(float x, float y, float z) {
+    // root
+    auto root = Entity::Create();
+    auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
+    root->AttachComponent(rootTransform);
+
+    // model
+    auto model = Entity::Create();
+    auto modelTransform = std::make_shared<TransformComponent>();
+    modelTransform->Pitch(-3.14f / 2.f);
+    modelTransform->Attach(rootTransform);
+    model->AttachComponent(modelTransform);
+    model->AttachComponent(
+        std::make_shared<ModelComponent>("FloorModel", "GrayMetalDiffuseTexture", "GrayMetalNormalTexture",
+                                         "GrayMetalReflectionTexture"));
+
+    return root;
+}
+
+std::shared_ptr<Entity> EntityFactory::CreateWall(int variant, float x, float y, float z) {
+    // root
+    auto root = Entity::Create();
+    auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
+    root->AttachComponent(rootTransform);
+
+    // model
+    std::string modelName;
+    switch (variant) {
+        default:
+            modelName = "Wall1Model";
+            break;
+
+        case 2:
+            modelName = "Wall2Model";
+            break;
+
+        case 3:
+            modelName = "Wall3Model";
+            break;
+    }
+
+    auto model = Entity::Create();
+    auto modelTransform = std::make_shared<TransformComponent>();
+    modelTransform->Pitch(-3.14f / 2.f);
+    modelTransform->Attach(rootTransform);
+    model->AttachComponent(modelTransform);
+    model->AttachComponent(
+        std::make_shared<ModelComponent>(modelName, "GrayMetalDiffuseTexture", "GrayMetalNormalTexture",
+                                         "GrayMetalReflectionTexture"));
+
+    return root;
+}
