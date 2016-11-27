@@ -32,6 +32,7 @@ set(SOURCE_FILES
     Source/ShadowMap.cpp
     Source/GameState.cpp
     Source/Input.cpp
+    Source/LevelLoader.cpp
     Source/LightComponent.cpp
     Source/LoadState.cpp
     Source/ModelComponent.cpp
