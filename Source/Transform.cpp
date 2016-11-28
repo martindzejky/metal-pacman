@@ -98,22 +98,31 @@ const glm::vec3 &Transform::GetPosition() const {
 
 const glm::mat4 &Transform::GetMatrix() {
     if (mDirty) {
-        mDirty = false;
-
         glm::mat4 position = glm::translate(glm::mat4(), mPosition);
         glm::mat4 rotation = glm::mat4_cast(mRotation);
         glm::mat4 scale = glm::scale(glm::mat4(), mScale);
 
         mMatrix = position * rotation * scale;
+        ++mVersion;
     }
 
     if (mParent) {
-        mMatrixWithParent = mParent->GetMatrix() * mMatrix;
+        if (mDirty || mParent->GetVersion() != mParentVersion) {
+            mParentVersion = mParent->GetVersion();
+            mMatrixWithParent = mParent->GetMatrix() * mMatrix;
+        }
     }
     else {
-        mMatrixWithParent = mMatrix;
+        return mMatrix;
     }
+
+    mDirty = false;
+
     return mMatrixWithParent;
+}
+
+unsigned long Transform::GetVersion() const {
+    return mVersion;
 }
 
 Transform::Transform() :

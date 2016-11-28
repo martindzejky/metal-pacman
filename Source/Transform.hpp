@@ -54,6 +54,8 @@ public:
     const glm::vec3 &GetPosition() const;
     const glm::mat4 &GetMatrix();
 
+    unsigned long int GetVersion() const;
+
     Transform();
     Transform(float x, float y, float z);
     Transform(glm::vec3 pos);
@@ -70,5 +72,8 @@ private:
 
     std::shared_ptr<Transform> mParent;
     glm::mat4 mMatrixWithParent;
+
+    unsigned long int mVersion = 0;
+    unsigned long int mParentVersion = 0;
 
 };
