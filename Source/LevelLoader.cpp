@@ -29,7 +29,19 @@ void LevelLoader::Load(std::string filename) {
                     break;
 
                 case 'L':
-                    EntityFactory::CreateLight(x, 2, z);
+                    EntityFactory::CreateLight(x, 2, z, 1, 1, .9f, 7);
+                    break;
+
+                case 'R':
+                    EntityFactory::CreateLight(x, 2, z, 1, .1f, .1f, 4);
+                    break;
+
+                case 'G':
+                    EntityFactory::CreateLight(x, 2, z, .1f, 1, .1f, 4);
+                    break;
+
+                case 'B':
+                    EntityFactory::CreateLight(x, 2, z, .1f, .1f, 1, 4);
                     break;
 
                 case 'P':

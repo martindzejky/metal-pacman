@@ -1,4 +1,4 @@
-project(CrossThemLights)
+project(MetalPacman)
 
 
 # meta
@@ -66,9 +66,9 @@ set(TEST_FILES
 
 
 # compile & link project
-add_executable(CrossThemLights Source/Main.cpp ${SOURCE_FILES})
-target_link_libraries(CrossThemLights ${CONAN_LIBS} ${OPENGL_LIBRARY})
+add_executable(MetalPacman Source/Main.cpp ${SOURCE_FILES})
+target_link_libraries(MetalPacman ${CONAN_LIBS} ${OPENGL_LIBRARY})
 
 # compile & link tests
-add_executable(CrossThemLightsTests ${TEST_FILES} ${SOURCE_FILES})
-target_link_libraries(CrossThemLightsTests ${CONAN_LIBS} ${OPENGL_LIBRARY})
+add_executable(MetalPacmanTests ${TEST_FILES} ${SOURCE_FILES})
+target_link_libraries(MetalPacmanTests ${CONAN_LIBS} ${OPENGL_LIBRARY})

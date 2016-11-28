@@ -1,7 +1,14 @@
-W,W,W,W,W,W,W,W
-W, ,M, , , , ,W
-W, , ,W, , ,L,W
-W, , ,W,P, , ,W
-W,L, ,W, , , ,W
-W, ,M, , ,M, ,W
-W,W,W,W,W,W,W,W
+W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W
+W, , , , , L , , , , , ,W, , ,W
+W, , ,M, , , , , ,M, , ,W, , ,W
+W, , , , , , , , , , , ,W,M, ,W
+W,W,W,W,W,W,W,W,W, , , ,W, , ,W
+W, , ,B,W, , , , , , , ,W, , ,W
+W, , , , , ,L, ,P, , , ,W, , ,W
+W, ,M, ,W, , , , , , , ,W,G, ,W
+W, , , ,W,W,W,W,W,W,W,W,W, , ,W
+W, , , ,W, , , , , , , ,W, , ,W
+W, ,M, , , , , , ,M, , , , , ,W
+W, , , ,W, , ,M, , , , ,W, , ,W
+W,L, , ,W, , , , , , ,R,W, , ,W
+W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W

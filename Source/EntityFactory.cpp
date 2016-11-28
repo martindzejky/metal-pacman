@@ -203,11 +203,11 @@ std::shared_ptr<Entity> EntityFactory::CreateWall(int variant, float x, float y,
     return root;
 }
 
-std::shared_ptr<Entity> EntityFactory::CreateLight(int x, int y, int z) {
+std::shared_ptr<Entity> EntityFactory::CreateLight(int x, int y, int z, float r, float g, float b, float radius) {
     auto light = Entity::Create();
     auto lightTransform = std::make_shared<TransformComponent>(x, y, z);
     light->AttachComponent(lightTransform);
-    light->AttachComponent(std::make_shared<LightComponent>(1, 1, .9f, 5));
+    light->AttachComponent(std::make_shared<LightComponent>(r, g, b, radius));
 
     return light;
 }
