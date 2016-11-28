@@ -52,6 +52,11 @@ void LevelLoader::Load(std::string filename) {
                     EntityFactory::CreateMonster(x, 0, z);
                     break;
 
+                case 'S':
+                    EntityFactory::CreateSpikes(x, 0, z);
+                    floor = false;
+                    break;
+
                 case ',':
                     if (floor) {
                         EntityFactory::CreateFloor(x, 0, z);

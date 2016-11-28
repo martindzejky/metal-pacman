@@ -60,6 +60,9 @@ void LoadState::Start() {
     resources->Load("GrayMetalDiffuseTexture", "Textures/GrayMetalDiffuse.png");
     resources->Load("GrayMetalNormalTexture", "Textures/GrayMetalNormal.png");
     resources->Load("GrayMetalReflectionTexture", "Textures/GrayMetalReflection.png");
+    resources->Load("BlackMetalDiffuseTexture", "Textures/BlackMetalDiffuse.png");
+    resources->Load("BlackMetalNormalTexture", "Textures/BlackMetalNormal.png");
+    resources->Load("BlackMetalReflectionTexture", "Textures/BlackMetalReflection.png");
 
     // models
     resources->Load("RoomModel", "Models/Room.ply");
@@ -76,6 +79,7 @@ void LoadState::Start() {
     resources->Load("Wall1Model", "Models/Wall1.ply");
     resources->Load("Wall2Model", "Models/Wall2.ply");
     resources->Load("Wall3Model", "Models/Wall3.ply");
+    resources->Load("SpikesModel", "Models/Spikes.ply");
 
     SwitchInto(std::make_shared<GameState>());
 }

@@ -17,13 +17,14 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
 
     // camera
     auto cameraPivot = Entity::Create();
-    auto cameraPivotTransform = std::make_shared<TransformComponent>(0, .6f, 0);
+    auto cameraPivotTransform = std::make_shared<TransformComponent>(0, 1.1, 0);
+    cameraPivotTransform->Pitch(-.8f);
     cameraPivotTransform->Attach(rootTransform);
     cameraPivot->AttachComponent(cameraPivotTransform);
     cameraPivot->AttachComponent(std::make_shared<CameraControlComponent>());
 
     auto camera = Entity::Create();
-    auto cameraTransform = std::make_shared<TransformComponent>(0, 0, 6.f);
+    auto cameraTransform = std::make_shared<TransformComponent>(0, 0, 4.f);
     cameraTransform->Attach(cameraPivotTransform);
     camera->AttachComponent(cameraTransform);
     camera->AttachComponent(std::make_shared<CameraComponent>());
@@ -210,4 +211,23 @@ std::shared_ptr<Entity> EntityFactory::CreateLight(int x, int y, int z, float r,
     light->AttachComponent(std::make_shared<LightComponent>(r, g, b, radius));
 
     return light;
+}
+
+std::shared_ptr<Entity> EntityFactory::CreateSpikes(float x, float y, float z) {
+    // root
+    auto root = Entity::Create();
+    auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
+    root->AttachComponent(rootTransform);
+
+    // model
+    auto model = Entity::Create();
+    auto modelTransform = std::make_shared<TransformComponent>();
+    modelTransform->Pitch(-3.14f / 2.f);
+    modelTransform->Attach(rootTransform);
+    model->AttachComponent(modelTransform);
+    model->AttachComponent(
+        std::make_shared<ModelComponent>("SpikesModel", "BlackMetalDiffuseTexture", "BlackMetalNormalTexture",
+                                         "BlackMetalReflectionTexture"));
+
+    return root;
 }
