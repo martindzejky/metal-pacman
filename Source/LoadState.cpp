@@ -80,6 +80,7 @@ void LoadState::Start() {
     resources->Load("Wall2Model", "Models/Wall2.ply");
     resources->Load("Wall3Model", "Models/Wall3.ply");
     resources->Load("SpikesModel", "Models/Spikes.ply");
+    resources->Load("BoltModel", "Models/Bolt.ply");
 
     SwitchInto(std::make_shared<GameState>());
 }

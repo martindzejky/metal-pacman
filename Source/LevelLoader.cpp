@@ -28,24 +28,32 @@ void LevelLoader::Load(std::string filename) {
                     floor = false;
                     break;
 
-                case 'L':
+                case 'w':
                     EntityFactory::CreateLight(x, 2, z, 1, 1, .9f, 7);
                     break;
 
-                case 'R':
+                case 'r':
                     EntityFactory::CreateLight(x, 2, z, 1, .1f, .1f, 4);
                     break;
 
-                case 'G':
+                case 'g':
                     EntityFactory::CreateLight(x, 2, z, .1f, 1, .1f, 4);
                     break;
 
-                case 'B':
+                case 'b':
                     EntityFactory::CreateLight(x, 2, z, .1f, .1f, 1, 4);
+                    break;
+
+                case 'y':
+                    EntityFactory::CreateLight(x, 2, z, 1, 1, .2f, 5);
                     break;
 
                 case 'P':
                     EntityFactory::CreatePlayer(x, 0, z);
+                    break;
+
+                case 'B':
+                    EntityFactory::CreateBolt(x, .7f, z);
                     break;
 
                 case 'M':

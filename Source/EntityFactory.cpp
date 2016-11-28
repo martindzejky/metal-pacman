@@ -7,6 +7,7 @@
 #include "PacmanAnimationComponent.hpp"
 #include "LightComponent.hpp"
 #include "MonsterArmAnimationComponent.hpp"
+#include "RotatingComponent.hpp"
 
 
 std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
@@ -228,6 +229,26 @@ std::shared_ptr<Entity> EntityFactory::CreateSpikes(float x, float y, float z) {
     model->AttachComponent(
         std::make_shared<ModelComponent>("SpikesModel", "BlackMetalDiffuseTexture", "BlackMetalNormalTexture",
                                          "BlackMetalReflectionTexture"));
+
+    return root;
+}
+
+std::shared_ptr<Entity> EntityFactory::CreateBolt(float x, float y, float z) {
+    // root
+    auto root = Entity::Create();
+    auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
+    root->AttachComponent(rootTransform);
+
+    // model
+    auto model = Entity::Create();
+    auto modelTransform = std::make_shared<TransformComponent>();
+    modelTransform->Pitch(-3.14f / 2.f);
+    modelTransform->Attach(rootTransform);
+    model->AttachComponent(modelTransform);
+    model->AttachComponent(
+        std::make_shared<ModelComponent>("BoltModel", "RedMetalDiffuseTexture", "RedMetalNormalTexture",
+                                         "RedMetalReflectionTexture"));
+    model->AttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::X, 3));
 
     return root;
 }

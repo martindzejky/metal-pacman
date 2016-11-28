@@ -26,5 +26,5 @@ void MonsterArmAnimationComponent::OnUpdate(float deltaSeconds) {
     mProgress += deltaSeconds;
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
 
-    transform->Yaw(std::sin(mProgress * 14) * .12f);
+    transform->Yaw(std::sin(mProgress * 14) * .25f);
 }
