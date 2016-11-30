@@ -39,6 +39,7 @@ set(SOURCE_FILES
     Source/ModelData.cpp
     Source/MonsterArmAnimationComponent.cpp
     Source/PacmanAnimationComponent.cpp
+    Source/PlayerMoveComponent.cpp
     Source/Resources.cpp
     Source/RotatingComponent.cpp
     Source/SetupState.cpp

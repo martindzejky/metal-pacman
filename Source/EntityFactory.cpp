@@ -8,6 +8,7 @@
 #include "LightComponent.hpp"
 #include "MonsterArmAnimationComponent.hpp"
 #include "RotatingComponent.hpp"
+#include "PlayerMoveComponent.hpp"
 
 
 std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
@@ -15,6 +16,7 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
     auto root = Entity::Create();
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
+    root->AttachComponent(std::make_shared<PlayerMoveComponent>());
 
     // camera
     auto cameraPivot = Entity::Create();
