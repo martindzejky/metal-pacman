@@ -11,6 +11,7 @@
 #include "PlayerMoveComponent.hpp"
 #include "ColliderComponent.hpp"
 #include "MonsterAIComponent.hpp"
+#include "CollectibleComponent.hpp"
 
 
 std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
@@ -248,6 +249,7 @@ std::shared_ptr<Entity> EntityFactory::CreateBolt(float x, float y, float z) {
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
     root->AttachComponent(std::make_shared<ColliderComponent>(.1f, 1, .1f, ColliderComponent::Group::Collectible));
+    root->AttachComponent(std::make_shared<CollectibleComponent>());
 
     // model
     auto model = Entity::Create();
