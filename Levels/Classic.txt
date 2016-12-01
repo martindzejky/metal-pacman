@@ -7,9 +7,9 @@ W,B, , ,H,W, ,,W,B,B,B,B,B,BH,W
 W,W,W,W,W,W, , ,W,W,W,W,w, , ,W
 W,B, , , , , , ,P, ,,W,B,HB,B,W
 W,B,W,W,W,W,W,W,W,W,,W,HB,W,B,W
-W,B,W,M,MM,S,B,,T, , ,W, ,W,B,W
-W,B,W,M, ,S,B,W,W,W,W,W,B,B,B,W
-W,B,W,M,MM,rS,B,,,B,HB,B,,H, ,W
+W,B,W,M,M,S,B, ,T, , ,W, ,W,B,W
+W,B,W,M,M,S,B,W,W,W,W,W,B,B,B,W
+W,B,W,M,M,rS,B,, ,B,HB,B,,H, ,W
 W,B,W,W,W,W, ,W, ,B,B,B,B,B,B,W
 W,B,W,B,HB,B,,W,,HB,W,B,H,W,B,W
 W,B,W,B,B,B,H,W, ,B,B,B,y,W,B,W

@@ -4,6 +4,7 @@
 #include "ColliderComponent.hpp"
 #include "SurrenderAnimationComponent.hpp"
 #include "VictoryAnimationComponent.hpp"
+#include "State.hpp"
 
 
 void CollectibleComponent::OnAttach(std::weak_ptr<Entity> entity) {
@@ -20,6 +21,10 @@ CollectibleComponent::CollectibleComponent() {
 }
 
 CollectibleComponent::~CollectibleComponent() {
+    if (!State::Current()->IsRunning()) {
+        return;
+    }
+
     --mCount;
     if (mCount == 0) {
         const auto &entities = Entity::GetAll();

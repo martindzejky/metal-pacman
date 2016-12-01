@@ -52,7 +52,7 @@ void LevelLoader::Load(std::string filename) {
                     EntityFactory::CreatePlayer(x, 0, z);
                     break;
 
-                case 'T':
+                case 'B':
                     EntityFactory::CreateBolt(x, .5f, z);
                     break;
 

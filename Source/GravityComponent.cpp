@@ -26,7 +26,7 @@ std::string GravityComponent::GetType() const {
 
 void GravityComponent::OnUpdate(float deltaSeconds) {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
-    transform->Move(0, mSpeed * deltaSeconds, 0);
+    transform->Move(0, mSpeed * deltaSeconds, 0, Transform::Space::Global);
 
     mSpeed -= .7f;
 
