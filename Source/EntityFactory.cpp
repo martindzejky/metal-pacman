@@ -9,6 +9,7 @@
 #include "MonsterArmAnimationComponent.hpp"
 #include "RotatingComponent.hpp"
 #include "PlayerMoveComponent.hpp"
+#include "ColliderComponent.hpp"
 
 
 std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
@@ -17,6 +18,7 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
     root->AttachComponent(std::make_shared<PlayerMoveComponent>());
+    root->AttachComponent(std::make_shared<ColliderComponent>(.49f, 2, .49f, ColliderComponent::Group::Player));
 
     // camera
     auto cameraPivot = Entity::Create();
@@ -89,6 +91,7 @@ std::shared_ptr<Entity> EntityFactory::CreateMonster(float x, float y, float z) 
     auto root = Entity::Create();
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
+    root->AttachComponent(std::make_shared<ColliderComponent>(.49f, 2, .49f, ColliderComponent::Group::Enemy));
 
     // model
     auto body = Entity::Create();
@@ -178,6 +181,7 @@ std::shared_ptr<Entity> EntityFactory::CreateWall(int variant, float x, float y,
     auto root = Entity::Create();
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
+    root->AttachComponent(std::make_shared<ColliderComponent>(.5f, 1, .5f, ColliderComponent::Group::Solid));
 
     // model
     std::string modelName;
@@ -221,6 +225,7 @@ std::shared_ptr<Entity> EntityFactory::CreateSpikes(float x, float y, float z) {
     auto root = Entity::Create();
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
+    root->AttachComponent(std::make_shared<ColliderComponent>(.5f, 1, .5f, ColliderComponent::Group::FakeSolid));
 
     // model
     auto model = Entity::Create();
@@ -240,6 +245,7 @@ std::shared_ptr<Entity> EntityFactory::CreateBolt(float x, float y, float z) {
     auto root = Entity::Create();
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
+    root->AttachComponent(std::make_shared<ColliderComponent>(.1f, 1, .1f, ColliderComponent::Group::Collectible));
 
     // model
     auto model = Entity::Create();

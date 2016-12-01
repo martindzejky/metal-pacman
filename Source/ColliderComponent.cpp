@@ -13,7 +13,7 @@ std::string ColliderComponent::GetType() const {
     return "ColliderComponent";
 }
 
-bool ColliderComponent::CheckCollision(ColliderComponent::Group withGrop) const {
+bool ColliderComponent::CheckCollision(int withGroup) const {
     auto entities = Entity::GetAll();
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
     auto pos = transform->GetPosition();
@@ -36,7 +36,7 @@ bool ColliderComponent::CheckCollision(ColliderComponent::Group withGrop) const 
         }
 
         auto otherCollider = (ColliderComponent *) colliderComponent.get();
-        if (otherCollider->mGroup != withGrop) {
+        if (((int) otherCollider->mGroup & withGroup) == 0) {
             continue;
         }
 

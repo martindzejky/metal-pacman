@@ -3,6 +3,7 @@
 #include "Entity.hpp"
 #include "Input.hpp"
 #include "TransformComponent.hpp"
+#include "ColliderComponent.hpp"
 
 
 void PlayerMoveComponent::OnAttach(std::weak_ptr<Entity> entity) {
@@ -23,12 +24,17 @@ std::string PlayerMoveComponent::GetType() const {
 
 void PlayerMoveComponent::Move(float delta) {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
+    auto collider = (ColliderComponent *) mEntity.lock()->GetComponent("ColliderComponent").get();
     auto input = Input::GetSingleton();
     auto limit = 5 * delta;
     auto speed = 3 * delta;
 
     if (std::abs(mRotationBuffer) < .00001f) {
         transform->Move(0, 0, -speed);
+        if (collider->CheckCollision(
+            (int) ColliderComponent::Group::Solid | (int) ColliderComponent::Group::FakeSolid)) {
+            transform->Move(0, 0, speed);
+        }
 
         if (Input::IsKeyPressed(Input::Key::A)) {
             mRotationBuffer += 3.14f / 2;
