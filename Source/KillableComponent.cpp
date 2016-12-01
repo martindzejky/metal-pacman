@@ -3,6 +3,7 @@
 #include "ColliderComponent.hpp"
 #include "GravityComponent.hpp"
 #include "TransformComponent.hpp"
+#include "RotatingComponent.hpp"
 
 
 void KillableComponent::OnAttach(std::weak_ptr<Entity> entity) {
@@ -29,6 +30,7 @@ void KillableComponent::OnUpdate() {
         auto self = mEntity.lock();
 
         self->ScheduleAttachComponent(std::make_shared<GravityComponent>());
+        self->ScheduleAttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::Y, 8));
         self->ScheduleDetachComponent("VictoryAnimationComponent");
         self->ScheduleDetachComponent(GetType());
         self->ScheduleDetachComponent("ColliderComponent");
