@@ -44,6 +44,13 @@ void PlayerMoveComponent::Move(float delta) {
         }
     }
     else {
+        auto pos = transform->GetPosition();
+        auto rx = (int) std::round(pos.x * 10) % 10;
+        auto rz = (int) std::round(pos.z * 10) % 10;
+        if ((rx < 3 || rx > 7) && (rz < 3 || rz > 7)) {
+            transform->SetPosition(std::round(pos.x), pos.y, std::round(pos.z));
+        }
+
         auto rotation = std::min(limit, std::max(-limit, mRotationBuffer));
         mRotationBuffer -= rotation;
         transform->Yaw(rotation);
