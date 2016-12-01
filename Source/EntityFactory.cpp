@@ -15,6 +15,7 @@
 #include "CollectorComponent.hpp"
 #include "DestroyOnDetachComponent.hpp"
 #include "SurrenderAnimationComponent.hpp"
+#include "VictoryAnimationComponent.hpp"
 
 
 std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
@@ -88,6 +89,9 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
         std::make_shared<ModelComponent>("PacmanEyesModel", "RedMetalDiffuseTexture", "RedMetalNormalTexture",
                                          "RedMetalReflectionTexture", 2));
     eyes->AttachComponent(std::make_shared<PacmanAnimationComponent>());
+
+    // victory
+    root->AttachComponent(std::make_shared<VictoryAnimationComponent>(camera, cameraPivot, top, teethTop, eyes));
 
     return root;
 }

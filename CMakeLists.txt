@@ -44,6 +44,7 @@ set(SOURCE_FILES
     Source/ModelData.cpp
     Source/MonsterAIComponent.cpp
     Source/MonsterArmAnimationComponent.cpp
+    Source/MovingComponent.cpp
     Source/PacmanAnimationComponent.cpp
     Source/PlayerMoveComponent.cpp
     Source/Resources.cpp
@@ -56,6 +57,7 @@ set(SOURCE_FILES
     Source/Texture.cpp
     Source/TransformComponent.cpp
     Source/Transform.cpp
+    Source/VictoryAnimationComponent.cpp
     Source/Window.cpp
     )
 

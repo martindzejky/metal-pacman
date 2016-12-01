@@ -3,6 +3,7 @@
 #include "Entity.hpp"
 #include "ColliderComponent.hpp"
 #include "SurrenderAnimationComponent.hpp"
+#include "VictoryAnimationComponent.hpp"
 
 
 void CollectibleComponent::OnAttach(std::weak_ptr<Entity> entity) {
@@ -29,6 +30,13 @@ CollectibleComponent::~CollectibleComponent() {
                 auto surrender = (SurrenderAnimationComponent *) pair.second->GetComponent(
                     "SurrenderAnimationComponent").get();
                 surrender->Surrender();
+            }
+            else if (pair.second->GetComponent("PlayerMoveComponent")) {
+                pair.second->DetachComponent("PlayerMoveComponent");
+
+                auto victory = (VictoryAnimationComponent *) pair.second->GetComponent(
+                    "VictoryAnimationComponent").get();
+                victory->Start();
             }
         }
     }
