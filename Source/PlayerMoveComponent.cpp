@@ -26,7 +26,7 @@ void PlayerMoveComponent::Move(float delta) {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
     auto collider = (ColliderComponent *) mEntity.lock()->GetComponent("ColliderComponent").get();
     auto input = Input::GetSingleton();
-    auto limit = 7 * delta;
+    auto limit = 5 * delta;
     auto speed = 3 * delta;
 
     if (std::abs(mRotationBuffer) < .00001f) {
@@ -47,7 +47,7 @@ void PlayerMoveComponent::Move(float delta) {
         auto pos = transform->GetPosition();
         auto rx = (int) std::round(pos.x * 10) % 10;
         auto rz = (int) std::round(pos.z * 10) % 10;
-        if ((rx < 3 || rx > 7) && (rz < 3 || rz > 7)) {
+        if ((rx < 4 || rx > 6) && (rz < 4 || rz > 6)) {
             transform->SetPosition(std::round(pos.x), pos.y, std::round(pos.z));
         }
 

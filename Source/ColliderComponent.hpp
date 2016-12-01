@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/vec3.hpp>
+#include <vector>
 
 #include "Component.hpp"
 #include "Events.hpp"
@@ -34,6 +35,7 @@ public:
     virtual std::string GetType() const override;
 
     Entity::Id CheckCollision(int withGroup) const;
+    std::vector<Entity::Id> CheckCollision(std::vector<int> withGroups) const;
 
     ColliderComponent(float sx, float sy, float sz, Group group);
 

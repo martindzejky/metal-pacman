@@ -43,6 +43,7 @@ void GameState::Update(float deltaSeconds) {
     window->SwapBuffers();
     window->PollEvents();
 
+    Entity::DestroyScheduled();
 }
 
 void GameState::End() {

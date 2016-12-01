@@ -1,5 +1,7 @@
 #pragma once
 
+#include <random>
+
 #include "Entity.hpp"
 
 
@@ -21,6 +23,12 @@ public:
     static std::shared_ptr<Entity> CreateSpikes(float x = 0, float y = 0, float z = 0);
     static std::shared_ptr<Entity> CreateBolt(float x = 0, float y = 0, float z = 0);
     static std::shared_ptr<Entity> CreateHint(float x = 0, float y = 0, float z = 0);
+
+
+private:
+
+    static std::default_random_engine re;
+    static std::uniform_int_distribution<int> dist;
 
 };
 

@@ -24,18 +24,21 @@ std::string MonsterAIComponent::GetType() const {
 void MonsterAIComponent::Move(float delta) {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
     auto collider = (ColliderComponent *) mEntity.lock()->GetComponent("ColliderComponent").get();
-    auto limit = 4 * delta;
+    auto limit = 3.5f * delta;
     auto speed = 2.5f * delta;
 
     if (std::abs(mRotationBuffer) < .00001f) {
         transform->Move(0, 0, speed);
-        if (collider->CheckCollision((int) ColliderComponent::Group::Solid)) {
+
+        std::vector<int> groups = {(int) ColliderComponent::Group::Solid, (int) ColliderComponent::Group::Hint};
+        auto collisions = collider->CheckCollision(groups);
+        if (collisions[0]) {
             transform->Move(0, 0, -speed);
 
             int dir = (dist(re) % 3) - 1;
             mRotationBuffer += 3.14f / 2 * dir;
         }
-        else if (collider->CheckCollision((int) ColliderComponent::Group::Hint)) {
+        else if (collisions[1]) {
             if ((dist(re) % 1000) < 15) {
                 int dir = (dist(re) % 3) - 1;
                 mRotationBuffer += 3.14f / 2 * dir;

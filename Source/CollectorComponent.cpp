@@ -2,6 +2,7 @@
 
 #include "ColliderComponent.hpp"
 #include "Entity.hpp"
+#include "GravityComponent.hpp"
 
 
 void CollectorComponent::OnAttach(std::weak_ptr<Entity> entity) {
@@ -24,6 +25,9 @@ void CollectorComponent::OnUpdate() {
     auto collider = (ColliderComponent *) mEntity.lock()->GetComponent("ColliderComponent").get();
     auto collectible = collider->CheckCollision((int) ColliderComponent::Group::Collectible);
     if (collectible) {
-        Entity::Destroy(collectible);
+        auto entity = Entity::Get(collectible);
+        entity->AttachComponent(std::make_shared<GravityComponent>());
+        entity->DetachComponent("ColliderComponent");
+        entity->DetachComponent("CollectibleComponent");
     }
 }

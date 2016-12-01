@@ -254,18 +254,26 @@ std::shared_ptr<Entity> EntityFactory::CreateBolt(float x, float y, float z) {
     root->AttachComponent(std::make_shared<ColliderComponent>(.2f, 1, .2f, ColliderComponent::Group::Collectible));
     root->AttachComponent(std::make_shared<CollectibleComponent>());
 
+    // pivot
+    auto pivot = Entity::Create();
+    auto pivotTransform = std::make_shared<TransformComponent>();
+    pivotTransform->Attach(rootTransform);
+    pivot->AttachComponent(pivotTransform);
+    pivot->AttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::Z, (dist(re) % 1000) / (float) 125 - 4));
+    root->AttachComponent(std::make_shared<DestroyOnDetachComponent>(pivot->GetId()));
+
+
     // model
     auto model = Entity::Create();
     auto modelTransform = std::make_shared<TransformComponent>();
     modelTransform->Pitch(-3.14f / 2.f);
-    modelTransform->Attach(rootTransform);
+    modelTransform->Attach(pivotTransform);
     model->AttachComponent(modelTransform);
     model->AttachComponent(
         std::make_shared<ModelComponent>("BoltModel", "RedMetalDiffuseTexture", "RedMetalNormalTexture",
                                          "RedMetalReflectionTexture"));
-    model->AttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::X, 3));
-
-    root->AttachComponent(std::make_shared<DestroyOnDetachComponent>(model->GetId()));
+    model->AttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::X, (dist(re) % 1000) / (float) 125 - 4));
+    pivot->AttachComponent(std::make_shared<DestroyOnDetachComponent>(model->GetId()));
 
     return root;
 }
@@ -278,3 +286,6 @@ std::shared_ptr<Entity> EntityFactory::CreateHint(float x, float y, float z) {
 
     return root;
 }
+
+std::default_random_engine EntityFactory::re;
+std::uniform_int_distribution<int> EntityFactory::dist;

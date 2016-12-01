@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <list>
 
 #include "NonCopyable.hpp"
 
@@ -28,8 +29,10 @@ public:
     static std::shared_ptr<Entity> Create();
     static std::shared_ptr<Entity> Get(Id id);
     static const std::unordered_map<Id, std::shared_ptr<Entity>> &GetAll();
-    static void Destroy(Entity::Id id);
+    static void Destroy(Id id);
+    static void ScheduleDestroy(Id id);
     static void DestroyAll();
+    static void DestroyScheduled();
 
     void AttachComponent(std::shared_ptr<Component> component);
     std::shared_ptr<Component> GetComponent(std::string type);
@@ -55,6 +58,7 @@ private:
 
     static Id msLastId;
     static std::unordered_map<Id, std::shared_ptr<Entity>> msEntities;
+    static std::list<Id> msScheduled;
 
     Id mId;
     std::unordered_map<std::string, std::shared_ptr<Component>> mComponents;

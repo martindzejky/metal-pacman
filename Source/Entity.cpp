@@ -31,8 +31,19 @@ void Entity::Destroy(Entity::Id id) {
     msEntities.erase(id);
 }
 
+void Entity::ScheduleDestroy(Entity::Id id) {
+    msScheduled.push_back(id);
+}
+
 void Entity::DestroyAll() {
     msEntities.clear();
+}
+
+void Entity::DestroyScheduled() {
+    for (auto id : msScheduled) {
+        Destroy(id);
+    }
+    msScheduled.clear();
 }
 
 void Entity::AttachComponent(std::shared_ptr<Component> component) {
@@ -82,4 +93,6 @@ Entity::~Entity() {
 
 const Entity::Id Entity::Invalid = 0;
 Entity::Id Entity::msLastId = 0;
+
 std::unordered_map<Entity::Id, std::shared_ptr<Entity>> Entity::msEntities;
+std::list<Entity::Id> Entity::msScheduled;

@@ -35,6 +35,7 @@ set(SOURCE_FILES
     Source/Events.cpp
     Source/ShadowMap.cpp
     Source/GameState.cpp
+    Source/GravityComponent.cpp
     Source/Input.cpp
     Source/LevelLoader.cpp
     Source/LightComponent.cpp
