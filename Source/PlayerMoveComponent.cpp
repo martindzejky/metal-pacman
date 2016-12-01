@@ -26,7 +26,7 @@ void PlayerMoveComponent::Move(float delta) {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
     auto collider = (ColliderComponent *) mEntity.lock()->GetComponent("ColliderComponent").get();
     auto input = Input::GetSingleton();
-    auto limit = 5 * delta;
+    auto limit = 7 * delta;
     auto speed = 3 * delta;
 
     if (std::abs(mRotationBuffer) < .00001f) {

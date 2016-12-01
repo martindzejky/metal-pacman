@@ -10,6 +10,7 @@
 #include "RotatingComponent.hpp"
 #include "PlayerMoveComponent.hpp"
 #include "ColliderComponent.hpp"
+#include "MonsterAIComponent.hpp"
 
 
 std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
@@ -91,6 +92,7 @@ std::shared_ptr<Entity> EntityFactory::CreateMonster(float x, float y, float z) 
     auto root = Entity::Create();
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
+    root->AttachComponent(std::make_shared<MonsterAIComponent>());
     root->AttachComponent(std::make_shared<ColliderComponent>(.49f, 2, .49f, ColliderComponent::Group::Enemy));
 
     // model
