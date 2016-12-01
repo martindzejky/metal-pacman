@@ -19,7 +19,7 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
     root->AttachComponent(std::make_shared<PlayerMoveComponent>());
-    root->AttachComponent(std::make_shared<ColliderComponent>(.47f, 2, .47f, ColliderComponent::Group::Player));
+    root->AttachComponent(std::make_shared<ColliderComponent>(.44f, 2, .44f, ColliderComponent::Group::Player));
 
     // camera
     auto cameraPivot = Entity::Create();
@@ -93,7 +93,7 @@ std::shared_ptr<Entity> EntityFactory::CreateMonster(float x, float y, float z) 
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
     root->AttachComponent(std::make_shared<MonsterAIComponent>());
-    root->AttachComponent(std::make_shared<ColliderComponent>(.47f, 2, .47f, ColliderComponent::Group::Enemy));
+    root->AttachComponent(std::make_shared<ColliderComponent>(.44f, 2, .44f, ColliderComponent::Group::Enemy));
 
     // model
     auto body = Entity::Create();
@@ -227,7 +227,7 @@ std::shared_ptr<Entity> EntityFactory::CreateSpikes(float x, float y, float z) {
     auto root = Entity::Create();
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
-    root->AttachComponent(std::make_shared<ColliderComponent>(.42f, 1, .42f, ColliderComponent::Group::FakeSolid));
+    root->AttachComponent(std::make_shared<ColliderComponent>(.45f, 1, .45f, ColliderComponent::Group::FakeSolid));
 
     // model
     auto model = Entity::Create();
@@ -267,7 +267,7 @@ std::shared_ptr<Entity> EntityFactory::CreateHint(float x, float y, float z) {
     auto root = Entity::Create();
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
-    root->AttachComponent(std::make_shared<ColliderComponent>(.49f, 1, .49f, ColliderComponent::Group::Hint));
+    root->AttachComponent(std::make_shared<ColliderComponent>(.5f, 1, .5f, ColliderComponent::Group::Hint));
 
     return root;
 }
