@@ -84,6 +84,11 @@ void Transform::SetPosition(float x, float y, float z) {
     mPosition = glm::vec3(x, y, z);
 }
 
+void Transform::SetRotation(float pith, float yaw, float roll) {
+    mDirty = true;
+    mRotation = glm::quat(glm::vec3(pith, yaw, roll));
+}
+
 void Transform::Attach(std::shared_ptr<Transform> parent) {
     mParent = parent;
 }

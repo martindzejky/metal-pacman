@@ -121,13 +121,13 @@ std::shared_ptr<Entity> EntityFactory::CreateMonster(float x, float y, float z) 
     // arms
     auto rightArmOrigin = Entity::Create();
     auto rightArmOriginTransform = std::make_shared<TransformComponent>(-.47f, .5f, 0);
+    rightArmOriginTransform->Yaw(-3.14f / 2.f);
+    rightArmOriginTransform->Roll(3.14f / 2.f);
     rightArmOriginTransform->Attach(rootTransform);
     rightArmOrigin->AttachComponent(rightArmOriginTransform);
 
     auto rightArm = Entity::Create();
     auto rightArmTransform = std::make_shared<TransformComponent>();
-    rightArmTransform->Yaw(-3.14f / 2.f);
-    rightArmTransform->Roll(3.14f / 2.f);
     rightArmTransform->Attach(rightArmOriginTransform);
     rightArm->AttachComponent(rightArmTransform);
     rightArm->AttachComponent(
@@ -137,13 +137,13 @@ std::shared_ptr<Entity> EntityFactory::CreateMonster(float x, float y, float z) 
 
     auto leftArmOrigin = Entity::Create();
     auto leftArmOriginTransform = std::make_shared<TransformComponent>(.46f, .51f, 0);
+    leftArmOriginTransform->Yaw(3.14f / 2.f);
+    leftArmOriginTransform->Roll(-3.14f / 2.f);
     leftArmOriginTransform->Attach(rootTransform);
     leftArmOrigin->AttachComponent(leftArmOriginTransform);
 
     auto leftArm = Entity::Create();
     auto leftArmTransform = std::make_shared<TransformComponent>();
-    leftArmTransform->Yaw(3.14f / 2.f);
-    leftArmTransform->Roll(-3.14f / 2.f);
     leftArmTransform->Attach(leftArmOriginTransform);
     leftArm->AttachComponent(leftArmTransform);
     leftArm->AttachComponent(

@@ -47,6 +47,7 @@ public:
     void Scale(float s);
 
     void SetPosition(float x, float y, float z);
+    void SetRotation(float pith, float yaw, float roll);
 
     void Attach(std::shared_ptr<Transform> parent);
     void Detach();
