@@ -25,6 +25,7 @@ public:
 
     static std::shared_ptr<Entity> Create();
     static std::shared_ptr<Entity> Get(Id id);
+    static const std::unordered_map<Id, std::shared_ptr<Entity>> &GetAll();
     static void Destroy(Entity::Id id);
     static void DestroyAll();
 

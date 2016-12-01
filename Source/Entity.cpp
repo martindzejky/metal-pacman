@@ -23,6 +23,10 @@ std::shared_ptr<Entity> Entity::Get(Entity::Id id) {
     }
 }
 
+const std::unordered_map<Entity::Id, std::shared_ptr<Entity>> &Entity::GetAll() {
+    return msEntities;
+}
+
 void Entity::Destroy(Entity::Id id) {
     msEntities.erase(id);
 }
@@ -78,5 +82,4 @@ Entity::~Entity() {
 
 const Entity::Id Entity::Invalid = 0;
 Entity::Id Entity::msLastId = 0;
-
 std::unordered_map<Entity::Id, std::shared_ptr<Entity>> Entity::msEntities;
