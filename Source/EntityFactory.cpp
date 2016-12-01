@@ -29,14 +29,14 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
 
     // camera
     auto cameraPivot = Entity::Create();
-    auto cameraPivotTransform = std::make_shared<TransformComponent>(0, 1.1, 0);
+    auto cameraPivotTransform = std::make_shared<TransformComponent>(0, 1.6, 0);
     cameraPivotTransform->Pitch(-.8f);
     cameraPivotTransform->Attach(rootTransform);
     cameraPivot->AttachComponent(cameraPivotTransform);
     cameraPivot->AttachComponent(std::make_shared<CameraControlComponent>());
 
     auto camera = Entity::Create();
-    auto cameraTransform = std::make_shared<TransformComponent>(0, 0, 4.f);
+    auto cameraTransform = std::make_shared<TransformComponent>(0, 0, 5.f);
     cameraTransform->Attach(cameraPivotTransform);
     camera->AttachComponent(cameraTransform);
     camera->AttachComponent(std::make_shared<CameraComponent>());
