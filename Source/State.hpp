@@ -2,6 +2,8 @@
 
 #include <memory>
 
+#include "NonCopyable.hpp"
+
 
 /**
  * This class encapsulates a state of the game. Each state controls the game loop
@@ -9,7 +11,7 @@
  */
 
 
-class State {
+class State : public NonCopyable {
 
 public:
 
@@ -40,6 +42,8 @@ private:
 
     static std::shared_ptr<State> msCurrent;
     static std::shared_ptr<State> msPaused;
+    static float mFPSSum;
+    static unsigned int mFPSCount;
 
     bool mRunning;
     bool mPaused;

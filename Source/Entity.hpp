@@ -4,6 +4,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "NonCopyable.hpp"
+
 
 /**
  * Entity represents an object with data and logic. It is composed of components
@@ -14,7 +16,7 @@
 class Component;
 
 
-class Entity {
+class Entity : public NonCopyable {
 
 public:
 

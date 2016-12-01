@@ -26,5 +26,5 @@ void MonsterArmAnimationComponent::OnUpdate(float deltaSeconds) {
     mProgress += deltaSeconds;
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
 
-    transform->SetRotation(0, std::sin(mProgress * 14) * .8f, 0);
+    transform->SetRotation(0, std::sin(mProgress * 10) * 1.3f, 0);
 }

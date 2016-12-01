@@ -1,6 +1,7 @@
 #include "State.hpp"
 
 #include <chrono>
+#include <iostream>
 
 
 void State::Start(std::shared_ptr<State> state) {
@@ -70,8 +71,17 @@ void State::Run() {
         if (msCurrent && msCurrent->IsRunning()) {
             auto newTimestamp = std::chrono::high_resolution_clock::now();
             auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(newTimestamp - timestamp).count() / 1000.f;
+
             msCurrent->Update(delta);
             timestamp = newTimestamp;
+
+            mFPSSum += 1 / delta;
+            ++mFPSCount;
+
+            if (mFPSCount >= 100) {
+                std::cout << "FPS: " << mFPSSum / mFPSCount << "\n";
+                mFPSSum = mFPSCount = 0;
+            }
         }
         else {
             if (msCurrent) {
@@ -94,3 +104,5 @@ void State::Run() {
 
 std::shared_ptr<State> State::msCurrent;
 std::shared_ptr<State> State::msPaused;
+float State::mFPSSum = 0;
+unsigned int State::mFPSCount = 0;

@@ -13,6 +13,7 @@
 #include "MonsterAIComponent.hpp"
 #include "CollectibleComponent.hpp"
 #include "CollectorComponent.hpp"
+#include "DestroyOnDetachComponent.hpp"
 
 
 std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
@@ -250,7 +251,7 @@ std::shared_ptr<Entity> EntityFactory::CreateBolt(float x, float y, float z) {
     auto root = Entity::Create();
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
-    root->AttachComponent(std::make_shared<ColliderComponent>(.1f, 1, .1f, ColliderComponent::Group::Collectible));
+    root->AttachComponent(std::make_shared<ColliderComponent>(.2f, 1, .2f, ColliderComponent::Group::Collectible));
     root->AttachComponent(std::make_shared<CollectibleComponent>());
 
     // model
@@ -263,6 +264,8 @@ std::shared_ptr<Entity> EntityFactory::CreateBolt(float x, float y, float z) {
         std::make_shared<ModelComponent>("BoltModel", "RedMetalDiffuseTexture", "RedMetalNormalTexture",
                                          "RedMetalReflectionTexture"));
     model->AttachComponent(std::make_shared<RotatingComponent>(Transform::Axis::X, 3));
+
+    root->AttachComponent(std::make_shared<DestroyOnDetachComponent>(model->GetId()));
 
     return root;
 }

@@ -3,6 +3,8 @@
 #include <string>
 #include <memory>
 
+#include "NonCopyable.hpp"
+
 
 /**
  * Interface for all components.
@@ -11,7 +13,7 @@
 
 class Entity;
 
-class Component {
+class Component : public NonCopyable {
 
 public:
 

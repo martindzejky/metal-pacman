@@ -28,6 +28,7 @@ set(SOURCE_FILES
     Source/CollectorComponent.cpp
     Source/ColliderComponent.cpp
     Source/Component.cpp
+    Source/DestroyOnDetachComponent.cpp
     Source/Entity.cpp
     Source/EntityFactory.cpp
     Source/Error.cpp

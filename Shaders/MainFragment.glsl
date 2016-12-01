@@ -33,7 +33,7 @@ vec4 MixFog(vec4 color) {
     const vec4 fogColor = vec4(0.008, 0.006, 0.002, 1.0);
     const float e = 2.71828182845904523536028747135266249;
 
-    float fogDensity = 0.1;
+    float fogDensity = 0.2;
     float fog = pow(e, -pow(length(EyePosition) * fogDensity, 2));
 
     return mix(fogColor, color, fog);

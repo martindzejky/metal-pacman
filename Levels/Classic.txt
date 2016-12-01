@@ -1,19 +1,19 @@
 W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W
 W,B,B,B,B,B,B,B,W,B, ,H,H, , ,W
-W,B,W,W,W,W,W,,W,B,W,B,B,By,B,W
-W,B,W,wHB,B,,,g, ,B,W,B,W,W,B,W
-W,B,W,B,B,W,W, ,W,W,W,B,W,W,B,W
-W,B, , ,H,W, ,,W,,,B,Bw,By,BH,W
-W,W,W,W,W,W, , ,W,W,W,W, , , ,W
-W,B, , , , , , ,P, , ,W, ,H, ,W
-W,B,W,W,W,W,W,W,W,W, ,W,H,W,H,W
-W,B,W,M,MM,S,, , , , ,W, ,W, ,W
-W,B,W,M,r,S, ,W,W,W,W,W,B,B,B,W
-W,B,W,M,MM,S,,,r,B,HB,B,B,H,B,W
+W,B,W,W,W,W,W, ,W,B,W,B,B,B,B,W
+W,B,W,HB,B,, , , ,B,W,B,W,W,B,W
+W,B,W,B,Bw,W,W,,W,W,W,B,W,W,B,W
+W,B, , ,H,W, ,,W,B,B,B,B,B,BH,W
+W,W,W,W,W,W, , ,W,W,W,W,w, , ,W
+W,B, , , , , , ,P, ,,W,B,HB,B,W
+W,B,W,W,W,W,W,W,W,W,,W,HB,W,B,W
+W,B,W,M,MM,S,B,, , , ,W, ,W,B,W
+W,B,W,M, ,S,B,W,W,W,W,W,B,B,B,W
+W,B,W,M,MM,rS,B,,,B,HB,B,,H, ,W
 W,B,W,W,W,W, ,W, ,B,B,B,B,B,B,W
 W,B,W,B,HB,B,,W,,HB,W,B,H,W,B,W
-W,B,W,B,B,B,H,W, ,B,B,Bw,,W,B,W
+W,B,W,B,B,B,H,W, ,B,B,B,y,W,B,W
 W,B,W,b,W,W,W,W, ,H,H, , ,W,B,W
 W,B,W,B,B,B,B,W,W,W,W,W,W,W,B,W
-W,B, , ,H,H, , ,b, , , , , ,B,W
+W,B, , ,H,H, , , , , , , , ,B,W
 W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W
