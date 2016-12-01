@@ -6,7 +6,7 @@
 
 
 /**
- * A simple component that makes the entity rotate forever. Configurable.
+ * Represents an object that can be collected. Once all are collected, moves to the success state.
  */
 
 

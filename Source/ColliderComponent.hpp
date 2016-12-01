@@ -4,6 +4,7 @@
 
 #include "Component.hpp"
 #include "Events.hpp"
+#include "Entity.hpp"
 
 
 /**
@@ -32,7 +33,7 @@ public:
     virtual void OnAttach(std::weak_ptr<Entity> entity) override;
     virtual std::string GetType() const override;
 
-    bool CheckCollision(int withGroup) const;
+    Entity::Id CheckCollision(int withGroup) const;
 
     ColliderComponent(float sx, float sy, float sz, Group group);
 

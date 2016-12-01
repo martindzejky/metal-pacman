@@ -55,7 +55,7 @@ std::shared_ptr<Component> Entity::GetComponent(std::string type) {
 
 void Entity::DetachComponent(std::string type) {
     if (mComponents.count(type)) {
-        auto component =  mComponents.at(type);
+        auto component = mComponents.at(type);
         component->OnDetach();
         mComponents.erase(type);
     }

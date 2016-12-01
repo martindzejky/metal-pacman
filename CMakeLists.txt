@@ -25,6 +25,7 @@ set(SOURCE_FILES
     Source/CameraComponent.cpp
     Source/CameraControlComponent.cpp
     Source/CollectibleComponent.cpp
+    Source/CollectorComponent.cpp
     Source/ColliderComponent.cpp
     Source/Component.cpp
     Source/Entity.cpp

@@ -13,10 +13,10 @@ std::string ColliderComponent::GetType() const {
     return "ColliderComponent";
 }
 
-bool ColliderComponent::CheckCollision(int withGroup) const {
-    auto entities = Entity::GetAll();
+Entity::Id ColliderComponent::CheckCollision(int withGroup) const {
+    const auto &entities = Entity::GetAll();
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
-    auto pos = transform->GetPosition();
+    const auto &pos = transform->GetPosition();
 
     auto myMinX = pos.x - mSize.x;
     auto myMaxX = pos.x + mSize.x;
@@ -40,9 +40,9 @@ bool ColliderComponent::CheckCollision(int withGroup) const {
             continue;
         }
 
-        auto otherSize = otherCollider->mSize;
+        const auto &otherSize = otherCollider->mSize;
         auto otherTransform = (TransformComponent *) pair.second->GetComponent("TransformComponent").get();
-        auto otherPos = otherTransform->GetPosition();
+        const auto &otherPos = otherTransform->GetPosition();
 
         auto otherMinX = otherPos.x - otherSize.x;
         auto otherMaxX = otherPos.x + otherSize.x;
@@ -61,10 +61,10 @@ bool ColliderComponent::CheckCollision(int withGroup) const {
             continue;
         }
 
-        return true;
+        return pair.first;
     }
 
-    return false;
+    return Entity::Invalid;
 }
 
 ColliderComponent::ColliderComponent(float sx, float sy, float sz, Group group)

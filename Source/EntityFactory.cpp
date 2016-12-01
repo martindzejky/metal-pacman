@@ -12,6 +12,7 @@
 #include "ColliderComponent.hpp"
 #include "MonsterAIComponent.hpp"
 #include "CollectibleComponent.hpp"
+#include "CollectorComponent.hpp"
 
 
 std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
@@ -20,6 +21,7 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
     auto rootTransform = std::make_shared<TransformComponent>(x, y, z);
     root->AttachComponent(rootTransform);
     root->AttachComponent(std::make_shared<PlayerMoveComponent>());
+    root->AttachComponent(std::make_shared<CollectorComponent>());
     root->AttachComponent(std::make_shared<ColliderComponent>(.44f, 2, .44f, ColliderComponent::Group::Player));
 
     // camera
