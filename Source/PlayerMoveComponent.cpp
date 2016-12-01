@@ -9,7 +9,7 @@ void PlayerMoveComponent::OnAttach(std::weak_ptr<Entity> entity) {
     Component::OnAttach(entity);
     mEntity = entity;
 
-    listenerId = Events::GetSingleton()->AddListener("Update", [this](void *_) { Move(); });
+    listenerId = Events::GetSingleton()->AddListener("Update", [this](void *deltaPtr) { Move(*(float *) deltaPtr); });
 }
 
 void PlayerMoveComponent::OnDetach() {
@@ -21,11 +21,11 @@ std::string PlayerMoveComponent::GetType() const {
     return "PlayerMoveComponent";
 }
 
-void PlayerMoveComponent::Move() {
+void PlayerMoveComponent::Move(float delta) {
     auto transform = (TransformComponent *) mEntity.lock()->GetComponent("TransformComponent").get();
     auto input = Input::GetSingleton();
-    auto limit = .2f;
-    auto speed = .1f;
+    auto limit = 5 * delta;
+    auto speed = 3 * delta;
 
     if (std::abs(mRotationBuffer) < .00001f) {
         transform->Move(0, 0, -speed);
