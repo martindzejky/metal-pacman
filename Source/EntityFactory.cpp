@@ -14,6 +14,7 @@
 #include "CollectibleComponent.hpp"
 #include "CollectorComponent.hpp"
 #include "DestroyOnDetachComponent.hpp"
+#include "SurrenderAnimationComponent.hpp"
 
 
 std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
@@ -159,6 +160,9 @@ std::shared_ptr<Entity> EntityFactory::CreateMonster(float x, float y, float z) 
         std::make_shared<ModelComponent>("MonsterArmModel", "GrayMetalDiffuseTexture", "GrayMetalNormalTexture",
                                          "GrayMetalReflectionTexture"));
     leftArm->AttachComponent(std::make_shared<MonsterArmAnimationComponent>());
+
+    // surrender
+    root->AttachComponent(std::make_shared<SurrenderAnimationComponent>(leftArm, rightArm));
 
     return root;
 }

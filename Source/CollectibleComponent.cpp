@@ -1,9 +1,8 @@
 #include "CollectibleComponent.hpp"
 
-#include <iostream>
-
 #include "Entity.hpp"
 #include "ColliderComponent.hpp"
+#include "SurrenderAnimationComponent.hpp"
 
 
 void CollectibleComponent::OnAttach(std::weak_ptr<Entity> entity) {
@@ -22,7 +21,16 @@ CollectibleComponent::CollectibleComponent() {
 CollectibleComponent::~CollectibleComponent() {
     --mCount;
     if (mCount == 0) {
-        std::cout << "OMG YOU WIN!!!\n";
+        const auto &entities = Entity::GetAll();
+        for (auto pair : entities) {
+            if (pair.second->GetComponent("MonsterAIComponent")) {
+                pair.second->DetachComponent("MonsterAIComponent");
+
+                auto surrender = (SurrenderAnimationComponent *) pair.second->GetComponent(
+                    "SurrenderAnimationComponent").get();
+                surrender->Surrender();
+            }
+        }
     }
 }
 
