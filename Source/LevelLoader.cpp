@@ -53,7 +53,7 @@ void LevelLoader::Load(std::string filename) {
                     break;
 
                 case 'B':
-                    EntityFactory::CreateBolt(x, .7f, z);
+                    EntityFactory::CreateBolt(x, .5f, z);
                     break;
 
                 case 'M':
@@ -63,6 +63,10 @@ void LevelLoader::Load(std::string filename) {
                 case 'S':
                     EntityFactory::CreateSpikes(x, 0, z);
                     floor = false;
+                    break;
+
+                case 'H':
+                    EntityFactory::CreateHint(x, 0, z);
                     break;
 
                 case ',':

@@ -35,6 +35,12 @@ void MonsterAIComponent::Move(float delta) {
             int dir = (dist(re) % 3) - 1;
             mRotationBuffer += 3.14f / 2 * dir;
         }
+        else if (collider->CheckCollision((int) ColliderComponent::Group::Hint)) {
+            if ((dist(re) % 1000) < 15) {
+                int dir = (dist(re) % 3) - 1;
+                mRotationBuffer += 3.14f / 2 * dir;
+            }
+        }
     }
     else {
         auto rotation = std::min(limit, std::max(-limit, mRotationBuffer));
@@ -42,3 +48,6 @@ void MonsterAIComponent::Move(float delta) {
         transform->Yaw(rotation);
     }
 }
+
+std::default_random_engine MonsterAIComponent::re;
+std::uniform_int_distribution<int> MonsterAIComponent::dist;

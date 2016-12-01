@@ -31,8 +31,8 @@ private:
 
     float mRotationBuffer = 0;
 
-    std::default_random_engine re;
-    std::uniform_int_distribution<int> dist;
+    static std::default_random_engine re;
+    static std::uniform_int_distribution<int> dist;
 
 };
 

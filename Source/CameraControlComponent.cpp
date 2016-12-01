@@ -27,16 +27,16 @@ void CameraControlComponent::Move() {
     auto look = .08f;
     auto mouseLook = .004f;
 
-    // toggle lock
-    if (Input::IsButtonPressed(Input::Button::Right)) {
-        if (!mPreviousMousePressed) {
-            mPreviousMousePressed = true;
-            input->ToggleMode();
-        }
-    }
-    else {
-        mPreviousMousePressed = false;
-    }
+//     toggle lock
+//    if (Input::IsButtonPressed(Input::Button::Right)) {
+//        if (!mPreviousMousePressed) {
+//            mPreviousMousePressed = true;
+//            input->ToggleMode();
+//        }
+//    }
+//    else {
+//        mPreviousMousePressed = false;
+//    }
 
     // keyboard looking
     if (Input::IsKeyPressed(Input::Key::Up)) {

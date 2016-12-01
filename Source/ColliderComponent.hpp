@@ -22,7 +22,8 @@ public:
         FakeSolid = 1 << 2,
         Player = 1 << 3,
         Enemy = 1 << 4,
-        Collectible = 1 << 5
+        Collectible = 1 << 5,
+        Hint = 1 << 6
     };
 
 
