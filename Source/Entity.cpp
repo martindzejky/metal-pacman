@@ -39,11 +39,15 @@ void Entity::DestroyAll() {
     msEntities.clear();
 }
 
-void Entity::DestroyScheduled() {
+void Entity::ProcessAllScheduled() {
     for (auto id : msScheduled) {
         Destroy(id);
     }
     msScheduled.clear();
+
+    for (auto pair : msEntities) {
+        pair.second->ProcessScheduled();
+    }
 }
 
 void Entity::AttachComponent(std::shared_ptr<Component> component) {
@@ -53,6 +57,10 @@ void Entity::AttachComponent(std::shared_ptr<Component> component) {
 
     mComponents[component->GetType()] = component;
     component->OnAttach(std::weak_ptr<Entity>(Get(mId)));
+}
+
+void Entity::ScheduleAttachComponent(std::shared_ptr<Component> component) {
+    mScheduledAttach.push_back(component);
 }
 
 std::shared_ptr<Component> Entity::GetComponent(std::string type) {
@@ -72,11 +80,26 @@ void Entity::DetachComponent(std::string type) {
     }
 }
 
+void Entity::ScheduleDetachComponent(std::string type) {
+    mScheduledDetach.push_back(type);
+}
+
 void Entity::DetachAllComponents() {
     for (auto it : mComponents) {
         it.second->OnDetach();
     }
     mComponents.clear();
+}
+
+void Entity::ProcessScheduled() {
+    for (auto c : mScheduledAttach) {
+        AttachComponent(c);
+    }
+    for (auto c : mScheduledDetach) {
+        DetachComponent(c);
+    }
+    mScheduledAttach.clear();
+    mScheduledDetach.clear();
 }
 
 const Entity::Id &Entity::GetId() const {

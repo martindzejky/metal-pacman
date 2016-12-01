@@ -43,7 +43,7 @@ void GameState::Update(float deltaSeconds) {
     window->SwapBuffers();
     window->PollEvents();
 
-    Entity::DestroyScheduled();
+    Entity::ProcessAllScheduled();
 
     if (Input::IsKeyPressed(Input::Key::R)) {
         SwitchInto(std::make_shared<GameState>());

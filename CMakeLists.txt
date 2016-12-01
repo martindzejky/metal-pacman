@@ -37,6 +37,7 @@ set(SOURCE_FILES
     Source/GameState.cpp
     Source/GravityComponent.cpp
     Source/Input.cpp
+    Source/KillableComponent.cpp
     Source/LevelLoader.cpp
     Source/LightComponent.cpp
     Source/LoadState.cpp

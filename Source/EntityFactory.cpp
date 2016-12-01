@@ -16,6 +16,7 @@
 #include "DestroyOnDetachComponent.hpp"
 #include "SurrenderAnimationComponent.hpp"
 #include "VictoryAnimationComponent.hpp"
+#include "KillableComponent.hpp"
 
 
 std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
@@ -50,6 +51,7 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
     bottom->AttachComponent(
         std::make_shared<ModelComponent>("PacmanBottomModel", "YellowMetalDiffuseTexture", "YellowMetalNormalTexture",
                                          "YellowMetalReflectionTexture"));
+    root->AttachComponent(std::make_shared<DestroyOnDetachComponent>(bottom->GetId()));
 
     auto teethBottom = Entity::Create();
     auto teethBottomTransform = std::make_shared<TransformComponent>();
@@ -59,6 +61,7 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
     teethBottom->AttachComponent(
         std::make_shared<ModelComponent>("PacmanTeethBottomModel", "RustDiffuseTexture", "RustNormalTexture",
                                          "RustReflectionTexture"));
+    bottom->AttachComponent(std::make_shared<DestroyOnDetachComponent>(teethBottom->GetId()));
 
     auto teethTop = Entity::Create();
     auto teethTopTransform = std::make_shared<TransformComponent>();
@@ -69,6 +72,7 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
         std::make_shared<ModelComponent>("PacmanTeethTopModel", "RustDiffuseTexture", "RustNormalTexture",
                                          "RustReflectionTexture"));
     teethTop->AttachComponent(std::make_shared<PacmanAnimationComponent>());
+    teethBottom->AttachComponent(std::make_shared<DestroyOnDetachComponent>(teethTop->GetId()));
 
     auto top = Entity::Create();
     auto topTransform = std::make_shared<TransformComponent>();
@@ -79,6 +83,7 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
         std::make_shared<ModelComponent>("PacmanTopModel", "YellowMetalDiffuseTexture", "YellowMetalNormalTexture",
                                          "YellowMetalReflectionTexture"));
     top->AttachComponent(std::make_shared<PacmanAnimationComponent>());
+    teethTop->AttachComponent(std::make_shared<DestroyOnDetachComponent>(top->GetId()));
 
     auto eyes = Entity::Create();
     auto eyesTransform = std::make_shared<TransformComponent>();
@@ -89,9 +94,11 @@ std::shared_ptr<Entity> EntityFactory::CreatePlayer(float x, float y, float z) {
         std::make_shared<ModelComponent>("PacmanEyesModel", "RedMetalDiffuseTexture", "RedMetalNormalTexture",
                                          "RedMetalReflectionTexture", 2));
     eyes->AttachComponent(std::make_shared<PacmanAnimationComponent>());
+    top->AttachComponent(std::make_shared<DestroyOnDetachComponent>(eyes->GetId()));
 
-    // victory
+    // victory and failure
     root->AttachComponent(std::make_shared<VictoryAnimationComponent>(camera, cameraPivot, top, teethTop, eyes));
+    root->AttachComponent(std::make_shared<KillableComponent>(cameraPivot));
 
     return root;
 }

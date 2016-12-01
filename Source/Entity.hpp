@@ -32,12 +32,16 @@ public:
     static void Destroy(Id id);
     static void ScheduleDestroy(Id id);
     static void DestroyAll();
-    static void DestroyScheduled();
+    static void ProcessAllScheduled();
 
     void AttachComponent(std::shared_ptr<Component> component);
+    void ScheduleAttachComponent(std::shared_ptr<Component> component);
     std::shared_ptr<Component> GetComponent(std::string type);
     void DetachComponent(std::string type);
+    void ScheduleDetachComponent(std::string type);
     void DetachAllComponents();
+
+    void ProcessScheduled();
 
     const Id &GetId() const;
 
@@ -62,6 +66,9 @@ private:
 
     Id mId;
     std::unordered_map<std::string, std::shared_ptr<Component>> mComponents;
+
+    std::list<std::shared_ptr<Component>> mScheduledAttach;
+    std::list<std::string> mScheduledDetach;
 
 };
 
