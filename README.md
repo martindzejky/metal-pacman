@@ -5,7 +5,7 @@ This is a school project for my Graphics class. It's a Pacman remake in metal-an
 ## Compiling and running
 
 You will need [Conan](https://conan.io/) to download the project dependencies. Also make sure you
-have OpenGL, [CMake](https://cmake.org/) and `gcc`.
+have OpenGL, [CMake](https://cmake.org/) and [Gcc](https://gcc.gnu.org/).
 
 ```
 conan install --build missing
